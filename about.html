@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - KALANA MADURANGA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, #050510 0%, #0a0f1a 50%, #050a15 100%);
+            color: #00d9ff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* About Me Section */
+        .about-me {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .section-title {
+            font-size: 56px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(0, 217, 255, 0.7);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: rgba(10, 15, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
+                        0 0 100px rgba(0, 217, 255, 0.1),
+                        inset 0 0 50px rgba(0, 217, 255, 0.05);
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+            position: relative;
+        }
+
+        .terminal-window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            animation: scanline 4s linear infinite;
+        }
+
+        .terminal-topbar {
+            background: rgba(0, 217, 255, 0.1);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            position: relative;
+        }
+
+        .terminal-topbar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            opacity: 0.5;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        .dot.one {
+            background: #ff006e;
+            box-shadow: 0 0 10px #ff006e;
+            animation-delay: 0s;
+        }
+
+        .dot.two {
+            background: #ffd700;
+            box-shadow: 0 0 10px #ffd700;
+            animation-delay: 0.3s;
+        }
+
+        .dot.three {
+            background: #00d9ff;
+            box-shadow: 0 0 10px #00d9ff;
+            animation-delay: 0.6s;
+        }
+
+        .terminal-title {
+            margin-left: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #00d9ff;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: 40px;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .ascii-art {
+            color: #00d9ff;
+            font-size: 10px;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+            animation: glitchText 8s ease-in-out infinite;
+        }
+
+        .prompt {
+            color: #ff006e;
+            font-weight: bold;
+            margin-right: 8px;
+            text-shadow: 0 0 5px rgba(255, 0, 110, 0.5);
+        }
+
+        .terminal-body p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .scroll-link {
+            color: #00d9ff;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .scroll-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d9ff, #ff006e);
+            transition: width 0.3s ease;
+        }
+
+        .scroll-link:hover {
+            color: #ff006e;
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .scroll-link:hover::before {
+            width: 100%;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .skills-title {
+            font-size: 24px;
+            font-family: 'Orbitron', sans-serif;
+            color: #00d9ff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+
+        .skill-item {
+            margin-bottom: 25px;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            font-size: 16px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .skill-percentage {
+            font-size: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #00d9ff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+        }
+
+        .skill-bar-container {
+            width: 100%;
+            height: 25px;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .skill-bar-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00d9ff 0%, #ff006e 50%, #00d9ff 100%);
+            background-size: 200% 100%;
+            border-radius: 12px;
+            position: relative;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.6),
+                        inset 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        /* Cursor */
+        .cursor {
+            display: inline-block;
+            background: #00d9ff;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px #00d9ff;
+        }
+
+        /* Interests & Currently Building */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .info-card:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: #00d9ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .info-card-title {
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+            color: #ff006e;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-card-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes glitchText {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            92% {
+                transform: translate(-2px, 2px);
+            }
+            94% {
+                transform: translate(2px, -2px);
+            }
+            96% {
+                transform: translate(-2px, -2px);
+            }
+            98% {
+                transform: translate(2px, 2px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 36px;
+                letter-spacing: 3px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .terminal-body {
+                padding: 25px;
+                font-size: 13px;
+            }
+
+            .ascii-art {
+                font-size: 6px;
+            }
+
+            .skills-title {
+                font-size: 20px;
+            }
+
+            .skill-name,
+            .skill-percentage {
+                font-size: 14px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 40px 15px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .terminal-body {
+                padding: 20px;
+                font-size: 12px;
+            }
+
+            .ascii-art {
+                font-size: 5px;
+            }
+
+            .terminal-topbar {
+                padding: 10px 15px;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- About Me Section -->
+    <section id="about-me" class="about-me">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Get to know the person behind the code</p>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-topbar">
+                <span class="dot one"></span>
+                <span class="dot two"></span>
+                <span class="dot three"></span>
+                <span class="terminal-title">~/about-me.sh</span>
+            </div>
+            <div class="terminal-body">
+                <pre class="ascii-art">
+     █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
+    ██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ████╗ ████║██╔════╝
+    ███████║██████╔╝██║   ██║██║   ██║   ██║       ██╔████╔██║█████╗
+    ██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║╚██╔╝██║██╔══╝
+    ██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ██║ ╚═╝ ██║███████╗
+    ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚══════╝
+                </pre>
+                
+                <p><span class="prompt">➜</span> Hello, I'm KALANA MADURANGA 😎 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites that push the boundaries of what's possible.</p>
+                
+                <p><span class="prompt">➜</span> Download my <a href="#" class="scroll-link">resume</a>!</p>
+                
+                <!-- Skills Section -->
+                <div class="skills-section">
+                    <p class="skills-title"><span class="prompt">➜</span> Technical Skills</p>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-percentage" data-target="95">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="java"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">MySQL</span>
+                            <span class="skill-percentage" data-target="90">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="mysql"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">HTML</span>
+                            <span class="skill-percentage" data-target="95">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="html"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CSS</span>
+                            <span class="skill-percentage" data-target="85">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="css"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-percentage" data-target="80">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="javascript"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">UI/UX Design</span>
+                            <span class="skill-percentage" data-target="88">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="uiux"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Database Analysis</span>
+                            <span class="skill-percentage" data-target="92">0%</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="database"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-title">🎨 Interests</div>
+                        <div class="info-card-content">
+                            Futuristic designs, Cyberpunk aesthetics, Neon gradients, Glassmorphism, Interactive animations, and creating immersive digital experiences.
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-card-title">🚀 Currently Building</div>
+                        <div class="info-card-content">
+                            A futuristic portfolio with cutting-edge animations, 3D elements, and interactive experiences that push the boundaries of web design 👾
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 30px;"><span class="prompt">➜</span> Check out my <a href="#projects" class="scroll-link">projects</a> & <a href="#assignments" class="scroll-link">assignments</a> below 👇</p>
+                
+                <p><span class="prompt">➜</span> <span class="cursor">█</span></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Skill animation with loop
+        const skills = [
+            { name: 'java', target: 95 },
+            { name: 'mysql', target: 90 },
+            { name: 'html', target: 95 },
+            { name: 'css', target: 85 },
+            { name: 'javascript', target: 80 },
+            { name: 'uiux', target: 88 },
+            { name: 'database', target: 92 }
+        ];
+
+        function animateSkills() {
+            skills.forEach((skill, index) => {
+                const bar = document.querySelector(`[data-skill="${skill.name}"]`);
+                const percentage = bar.parentElement.parentElement.querySelector('.skill-percentage');
+                let currentValue = 0;
+                const increment = skill.target / 100; // Speed of animation
+                
+                setTimeout(() => {
+                    const interval = setInterval(() => {
+                        if (currentValue >= skill.target) {
+                            currentValue = skill.target;
+                            bar.style.width = skill.target + '%';
+                            percentage.textContent = skill.target + '%';
+                            clearInterval(interval);
+                            
+                            // After reaching target, wait 2 seconds then reset and loop
+                            setTimeout(() => {
+                                // Reset
+                                currentValue = 0;
+                                bar.style.width = '0%';
+                                percentage.textContent = '0%';
+                                
+                                // Restart animation after a brief pause
+                                setTimeout(() => {
+                                    animateSkill(skill.name, skill.target, bar, percentage);
+                                }, 500);
+                            }, 2000);
+                        } else {
+                            currentValue += increment;
+                            bar.style.width = currentValue + '%';
+                            percentage.textContent = Math.floor(currentValue) + '%';
+                        }
+                    }, 10);
+                }, index * 200); // Stagger the start of each animation
+            });
+        }
+
+        function animateSkill(skillName, target, bar, percentage) {
+            let currentValue = 0;
+            const increment = target / 100;
+            
+            const interval = setInterval(() => {
+                if (currentValue >= target) {
+                    currentValue = target;
+                    bar.style.width = target + '%';
+                    percentage.textContent = target + '%';
+                    clearInterval(interval);
+                    
+                    // Loop: Reset and restart after 2 seconds
+                    setTimeout(() => {
+                        currentValue = 0;
+                        bar.style.width = '0%';
+                        percentage.textContent = '0%';
+                        
+                        setTimeout(() => {
+                            animateSkill(skillName, target, bar, percentage);
+                        }, 500);
+                    }, 2000);
+                } else {
+                    currentValue += increment;
+                    bar.style.width = currentValue + '%';
+                    percentage.textContent = Math.floor(currentValue) + '%';
+                }
+            }, 10);
+        }
+
+        // Start animations on page load
+        window.addEventListener('load', () => {
+            setTimeout(animateSkills, 500);
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-item, .info-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for links
+        document.querySelectorAll('.scroll-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
