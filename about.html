@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me - KALANA MADURANGA</title>
+    <title>KALANA MADURANGA - Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
         
@@ -13,6 +13,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Space Mono', monospace;
             background: linear-gradient(135deg, #050510 0%, #0a0f1a 50%, #050a15 100%);
@@ -20,7 +24,6 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            padding: 80px 20px;
         }
         
         body::before {
@@ -37,10 +40,81 @@
             z-index: 0;
         }
 
-        /* About Me Section */
-        .about-me {
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(0, 217, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d9ff, #ff006e);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff006e;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Styles */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 80px;
             position: relative;
             z-index: 1;
         }
@@ -77,7 +151,6 @@
         .terminal-window {
             background: rgba(10, 15, 30, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 2px solid rgba(0, 217, 255, 0.3);
             border-radius: 12px;
             box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
@@ -88,17 +161,6 @@
             position: relative;
         }
 
-        .terminal-window::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
-            animation: scanline 4s linear infinite;
-        }
-
         .terminal-topbar {
             background: rgba(0, 217, 255, 0.1);
             padding: 15px 20px;
@@ -106,18 +168,6 @@
             align-items: center;
             gap: 8px;
             border-bottom: 1px solid rgba(0, 217, 255, 0.2);
-            position: relative;
-        }
-
-        .terminal-topbar::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
-            opacity: 0.5;
         }
 
         .dot {
@@ -131,7 +181,6 @@
         .dot.one {
             background: #ff006e;
             box-shadow: 0 0 10px #ff006e;
-            animation-delay: 0s;
         }
 
         .dot.two {
@@ -168,7 +217,6 @@
             margin-bottom: 30px;
             text-align: center;
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
-            animation: glitchText 8s ease-in-out infinite;
         }
 
         .prompt {
@@ -181,7 +229,6 @@
         .terminal-body p {
             margin-bottom: 20px;
             color: rgba(255, 255, 255, 0.9);
-            animation: fadeIn 0.8s ease-out;
         }
 
         .scroll-link {
@@ -213,7 +260,7 @@
             width: 100%;
         }
 
-        /* Skills Section */
+        /* Skills */
         .skills-section {
             margin-top: 40px;
             padding-top: 30px;
@@ -232,7 +279,6 @@
 
         .skill-item {
             margin-bottom: 25px;
-            animation: fadeInLeft 0.8s ease-out;
         }
 
         .skill-header {
@@ -270,17 +316,6 @@
             position: relative;
         }
 
-        .skill-bar-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer 2s infinite;
-        }
-
         .skill-bar {
             height: 100%;
             background: linear-gradient(90deg, #00d9ff 0%, #ff006e 50%, #00d9ff 100%);
@@ -303,18 +338,9 @@
             height: 100%;
             background: rgba(255, 255, 255, 0.8);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: pulse 1s ease-in-out infinite;
         }
 
-        /* Cursor */
-        .cursor {
-            display: inline-block;
-            background: #00d9ff;
-            animation: blink 1s infinite;
-            box-shadow: 0 0 10px #00d9ff;
-        }
-
-        /* Interests & Currently Building */
+        /* Info Cards */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -328,7 +354,6 @@
             border-radius: 8px;
             padding: 25px;
             transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease-out;
         }
 
         .info-card:hover {
@@ -350,6 +375,91 @@
         .info-card-content {
             color: rgba(255, 255, 255, 0.85);
             line-height: 1.6;
+        }
+
+        /* Projects & Assignments Grid */
+        .projects-grid, .assignments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card, .assignment-card {
+            background: rgba(10, 15, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .project-card:hover, .assignment-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff006e;
+            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.4);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-family: 'Orbitron', sans-serif;
+            color: #00d9ff;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .card-description {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 5px 15px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #00d9ff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.6);
+        }
+
+        .cursor {
+            display: inline-block;
+            background: #00d9ff;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px #00d9ff;
         }
 
         /* Animations */
@@ -375,26 +485,6 @@
             }
         }
 
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         @keyframes blink {
             0%, 49% {
                 opacity: 1;
@@ -415,24 +505,6 @@
             }
         }
 
-        @keyframes scanline {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
         @keyframes gradientShift {
             0%, 100% {
                 background-position: 0% 50%;
@@ -442,42 +514,19 @@
             }
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        @keyframes glitchText {
-            0%, 90%, 100% {
-                transform: translate(0);
-            }
-            92% {
-                transform: translate(-2px, 2px);
-            }
-            94% {
-                transform: translate(2px, -2px);
-            }
-            96% {
-                transform: translate(-2px, -2px);
-            }
-            98% {
-                transform: translate(2px, 2px);
-            }
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
             .section-title {
                 font-size: 36px;
                 letter-spacing: 3px;
-            }
-
-            .section-subtitle {
-                font-size: 14px;
             }
 
             .terminal-body {
@@ -489,52 +538,49 @@
                 font-size: 6px;
             }
 
-            .skills-title {
-                font-size: 20px;
-            }
-
-            .skill-name,
-            .skill-percentage {
-                font-size: 14px;
-            }
-
-            .info-grid {
+            .projects-grid, .assignments-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 40px 15px;
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
             }
 
             .section-title {
                 font-size: 28px;
             }
 
-            .terminal-body {
-                padding: 20px;
-                font-size: 12px;
-            }
-
-            .ascii-art {
-                font-size: 5px;
-            }
-
-            .terminal-topbar {
-                padding: 10px 15px;
-            }
-
-            .dot {
-                width: 10px;
-                height: 10px;
+            section {
+                padding: 80px 15px 60px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">KALANA</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#assignments">Assignments</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- About Me Section -->
-    <section id="about-me" class="about-me">
+    <section id="about">
         <div class="section-header">
             <h2 class="section-title">About Me</h2>
             <p class="section-subtitle">Get to know the person behind the code</p>
@@ -660,8 +706,109 @@
         </div>
     </section>
 
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header">
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">Building the future, one line of code at a time</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3 class="card-title">Project One</h3>
+                <p class="card-description">
+                    A comprehensive e-commerce platform built with Java Spring Boot, featuring real-time inventory management and seamless payment integration.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">React</span>
+                </div>
+                <a href="#" class="card-button">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3 class="card-title">Project Two</h3>
+                <p class="card-description">
+                    An AI-powered chatbot with natural language processing capabilities, helping businesses automate customer support efficiently.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">NLP</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">API</span>
+                </div>
+                <a href="#" class="card-button">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3 class="card-title">Project Three</h3>
+                <p class="card-description">
+                    A modern task management application with real-time collaboration features, drag-and-drop interface, and cloud synchronization.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Socket.io</span>
+                </div>
+                <a href="#" class="card-button">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assignments Section -->
+    <section id="assignments">
+        <div class="section-header">
+            <h2 class="section-title">Assignments</h2>
+            <p class="section-subtitle">Academic excellence through practical implementation</p>
+        </div>
+
+        <div class="assignments-grid">
+            <div class="assignment-card">
+                <h3 class="card-title">Data Structures & Algorithms</h3>
+                <p class="card-description">
+                    Implementation of advanced data structures including AVL trees, graphs, and dynamic programming solutions for complex optimization problems.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Algorithms</span>
+                    <span class="tag">Big-O</span>
+                </div>
+                <a href="#" class="card-button">View Details</a>
+            </div>
+
+            <div class="assignment-card">
+                <h3 class="card-title">Database Design Project</h3>
+                <p class="card-description">
+                    Designed and implemented a normalized database schema for a hospital management system with complex relationships and triggers.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">MySQL</span>
+                    <span class="tag">ERD</span>
+                    <span class="tag">Normalization</span>
+                </div>
+                <a href="#" class="card-button">View Details</a>
+            </div>
+
+            <div class="assignment-card">
+                <h3 class="card-title">Web Development Portfolio</h3>
+                <p class="card-description">
+                    Created a responsive, interactive portfolio showcasing modern web design principles with animations and accessibility features.
+                </p>
+                <div class="card-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <a href="#" class="card-button">View Details</a>
+            </div>
+        </div>
+    </section>
+
     <script>
-        // Skill animation with loop
+        // Skill animation
         const skills = [
             { name: 'java', target: 95 },
             { name: 'mysql', target: 90 },
@@ -677,7 +824,7 @@
                 const bar = document.querySelector(`[data-skill="${skill.name}"]`);
                 const percentage = bar.parentElement.parentElement.querySelector('.skill-percentage');
                 let currentValue = 0;
-                const increment = skill.target / 100; // Speed of animation
+                const increment = skill.target / 100;
                 
                 setTimeout(() => {
                     const interval = setInterval(() => {
@@ -686,56 +833,14 @@
                             bar.style.width = skill.target + '%';
                             percentage.textContent = skill.target + '%';
                             clearInterval(interval);
-                            
-                            // After reaching target, wait 2 seconds then reset and loop
-                            setTimeout(() => {
-                                // Reset
-                                currentValue = 0;
-                                bar.style.width = '0%';
-                                percentage.textContent = '0%';
-                                
-                                // Restart animation after a brief pause
-                                setTimeout(() => {
-                                    animateSkill(skill.name, skill.target, bar, percentage);
-                                }, 500);
-                            }, 2000);
                         } else {
                             currentValue += increment;
                             bar.style.width = currentValue + '%';
                             percentage.textContent = Math.floor(currentValue) + '%';
                         }
                     }, 10);
-                }, index * 200); // Stagger the start of each animation
+                }, index * 200);
             });
-        }
-
-        function animateSkill(skillName, target, bar, percentage) {
-            let currentValue = 0;
-            const increment = target / 100;
-            
-            const interval = setInterval(() => {
-                if (currentValue >= target) {
-                    currentValue = target;
-                    bar.style.width = target + '%';
-                    percentage.textContent = target + '%';
-                    clearInterval(interval);
-                    
-                    // Loop: Reset and restart after 2 seconds
-                    setTimeout(() => {
-                        currentValue = 0;
-                        bar.style.width = '0%';
-                        percentage.textContent = '0%';
-                        
-                        setTimeout(() => {
-                            animateSkill(skillName, target, bar, percentage);
-                        }, 500);
-                    }, 2000);
-                } else {
-                    currentValue += increment;
-                    bar.style.width = currentValue + '%';
-                    percentage.textContent = Math.floor(currentValue) + '%';
-                }
-            }, 10);
         }
 
         // Start animations on page load
@@ -752,22 +857,30 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.skill-item, .info-card').forEach(el => {
-            observer.observe(el);
+        // Observe all cards
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.project-card, .assignment-card, .info-card').forEach(el => {
+                observer.observe(el);
+            });
         });
 
-        // Smooth scroll for links
-        document.querySelectorAll('.scroll-link').forEach(link => {
-            link.addEventListener('click', (e) => {
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
+                const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
