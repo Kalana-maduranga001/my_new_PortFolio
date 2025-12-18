@@ -19,7 +19,7 @@
 
         body {
             font-family: 'Space Mono', monospace;
-            background: linear-gradient(135deg, #050510 0%, #0a0f1a 50%, #050a15 100%);
+            background: #000000;
             color: #00d9ff;
             overflow-x: hidden;
             position: relative;
@@ -34,8 +34,7 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.08) 0%, transparent 50%);
+                radial-gradient(ellipse at 50% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
         }
@@ -45,12 +44,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 15, 30, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 217, 255, 0.3);
             padding: 20px 0;
             z-index: 1000;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 30px rgba(0, 217, 255, 0.2);
         }
 
         .nav-container {
@@ -149,13 +148,13 @@
 
         /* Terminal Window */
         .terminal-window {
-            background: rgba(10, 15, 30, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 217, 255, 0.3);
+            border: 2px solid #00d9ff;
             border-radius: 12px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
-                        0 0 100px rgba(0, 217, 255, 0.1),
-                        inset 0 0 50px rgba(0, 217, 255, 0.05);
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.4),
+                        0 0 80px rgba(0, 217, 255, 0.2),
+                        inset 0 0 30px rgba(0, 217, 255, 0.05);
             overflow: hidden;
             animation: fadeInUp 1s ease-out 0.3s backwards;
             position: relative;
@@ -167,7 +166,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
         }
 
         .dot {
@@ -197,7 +196,7 @@
 
         .terminal-title {
             margin-left: 15px;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Space Mono', monospace;
             font-size: 14px;
             color: #00d9ff;
             letter-spacing: 1px;
@@ -208,136 +207,224 @@
             font-size: 15px;
             line-height: 1.8;
             font-family: 'Space Mono', monospace;
+            background: #000000;
+            position: relative;
+        }
+
+        .animation-container {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .energy-orb {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 40px rgba(0, 217, 255, 0.4));
+        }
+
+        /* Energy path animations */
+        .energy-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 4s ease-in-out infinite;
+        }
+
+        .path-1 { animation-delay: 0s; }
+        .path-2 { animation-delay: 0.5s; }
+        .path-3 { animation-delay: 1s; }
+        .path-4 { animation-delay: 1.5s; }
+
+        @keyframes drawPath {
+            0%, 100% {
+                stroke-dashoffset: 1000;
+                opacity: 0.3;
+            }
+            50% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+        }
+
+        /* Core pulse animation */
+        .core-circle {
+            animation: corePulse 2s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .core-inner {
+            animation: coreGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+            0%, 100% {
+                r: 40px;
+                opacity: 0.6;
+            }
+            50% {
+                r: 50px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes coreGlow {
+            0%, 100% {
+                opacity: 0.3;
+                r: 25px;
+            }
+            50% {
+                opacity: 0.7;
+                r: 30px;
+            }
+        }
+
+        /* Particle orbit animations */
+        .particle {
+            animation: orbit 4s linear infinite;
+            transform-origin: 200px 200px;
+        }
+
+        .particle-1 {
+            animation: orbit 4s linear infinite;
+        }
+
+        .particle-2 {
+            animation: orbit 4s linear infinite reverse;
+            animation-delay: 1s;
+        }
+
+        .particle-3 {
+            animation: orbit 4s linear infinite;
+            animation-delay: 2s;
+        }
+
+        .particle-4 {
+            animation: orbit 4s linear infinite reverse;
+            animation-delay: 3s;
+        }
+
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(50px);
+            }
+            100% {
+                transform: rotate(360deg) translateX(50px);
+            }
+        }
+
+        /* Lightning flash animations */
+        .lightning {
+            animation: flash 3s ease-in-out infinite;
+        }
+
+        .lightning-1 {
+            animation-delay: 0.5s;
+        }
+
+        .lightning-2 {
+            animation-delay: 2s;
+        }
+
+        @keyframes flash {
+            0%, 90%, 100% {
+                opacity: 0;
+            }
+            92%, 94%, 96% {
+                opacity: 1;
+            }
+            93%, 95% {
+                opacity: 0.3;
+            }
+        }
+
+        .terminal-content {
+            position: relative;
+            z-index: 2;
+            max-width: 50%;
         }
 
         .ascii-art {
             color: #00d9ff;
-            font-size: 10px;
-            line-height: 1.2;
-            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 1.1;
+            margin-bottom: 40px;
             text-align: center;
-            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
         }
 
         .prompt {
             color: #ff006e;
             font-weight: bold;
             margin-right: 8px;
-            text-shadow: 0 0 5px rgba(255, 0, 110, 0.5);
+            text-shadow: 0 0 10px rgba(255, 0, 110, 0.8);
         }
 
         .terminal-body p {
             margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.9);
+            color: #00d9ff;
+            text-shadow: 0 0 5px rgba(0, 217, 255, 0.3);
         }
 
         .scroll-link {
             color: #00d9ff;
-            text-decoration: none;
+            text-decoration: underline;
             position: relative;
             transition: all 0.3s ease;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .scroll-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00d9ff, #ff006e);
-            transition: width 0.3s ease;
+            padding: 2px 4px;
         }
 
         .scroll-link:hover {
             color: #ff006e;
-            background: rgba(0, 217, 255, 0.1);
-        }
-
-        .scroll-link:hover::before {
-            width: 100%;
+            text-shadow: 0 0 10px rgba(255, 0, 110, 0.8);
         }
 
         /* Skills */
         .skills-section {
             margin-top: 40px;
             padding-top: 30px;
-            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            border-top: 1px solid rgba(0, 217, 255, 0.3);
         }
 
         .skills-title {
-            font-size: 24px;
-            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-family: 'Space Mono', monospace;
             color: #00d9ff;
             margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
-        }
-
-        .skill-item {
-            margin-bottom: 25px;
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .skill-name {
-            font-size: 16px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            color: #ffffff;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .skill-percentage {
-            font-size: 16px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: #00d9ff;
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
         }
 
-        .skill-bar-container {
-            width: 100%;
-            height: 25px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-            position: relative;
+        .skill-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .skill-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #00d9ff 0%, #ff006e 50%, #00d9ff 100%);
-            background-size: 200% 100%;
-            border-radius: 12px;
-            position: relative;
-            width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.6),
-                        inset 0 0 10px rgba(255, 255, 255, 0.2);
-            animation: gradientShift 3s ease-in-out infinite;
+        .skill-name {
+            font-size: 15px;
+            font-family: 'Space Mono', monospace;
+            font-weight: 400;
+            color: #00d9ff;
+            letter-spacing: 1px;
+            min-width: 150px;
         }
 
-        .skill-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 5px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        .skill-bar-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: #00d9ff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+            letter-spacing: 1px;
         }
 
         /* Info Cards */
@@ -349,32 +436,33 @@
         }
 
         .info-card {
-            background: rgba(0, 217, 255, 0.05);
-            border: 1px solid rgba(0, 217, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.3);
             border-radius: 8px;
             padding: 25px;
             transition: all 0.4s ease;
         }
 
         .info-card:hover {
-            background: rgba(0, 217, 255, 0.1);
+            background: rgba(0, 217, 255, 0.05);
             border-color: #00d9ff;
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
         }
 
         .info-card-title {
-            font-size: 18px;
-            font-family: 'Orbitron', sans-serif;
-            color: #ff006e;
+            font-size: 16px;
+            font-family: 'Space Mono', monospace;
+            color: #00d9ff;
             margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .info-card-content {
-            color: rgba(255, 255, 255, 0.85);
+            color: #00d9ff;
             line-height: 1.6;
+            font-size: 14px;
+            text-shadow: 0 0 5px rgba(0, 217, 255, 0.2);
         }
 
         /* Projects & Assignments Grid */
@@ -458,6 +546,8 @@
         .cursor {
             display: inline-block;
             background: #00d9ff;
+            width: 10px;
+            height: 18px;
             animation: blink 1s infinite;
             box-shadow: 0 0 10px #00d9ff;
         }
@@ -505,16 +595,23 @@
             }
         }
 
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .animation-container {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 300px;
+                height: 300px;
+                margin: 30px auto;
             }
-            50% {
-                background-position: 100% 50%;
+
+            .terminal-content {
+                max-width: 100%;
             }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 gap: 15px;
@@ -535,7 +632,7 @@
             }
 
             .ascii-art {
-                font-size: 6px;
+                font-size: 14px;
             }
 
             .projects-grid, .assignments-grid {
@@ -563,29 +660,16 @@
             section {
                 padding: 80px 15px 60px;
             }
+
+            .ascii-art {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="logo">KALANA</div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#assignments">Assignments</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <!-- About Me Section -->
     <section id="about">
-        <div class="section-header">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">Get to know the person behind the code</p>
-        </div>
-
         <div class="terminal-window">
             <div class="terminal-topbar">
                 <span class="dot one"></span>
@@ -594,215 +678,108 @@
                 <span class="terminal-title">~/about-me.sh</span>
             </div>
             <div class="terminal-body">
-                <pre class="ascii-art">
-     █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
-    ██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ████╗ ████║██╔════╝
-    ███████║██████╔╝██║   ██║██║   ██║   ██║       ██╔████╔██║█████╗
-    ██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║╚██╔╝██║██╔══╝
-    ██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ██║ ╚═╝ ██║███████╗
-    ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚══════╝
-                </pre>
+                <div class="terminal-content">
+                    <div class="ascii-art">ABOUT ME</div>
                 
-                <p><span class="prompt">➜</span> Hello, I'm KALANA MADURANGA 😎 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites that push the boundaries of what's possible.</p>
+                    <p><span class="prompt">➜</span> Hello, I'm KALANA MADURANGA 😎 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites.</p>
                 
-                <p><span class="prompt">➜</span> Download my <a href="#" class="scroll-link">resume</a>!</p>
+                    <p><span class="prompt">➜</span> Download my <a href="#" class="scroll-link">resume</a> !</p>
                 
-                <!-- Skills Section -->
-                <div class="skills-section">
-                    <p class="skills-title"><span class="prompt">➜</span> Technical Skills</p>
+                    <!-- Skills Section -->
+                    <div class="skills-section">
+                        <p class="skills-title"><span class="prompt">➜</span> Specialized in:</p>
                     
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Java</span>
-                            <span class="skill-percentage" data-target="95">0%</span>
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> Java</span>
+                            <span class="skill-bar-text" data-skill="java" data-target="95"></span>
                         </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="java"></div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> Flutter</span>
+                            <span class="skill-bar-text" data-skill="flutter" data-target="85"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> React</span>
+                            <span class="skill-bar-text" data-skill="react" data-target="80"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> Python</span>
+                            <span class="skill-bar-text" data-skill="python" data-target="75"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> C#</span>
+                            <span class="skill-bar-text" data-skill="csharp" data-target="70"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> MySQL</span>
+                            <span class="skill-bar-text" data-skill="mysql" data-target="90"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> HTML/CSS</span>
+                            <span class="skill-bar-text" data-skill="htmlcss" data-target="95"></span>
+                        </div>
+
+                        <div class="skill-item">
+                            <span class="skill-name"><span class="prompt">➜</span> JavaScript</span>
+                            <span class="skill-bar-text" data-skill="javascript" data-target="80"></span>
                         </div>
                     </div>
 
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">MySQL</span>
-                            <span class="skill-percentage" data-target="90">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="mysql"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">HTML</span>
-                            <span class="skill-percentage" data-target="95">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="html"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">CSS</span>
-                            <span class="skill-percentage" data-target="85">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="css"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">JavaScript</span>
-                            <span class="skill-percentage" data-target="80">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="javascript"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">UI/UX Design</span>
-                            <span class="skill-percentage" data-target="88">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="uiux"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Database Analysis</span>
-                            <span class="skill-percentage" data-target="92">0%</span>
-                        </div>
-                        <div class="skill-bar-container">
-                            <div class="skill-bar" data-skill="database"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Cards -->
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="info-card-title">🎨 Interests</div>
-                        <div class="info-card-content">
-                            Futuristic designs, Cyberpunk aesthetics, Neon gradients, Glassmorphism, Interactive animations, and creating immersive digital experiences.
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-card-title">🚀 Currently Building</div>
-                        <div class="info-card-content">
-                            A futuristic portfolio with cutting-edge animations, 3D elements, and interactive experiences that push the boundaries of web design 👾
-                        </div>
-                    </div>
-                </div>
-
-                <p style="margin-top: 30px;"><span class="prompt">➜</span> Check out my <a href="#projects" class="scroll-link">projects</a> & <a href="#assignments" class="scroll-link">assignments</a> below 👇</p>
+                    <p style="margin-top: 30px;"><span class="prompt">➜</span> Interests: Futuristic designs and Cyberpunk vibes.</p>
                 
-                <p><span class="prompt">➜</span> <span class="cursor">█</span></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="section-header">
-            <h2 class="section-title">Projects</h2>
-            <p class="section-subtitle">Building the future, one line of code at a time</p>
-        </div>
-
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3 class="card-title">Project One</h3>
-                <p class="card-description">
-                    A comprehensive e-commerce platform built with Java Spring Boot, featuring real-time inventory management and seamless payment integration.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">Spring Boot</span>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">React</span>
+                    <p><span class="prompt">➜</span> Currently building: a futuristic portfolio 🚀</p>
+                
+                    <p style="margin-top: 20px;"><span class="prompt">➜</span> Check out my <a href="#projects" class="scroll-link">projects</a> & <a href="#assignments" class="scroll-link">assignments</a> below 👇</p>
+                
+                    <p><span class="prompt">➜</span> <span class="cursor"></span></p>
                 </div>
-                <a href="#" class="card-button">View Project</a>
-            </div>
 
-            <div class="project-card">
-                <h3 class="card-title">Project Two</h3>
-                <p class="card-description">
-                    An AI-powered chatbot with natural language processing capabilities, helping businesses automate customer support efficiently.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">NLP</span>
-                    <span class="tag">TensorFlow</span>
-                    <span class="tag">API</span>
+                <!-- Animation Container -->
+                <div class="animation-container">
+                    <svg class="energy-orb" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <filter id="glow-strong">
+                                <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Main energy paths -->
+                        <path class="energy-path path-1" d="M200,100 Q250,150 200,200 T200,300" fill="none" stroke="#00d9ff" stroke-width="3" filter="url(#glow)"/>
+                        <path class="energy-path path-2" d="M200,100 Q150,150 200,200 T200,300" fill="none" stroke="#ff006e" stroke-width="3" filter="url(#glow)"/>
+                        <path class="energy-path path-3" d="M150,150 Q200,180 250,150" fill="none" stroke="#00d9ff" stroke-width="2" filter="url(#glow)"/>
+                        <path class="energy-path path-4" d="M150,250 Q200,220 250,250" fill="none" stroke="#ff006e" stroke-width="2" filter="url(#glow)"/>
+                        
+                        <!-- Center core -->
+                        <circle class="core-circle" cx="200" cy="200" r="40" fill="none" stroke="#00d9ff" stroke-width="2" filter="url(#glow-strong)"/>
+                        <circle class="core-inner" cx="200" cy="200" r="25" fill="#00d9ff" opacity="0.3" filter="url(#glow-strong)"/>
+                        
+                        <!-- Orbiting particles -->
+                        <circle class="particle particle-1" cx="200" cy="150" r="4" fill="#00d9ff" filter="url(#glow)"/>
+                        <circle class="particle particle-2" cx="250" cy="200" r="3" fill="#ff006e" filter="url(#glow)"/>
+                        <circle class="particle particle-3" cx="200" cy="250" r="4" fill="#00d9ff" filter="url(#glow)"/>
+                        <circle class="particle particle-4" cx="150" cy="200" r="3" fill="#ff006e" filter="url(#glow)"/>
+                        
+                        <!-- Lightning bolts -->
+                        <path class="lightning lightning-1" d="M200,140 L210,160 L200,180 L220,200 L200,220" fill="none" stroke="#00d9ff" stroke-width="2" opacity="0" filter="url(#glow)"/>
+                        <path class="lightning lightning-2" d="M200,260 L190,240 L200,220 L180,200 L200,180" fill="none" stroke="#ff006e" stroke-width="2" opacity="0" filter="url(#glow)"/>
+                    </svg>
                 </div>
-                <a href="#" class="card-button">View Project</a>
-            </div>
-
-            <div class="project-card">
-                <h3 class="card-title">Project Three</h3>
-                <p class="card-description">
-                    A modern task management application with real-time collaboration features, drag-and-drop interface, and cloud synchronization.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">MongoDB</span>
-                    <span class="tag">Socket.io</span>
-                </div>
-                <a href="#" class="card-button">View Project</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Assignments Section -->
-    <section id="assignments">
-        <div class="section-header">
-            <h2 class="section-title">Assignments</h2>
-            <p class="section-subtitle">Academic excellence through practical implementation</p>
-        </div>
-
-        <div class="assignments-grid">
-            <div class="assignment-card">
-                <h3 class="card-title">Data Structures & Algorithms</h3>
-                <p class="card-description">
-                    Implementation of advanced data structures including AVL trees, graphs, and dynamic programming solutions for complex optimization problems.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">Algorithms</span>
-                    <span class="tag">Big-O</span>
-                </div>
-                <a href="#" class="card-button">View Details</a>
-            </div>
-
-            <div class="assignment-card">
-                <h3 class="card-title">Database Design Project</h3>
-                <p class="card-description">
-                    Designed and implemented a normalized database schema for a hospital management system with complex relationships and triggers.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">MySQL</span>
-                    <span class="tag">ERD</span>
-                    <span class="tag">Normalization</span>
-                </div>
-                <a href="#" class="card-button">View Details</a>
-            </div>
-
-            <div class="assignment-card">
-                <h3 class="card-title">Web Development Portfolio</h3>
-                <p class="card-description">
-                    Created a responsive, interactive portfolio showcasing modern web design principles with animations and accessibility features.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">HTML</span>
-                    <span class="tag">CSS</span>
-                    <span class="tag">JavaScript</span>
-                </div>
-                <a href="#" class="card-button">View Details</a>
             </div>
         </div>
     </section>
@@ -811,34 +788,40 @@
         // Skill animation
         const skills = [
             { name: 'java', target: 95 },
+            { name: 'flutter', target: 85 },
+            { name: 'react', target: 80 },
+            { name: 'python', target: 75 },
+            { name: 'csharp', target: 70 },
             { name: 'mysql', target: 90 },
-            { name: 'html', target: 95 },
-            { name: 'css', target: 85 },
-            { name: 'javascript', target: 80 },
-            { name: 'uiux', target: 88 },
-            { name: 'database', target: 92 }
+            { name: 'htmlcss', target: 95 },
+            { name: 'javascript', target: 80 }
         ];
 
         function animateSkills() {
             skills.forEach((skill, index) => {
-                const bar = document.querySelector(`[data-skill="${skill.name}"]`);
-                const percentage = bar.parentElement.parentElement.querySelector('.skill-percentage');
-                let currentValue = 0;
-                const increment = skill.target / 100;
+                const barElement = document.querySelector(`[data-skill="${skill.name}"]`);
+                const totalBlocks = 10;
+                const filledBlocks = Math.round((skill.target / 100) * totalBlocks);
                 
                 setTimeout(() => {
+                    let currentBlock = 0;
                     const interval = setInterval(() => {
-                        if (currentValue >= skill.target) {
-                            currentValue = skill.target;
-                            bar.style.width = skill.target + '%';
-                            percentage.textContent = skill.target + '%';
-                            clearInterval(interval);
+                        if (currentBlock <= filledBlocks) {
+                            let barText = '[';
+                            for (let i = 0; i < totalBlocks; i++) {
+                                if (i < currentBlock) {
+                                    barText += '█';
+                                } else {
+                                    barText += '-';
+                                }
+                            }
+                            barText += '] ' + Math.round((currentBlock / totalBlocks) * 100) + '%';
+                            barElement.textContent = barText;
+                            currentBlock++;
                         } else {
-                            currentValue += increment;
-                            bar.style.width = currentValue + '%';
-                            percentage.textContent = Math.floor(currentValue) + '%';
+                            clearInterval(interval);
                         }
-                    }, 10);
+                    }, 100);
                 }, index * 200);
             });
         }
@@ -846,28 +829,6 @@
         // Start animations on page load
         window.addEventListener('load', () => {
             setTimeout(animateSkills, 500);
-        });
-
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.project-card, .assignment-card, .info-card').forEach(el => {
-                observer.observe(el);
-            });
         });
 
         // Smooth scroll for navigation links
