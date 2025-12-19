@@ -23,7 +23,8 @@
             color: #00d9ff;
             overflow-x: hidden;
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
+            overflow-y: hidden;
         }
         
         body::before {
@@ -47,13 +48,13 @@
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 217, 255, 0.3);
-            padding: 20px 0;
+            padding: 12px 0;
             z-index: 1000;
             box-shadow: 0 5px 30px rgba(0, 217, 255, 0.2);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -63,7 +64,7 @@
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 900;
             background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
             -webkit-background-clip: text;
@@ -74,7 +75,7 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
         }
 
@@ -82,7 +83,7 @@
             color: rgba(0, 217, 255, 0.8);
             text-decoration: none;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -111,39 +112,14 @@
 
         /* Section Styles */
         section {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 20px 80px;
+            padding: 60px 20px 20px;
             position: relative;
             z-index: 1;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .section-title {
-            font-size: 56px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: rgba(0, 217, 255, 0.7);
-            font-family: 'Rajdhani', sans-serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
         /* Terminal Window */
@@ -158,11 +134,13 @@
             overflow: hidden;
             animation: fadeInUp 1s ease-out 0.3s backwards;
             position: relative;
+            width: 100%;
+            max-height: 85vh;
         }
 
         .terminal-topbar {
             background: rgba(0, 217, 255, 0.1);
-            padding: 15px 20px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -170,8 +148,8 @@
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             display: inline-block;
             animation: dotPulse 2s ease-in-out infinite;
@@ -197,31 +175,29 @@
         .terminal-title {
             margin-left: 15px;
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: 12px;
             color: #00d9ff;
             letter-spacing: 1px;
         }
 
         .terminal-body {
-            padding: 40px;
-            font-size: 15px;
-            line-height: 1.8;
+            padding: 25px 30px;
+            font-size: 13px;
+            line-height: 1.6;
             font-family: 'Space Mono', monospace;
             background: #000000;
             position: relative;
+            display: flex;
+            gap: 40px;
         }
 
         .animation-container {
-            position: absolute;
-            right: 80px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none;
+            flex-shrink: 0;
         }
 
         .energy-orb {
@@ -344,22 +320,90 @@
             }
         }
 
+        /* Cyber Flower Animations */
+        .cyber-flower {
+            animation: flowerAppear 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .flower-1 { animation-delay: 0.2s; }
+        .flower-2 { animation-delay: 0.4s; }
+        .flower-3 { animation-delay: 0.6s; }
+        .flower-4 { animation-delay: 0.8s; }
+        .flower-5 { animation-delay: 1s; }
+        .flower-6 { animation-delay: 1.2s; }
+        .flower-7 { animation-delay: 1.4s; }
+        .flower-8 { animation-delay: 1.6s; }
+
+        @keyframes flowerAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cyber-flower .petal {
+            animation: petalGlow 3s ease-in-out infinite;
+        }
+
+        .petal-1 { animation-delay: 0s; }
+        .petal-2 { animation-delay: 0.4s; }
+        .petal-3 { animation-delay: 0.8s; }
+        .petal-4 { animation-delay: 1.2s; }
+        .petal-5 { animation-delay: 1.6s; }
+        .petal-6 { animation-delay: 2s; }
+        .petal-7 { animation-delay: 2.4s; }
+        .petal-8 { animation-delay: 2.8s; }
+
+        @keyframes petalGlow {
+            0%, 100% {
+                opacity: 0.6;
+                filter: drop-shadow(0 0 5px currentColor);
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0 0 15px currentColor);
+            }
+        }
+
         .terminal-content {
             position: relative;
             z-index: 2;
-            max-width: 50%;
+            flex: 1;
+            overflow-y: auto;
+            max-height: calc(85vh - 80px);
+            padding-right: 15px;
+        }
+
+        .terminal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-content::-webkit-scrollbar-track {
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .terminal-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 217, 255, 0.5);
+            border-radius: 4px;
         }
 
         .ascii-art {
             color: #00d9ff;
-            font-size: 18px;
+            font-size: 9px;
             line-height: 1.1;
-            margin-bottom: 40px;
-            text-align: center;
+            margin-bottom: 20px;
+            text-align: left;
             text-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
-            font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 3px;
+            font-weight: 700;
+            font-family: 'Courier New', 'Courier', monospace;
+            letter-spacing: 0;
+            white-space: pre;
+            overflow-x: auto;
         }
 
         .prompt {
@@ -370,7 +414,7 @@
         }
 
         .terminal-body p {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             color: #00d9ff;
             text-shadow: 0 0 5px rgba(0, 217, 255, 0.3);
         }
@@ -390,157 +434,46 @@
 
         /* Skills */
         .skills-section {
-            margin-top: 40px;
-            padding-top: 30px;
+            margin-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid rgba(0, 217, 255, 0.3);
         }
 
         .skills-title {
-            font-size: 18px;
+            font-size: 14px;
             font-family: 'Space Mono', monospace;
             color: #00d9ff;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
         }
 
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
         .skill-item {
-            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .skill-name {
-            font-size: 15px;
+            font-size: 13px;
             font-family: 'Space Mono', monospace;
             font-weight: 400;
             color: #00d9ff;
             letter-spacing: 1px;
-            min-width: 150px;
+            min-width: 110px;
         }
 
         .skill-bar-text {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: 11px;
             color: #00d9ff;
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
             letter-spacing: 1px;
-        }
-
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-
-        .info-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 8px;
-            padding: 25px;
-            transition: all 0.4s ease;
-        }
-
-        .info-card:hover {
-            background: rgba(0, 217, 255, 0.05);
-            border-color: #00d9ff;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
-        }
-
-        .info-card-title {
-            font-size: 16px;
-            font-family: 'Space Mono', monospace;
-            color: #00d9ff;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .info-card-content {
-            color: #00d9ff;
-            line-height: 1.6;
-            font-size: 14px;
-            text-shadow: 0 0 5px rgba(0, 217, 255, 0.2);
-        }
-
-        /* Projects & Assignments Grid */
-        .projects-grid, .assignments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .project-card, .assignment-card {
-            background: rgba(10, 15, 30, 0.8);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 217, 255, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            transition: all 0.4s ease;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .project-card:hover, .assignment-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff006e;
-            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.4);
-        }
-
-        .card-title {
-            font-size: 24px;
-            font-family: 'Orbitron', sans-serif;
-            color: #00d9ff;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .card-description {
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tag {
-            padding: 5px 15px;
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 20px;
-            font-size: 12px;
-            color: #00d9ff;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .card-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 25px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
-        }
-
-        .card-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.6);
         }
 
         .cursor {
@@ -596,19 +529,24 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
+            .terminal-body {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .animation-container {
-                position: relative;
-                right: auto;
-                top: auto;
-                transform: none;
-                width: 300px;
-                height: 300px;
-                margin: 30px auto;
+                width: 250px;
+                height: 250px;
+                order: -1;
             }
 
             .terminal-content {
-                max-width: 100%;
+                max-height: none;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -618,51 +556,21 @@
             }
 
             .nav-links a {
-                font-size: 14px;
-            }
-
-            .section-title {
-                font-size: 36px;
-                letter-spacing: 3px;
+                font-size: 12px;
             }
 
             .terminal-body {
-                padding: 25px;
-                font-size: 13px;
+                padding: 20px;
+                font-size: 11px;
             }
 
             .ascii-art {
-                font-size: 14px;
+                font-size: 7px;
             }
 
-            .projects-grid, .assignments-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 18px;
-            }
-
-            .nav-links {
-                gap: 10px;
-            }
-
-            .nav-links a {
-                font-size: 12px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            section {
-                padding: 80px 15px 60px;
-            }
-
-            .ascii-art {
-                font-size: 12px;
+            .animation-container {
+                width: 200px;
+                height: 200px;
             }
         }
     </style>
@@ -679,9 +587,14 @@
             </div>
             <div class="terminal-body">
                 <div class="terminal-content">
-                    <div class="ascii-art">ABOUT ME</div>
+<pre class="ascii-art"> █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
+██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ████╗ ████║██╔════╝
+███████║██████╔╝██║   ██║██║   ██║   ██║       ██╔████╔██║█████╗  
+██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║╚██╔╝██║██╔══╝  
+██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ██║ ╚═╝ ██║███████╗
+╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚══════╝</pre>
                 
-                    <p><span class="prompt">➜</span> Hello, I'm KALANA MADURANGA 😎 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites.</p>
+                    <p><span class="prompt">➜</span>卐 Hello, I'm KALANA MADURANGA 卐 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites.</p>
                 
                     <p><span class="prompt">➜</span> Download my <a href="#" class="scroll-link">resume</a> !</p>
                 
@@ -689,52 +602,54 @@
                     <div class="skills-section">
                         <p class="skills-title"><span class="prompt">➜</span> Specialized in:</p>
                     
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> Java</span>
-                            <span class="skill-bar-text" data-skill="java" data-target="95"></span>
-                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> Java</span>
+                                <span class="skill-bar-text" data-skill="java" data-target="95"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> Flutter</span>
-                            <span class="skill-bar-text" data-skill="flutter" data-target="85"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> Flutter</span>
+                                <span class="skill-bar-text" data-skill="flutter" data-target="85"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> React</span>
-                            <span class="skill-bar-text" data-skill="react" data-target="80"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> React</span>
+                                <span class="skill-bar-text" data-skill="react" data-target="80"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> Python</span>
-                            <span class="skill-bar-text" data-skill="python" data-target="75"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> Python</span>
+                                <span class="skill-bar-text" data-skill="python" data-target="75"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> C#</span>
-                            <span class="skill-bar-text" data-skill="csharp" data-target="70"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> C#</span>
+                                <span class="skill-bar-text" data-skill="csharp" data-target="70"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> MySQL</span>
-                            <span class="skill-bar-text" data-skill="mysql" data-target="90"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> MySQL</span>
+                                <span class="skill-bar-text" data-skill="mysql" data-target="90"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> HTML/CSS</span>
-                            <span class="skill-bar-text" data-skill="htmlcss" data-target="95"></span>
-                        </div>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> HTML/CSS</span>
+                                <span class="skill-bar-text" data-skill="htmlcss" data-target="95"></span>
+                            </div>
 
-                        <div class="skill-item">
-                            <span class="skill-name"><span class="prompt">➜</span> JavaScript</span>
-                            <span class="skill-bar-text" data-skill="javascript" data-target="80"></span>
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> JavaScript</span>
+                                <span class="skill-bar-text" data-skill="javascript" data-target="80"></span>
+                            </div>
                         </div>
                     </div>
 
-                    <p style="margin-top: 30px;"><span class="prompt">➜</span> Interests: Futuristic designs and Cyberpunk vibes.</p>
+                    <p style="margin-top: 15px;"><span class="prompt">➜</span> Interests: Futuristic designs and Cyberpunk vibes.</p>
                 
                     <p><span class="prompt">➜</span> Currently building: a futuristic portfolio 🚀</p>
                 
-                    <p style="margin-top: 20px;"><span class="prompt">➜</span> Check out my <a href="#projects" class="scroll-link">projects</a> & <a href="#assignments" class="scroll-link">assignments</a> below 👇</p>
+                    <p style="margin-top: 12px;"><span class="prompt">➜</span> Check out my <a href="#projects" class="scroll-link">projects</a> & <a href="#assignments" class="scroll-link">assignments</a> below 👇</p>
                 
                     <p><span class="prompt">➜</span> <span class="cursor"></span></p>
                 </div>
@@ -764,6 +679,47 @@
                         <path class="energy-path path-2" d="M200,100 Q150,150 200,200 T200,300" fill="none" stroke="#ff006e" stroke-width="3" filter="url(#glow)"/>
                         <path class="energy-path path-3" d="M150,150 Q200,180 250,150" fill="none" stroke="#00d9ff" stroke-width="2" filter="url(#glow)"/>
                         <path class="energy-path path-4" d="M150,250 Q200,220 250,250" fill="none" stroke="#ff006e" stroke-width="2" filter="url(#glow)"/>
+                        
+                        <!-- Cyber Flowers with Curved Petals -->
+                        <!-- Flower 1 - Top -->
+                        <g class="cyber-flower flower-1">
+                            <path d="M200,140 Q190,120 200,100 Q210,120 200,140 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-1" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 2 - Right -->
+                        <g class="cyber-flower flower-2">
+                            <path d="M260,200 Q280,190 300,200 Q280,210 260,200 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-2" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 3 - Bottom -->
+                        <g class="cyber-flower flower-3">
+                            <path d="M200,260 Q190,280 200,300 Q210,280 200,260 Z" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="2" class="petal petal-3" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 4 - Left -->
+                        <g class="cyber-flower flower-4">
+                            <path d="M140,200 Q120,190 100,200 Q120,210 140,200 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-4" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 5 - Top Right -->
+                        <g class="cyber-flower flower-5">
+                            <path d="M242,142 Q252,122 272,132 Q252,152 242,142 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-5" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 6 - Top Left -->
+                        <g class="cyber-flower flower-6">
+                            <path d="M158,142 Q148,122 128,132 Q148,152 158,142 Z" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="2" class="petal petal-6" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 7 - Bottom Right -->
+                        <g class="cyber-flower flower-7">
+                            <path d="M242,258 Q252,278 272,268 Q252,248 242,258 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-7" filter="url(#glow)"/>
+                        </g>
+                        
+                        <!-- Flower 8 - Bottom Left -->
+                        <g class="cyber-flower flower-8">
+                            <path d="M158,258 Q148,278 128,268 Q148,248 158,258 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-8" filter="url(#glow)"/>
+                        </g>
                         
                         <!-- Center core -->
                         <circle class="core-circle" cx="200" cy="200" r="40" fill="none" stroke="#00d9ff" stroke-width="2" filter="url(#glow-strong)"/>
@@ -800,7 +756,7 @@
         function animateSkills() {
             skills.forEach((skill, index) => {
                 const barElement = document.querySelector(`[data-skill="${skill.name}"]`);
-                const totalBlocks = 10;
+                const totalBlocks = 8;
                 const filledBlocks = Math.round((skill.target / 100) * totalBlocks);
                 
                 setTimeout(() => {
