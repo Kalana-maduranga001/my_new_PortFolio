@@ -330,10 +330,6 @@
         .flower-2 { animation-delay: 0.4s; }
         .flower-3 { animation-delay: 0.6s; }
         .flower-4 { animation-delay: 0.8s; }
-        .flower-5 { animation-delay: 1s; }
-        .flower-6 { animation-delay: 1.2s; }
-        .flower-7 { animation-delay: 1.4s; }
-        .flower-8 { animation-delay: 1.6s; }
 
         @keyframes flowerAppear {
             0% {
@@ -346,27 +342,25 @@
             }
         }
 
-        .cyber-flower .petal {
+        .cyber-flower path {
             animation: petalGlow 3s ease-in-out infinite;
         }
 
-        .petal-1 { animation-delay: 0s; }
-        .petal-2 { animation-delay: 0.4s; }
-        .petal-3 { animation-delay: 0.8s; }
-        .petal-4 { animation-delay: 1.2s; }
-        .petal-5 { animation-delay: 1.6s; }
-        .petal-6 { animation-delay: 2s; }
-        .petal-7 { animation-delay: 2.4s; }
-        .petal-8 { animation-delay: 2.8s; }
+        .petal-top-1 { animation-delay: 0s; }
+        .petal-top-2 { animation-delay: 0.3s; }
+        .petal-right-1 { animation-delay: 0.6s; }
+        .petal-right-2 { animation-delay: 0.9s; }
+        .petal-bottom-1 { animation-delay: 1.2s; }
+        .petal-bottom-2 { animation-delay: 1.5s; }
+        .petal-left-1 { animation-delay: 1.8s; }
+        .petal-left-2 { animation-delay: 2.1s; }
 
         @keyframes petalGlow {
             0%, 100% {
                 opacity: 0.6;
-                filter: drop-shadow(0 0 5px currentColor);
             }
             50% {
                 opacity: 1;
-                filter: drop-shadow(0 0 15px currentColor);
             }
         }
 
@@ -680,45 +674,29 @@
                         <path class="energy-path path-3" d="M150,150 Q200,180 250,150" fill="none" stroke="#00d9ff" stroke-width="2" filter="url(#glow)"/>
                         <path class="energy-path path-4" d="M150,250 Q200,220 250,250" fill="none" stroke="#ff006e" stroke-width="2" filter="url(#glow)"/>
                         
-                        <!-- Cyber Flowers with Curved Petals -->
-                        <!-- Flower 1 - Top -->
+                        <!-- Cyber Flower Petals - 4 Directions -->
+                        <!-- Top Petal Pair -->
                         <g class="cyber-flower flower-1">
-                            <path d="M200,140 Q190,120 200,100 Q210,120 200,140 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-1" filter="url(#glow)"/>
+                            <path d="M200,200 Q185,160 200,120 Q205,160 200,200 Z" fill="rgba(0,217,255,0.3)" stroke="#00d9ff" stroke-width="2" class="petal-top-1" filter="url(#glow)"/>
+                            <path d="M200,200 Q215,160 200,120 Q195,160 200,200 Z" fill="rgba(255,0,110,0.3)" stroke="#ff006e" stroke-width="2" class="petal-top-2" filter="url(#glow)"/>
                         </g>
                         
-                        <!-- Flower 2 - Right -->
+                        <!-- Right Petal Pair -->
                         <g class="cyber-flower flower-2">
-                            <path d="M260,200 Q280,190 300,200 Q280,210 260,200 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-2" filter="url(#glow)"/>
+                            <path d="M200,200 Q240,185 280,200 Q240,205 200,200 Z" fill="rgba(255,0,110,0.3)" stroke="#ff006e" stroke-width="2" class="petal-right-1" filter="url(#glow)"/>
+                            <path d="M200,200 Q240,215 280,200 Q240,195 200,200 Z" fill="rgba(0,217,255,0.3)" stroke="#00d9ff" stroke-width="2" class="petal-right-2" filter="url(#glow)"/>
                         </g>
                         
-                        <!-- Flower 3 - Bottom -->
+                        <!-- Bottom Petal Pair -->
                         <g class="cyber-flower flower-3">
-                            <path d="M200,260 Q190,280 200,300 Q210,280 200,260 Z" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="2" class="petal petal-3" filter="url(#glow)"/>
+                            <path d="M200,200 Q185,240 200,280 Q205,240 200,200 Z" fill="rgba(255,215,0,0.3)" stroke="#ffd700" stroke-width="2" class="petal-bottom-1" filter="url(#glow)"/>
+                            <path d="M200,200 Q215,240 200,280 Q195,240 200,200 Z" fill="rgba(255,0,110,0.3)" stroke="#ff006e" stroke-width="2" class="petal-bottom-2" filter="url(#glow)"/>
                         </g>
                         
-                        <!-- Flower 4 - Left -->
+                        <!-- Left Petal Pair -->
                         <g class="cyber-flower flower-4">
-                            <path d="M140,200 Q120,190 100,200 Q120,210 140,200 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-4" filter="url(#glow)"/>
-                        </g>
-                        
-                        <!-- Flower 5 - Top Right -->
-                        <g class="cyber-flower flower-5">
-                            <path d="M242,142 Q252,122 272,132 Q252,152 242,142 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-5" filter="url(#glow)"/>
-                        </g>
-                        
-                        <!-- Flower 6 - Top Left -->
-                        <g class="cyber-flower flower-6">
-                            <path d="M158,142 Q148,122 128,132 Q148,152 158,142 Z" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="2" class="petal petal-6" filter="url(#glow)"/>
-                        </g>
-                        
-                        <!-- Flower 7 - Bottom Right -->
-                        <g class="cyber-flower flower-7">
-                            <path d="M242,258 Q252,278 272,268 Q252,248 242,258 Z" fill="rgba(0,217,255,0.2)" stroke="#00d9ff" stroke-width="2" class="petal petal-7" filter="url(#glow)"/>
-                        </g>
-                        
-                        <!-- Flower 8 - Bottom Left -->
-                        <g class="cyber-flower flower-8">
-                            <path d="M158,258 Q148,278 128,268 Q148,248 158,258 Z" fill="rgba(255,0,110,0.2)" stroke="#ff006e" stroke-width="2" class="petal petal-8" filter="url(#glow)"/>
+                            <path d="M200,200 Q160,185 120,200 Q160,205 200,200 Z" fill="rgba(0,217,255,0.3)" stroke="#00d9ff" stroke-width="2" class="petal-left-1" filter="url(#glow)"/>
+                            <path d="M200,200 Q160,215 120,200 Q160,195 200,200 Z" fill="rgba(255,215,0,0.3)" stroke="#ffd700" stroke-width="2" class="petal-left-2" filter="url(#glow)"/>
                         </g>
                         
                         <!-- Center core -->
