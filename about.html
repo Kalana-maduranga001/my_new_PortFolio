@@ -364,6 +364,70 @@
             }
         }
 
+        /* Scroll Arrow - Only visible on small screens */
+        .scroll-arrow {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            animation: arrowBounce 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-arrow.up {
+            transform: translateX(-50%) rotate(180deg);
+            animation: arrowBounceUp 2s ease-in-out infinite;
+        }
+
+        .scroll-arrow svg {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.8));
+        }
+
+        .scroll-arrow-line {
+            stroke: #00d9ff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: arrowGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        @keyframes arrowBounceUp {
+            0%, 100% {
+                transform: translateX(-50%) rotate(180deg) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) rotate(180deg) translateY(10px);
+            }
+        }
+
+        @keyframes arrowGlow {
+            0%, 100% {
+                opacity: 0.6;
+                stroke: #00d9ff;
+            }
+            50% {
+                opacity: 1;
+                stroke: #ff006e;
+            }
+        }
+
         .terminal-content {
             position: relative;
             z-index: 2;
@@ -398,6 +462,45 @@
             letter-spacing: 0;
             white-space: pre;
             overflow-x: auto;
+            opacity: 0;
+        }
+
+        .ascii-art.reveal {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .ascii-art .char {
+            opacity: 0;
+            display: inline-block;
+            animation: charReveal 0.1s ease-in forwards;
+        }
+
+        @keyframes charReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes charDisappear {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(5px);
+            }
         }
 
         .prompt {
@@ -524,9 +627,15 @@
 
         /* Responsive */
         @media (max-width: 1200px) {
+            /* Show arrow only on screens smaller than 1200px */
+            .scroll-arrow {
+                display: flex;
+            }
+
             .terminal-body {
                 flex-direction: column;
                 align-items: center;
+                padding-bottom: 80px;
             }
 
             .animation-container {
@@ -536,7 +645,8 @@
             }
 
             .terminal-content {
-                max-height: none;
+                max-height: 45vh;
+                width: 100%;
             }
 
             .skills-grid {
@@ -554,7 +664,7 @@
             }
 
             .terminal-body {
-                padding: 20px;
+                padding: 20px 20px 80px 20px;
                 font-size: 11px;
             }
 
@@ -566,10 +676,33 @@
                 width: 200px;
                 height: 200px;
             }
+
+            .terminal-content {
+                max-height: 40vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terminal-content {
+                max-height: 35vh;
+            }
+
+            .animation-container {
+                width: 180px;
+                height: 180px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Scroll Arrow (only visible on small screens) -->
+    <div class="scroll-arrow">
+        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <polyline class="scroll-arrow-line" points="10,15 25,30 40,15" fill="none"/>
+            <polyline class="scroll-arrow-line" points="10,25 25,40 40,25" fill="none"/>
+        </svg>
+    </div>
+
     <!-- About Me Section -->
     <section id="about">
         <div class="terminal-window">
@@ -762,8 +895,141 @@
 
         // Start animations on page load
         window.addEventListener('load', () => {
-            setTimeout(animateSkills, 500);
+            setTimeout(() => {
+                animateAsciiArt();
+                setTimeout(animateSkills, 1500);
+            }, 300);
         });
+
+        // Animate ASCII art character by character with loop
+        function animateAsciiArt() {
+            const asciiArt = document.querySelector('.ascii-art');
+            if (!asciiArt) return;
+
+            const originalText = asciiArt.textContent;
+            
+            function startAnimation() {
+                asciiArt.innerHTML = '';
+                asciiArt.classList.add('reveal');
+
+                let index = 0;
+                const chars = originalText.split('');
+                
+                function addNextChar() {
+                    if (index < chars.length) {
+                        const char = chars[index];
+                        const span = document.createElement('span');
+                        span.className = 'char';
+                        span.textContent = char;
+                        span.style.animationDelay = '0s';
+                        
+                        // Preserve spaces and newlines
+                        if (char === ' ') {
+                            span.innerHTML = '&nbsp;';
+                        } else if (char === '\n') {
+                            span.innerHTML = '<br>';
+                            span.style.display = 'block';
+                            span.style.height = '0';
+                        }
+                        
+                        asciiArt.appendChild(span);
+                        index++;
+                        
+                        // 15ms per character for smooth reveal
+                        setTimeout(addNextChar, 15);
+                    } else {
+                        // Wait 2 seconds after fully displayed, then disappear and restart
+                        setTimeout(() => {
+                            disappearAndRestart();
+                        }, 2000);
+                    }
+                }
+                
+                function disappearAndRestart() {
+                    // Fade out all characters
+                    const allChars = asciiArt.querySelectorAll('.char');
+                    allChars.forEach((char, i) => {
+                        setTimeout(() => {
+                            char.style.animation = 'charDisappear 0.1s ease-out forwards';
+                        }, i * 5); // Faster disappear - 5ms per character
+                    });
+                    
+                    // Restart animation after disappearing
+                    setTimeout(() => {
+                        startAnimation();
+                    }, allChars.length * 5 + 200);
+                }
+                
+                addNextChar();
+            }
+            
+            startAnimation();
+        }
+
+        // Enhanced scroll arrow functionality
+        const scrollArrow = document.querySelector('.scroll-arrow');
+        const terminalContent = document.querySelector('.terminal-content');
+
+        function updateArrowState() {
+            if (!scrollArrow || !terminalContent) return;
+            
+            const scrollHeight = terminalContent.scrollHeight;
+            const clientHeight = terminalContent.clientHeight;
+            const scrollTop = terminalContent.scrollTop;
+            
+            // Hide arrow if content fits without scrolling
+            if (scrollHeight <= clientHeight + 5) {
+                scrollArrow.style.display = 'none';
+                return;
+            }
+            
+            // Show arrow
+            scrollArrow.style.display = 'flex';
+            
+            // Update arrow direction based on scroll position
+            // If near top (within 50px), point down
+            // If scrolled down, point up
+            if (scrollTop < 50) {
+                scrollArrow.classList.remove('up');
+            } else {
+                scrollArrow.classList.add('up');
+            }
+        }
+
+        // Handle arrow click/touch
+        if (scrollArrow && terminalContent) {
+            scrollArrow.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const scrollHeight = terminalContent.scrollHeight;
+                const clientHeight = terminalContent.clientHeight;
+                const currentScroll = terminalContent.scrollTop;
+                
+                // If at top (or near top), scroll to bottom
+                if (currentScroll < 50) {
+                    terminalContent.scrollTo({
+                        top: scrollHeight,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // If scrolled down, scroll to top
+                    terminalContent.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Update arrow state on scroll
+            terminalContent.addEventListener('scroll', updateArrowState);
+            
+            // Update arrow state on window resize
+            window.addEventListener('resize', updateArrowState);
+            
+            // Check initial state
+            setTimeout(updateArrowState, 100);
+        }
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
