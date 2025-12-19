@@ -450,6 +450,15 @@
             border-radius: 4px;
         }
 
+        /* Hide scrollbar during ASCII art disappear */
+        .terminal-content.hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .terminal-content.hide-scrollbar {
+            scrollbar-width: none; /* Firefox */
+        }
+
         .ascii-art {
             color: #00d9ff;
             font-size: 9px;
@@ -852,7 +861,7 @@
     </section>
 
     <script>
-        // Skill animation
+        // Skill animation with looping
         const skills = [
             { name: 'java', target: 95 },
             { name: 'flutter', target: 85 },
@@ -870,26 +879,58 @@
                 const totalBlocks = 8;
                 const filledBlocks = Math.round((skill.target / 100) * totalBlocks);
                 
-                setTimeout(() => {
+                function animateSingleSkill() {
                     let currentBlock = 0;
+                    let filling = true;
+                    
                     const interval = setInterval(() => {
-                        if (currentBlock <= filledBlocks) {
-                            let barText = '[';
-                            for (let i = 0; i < totalBlocks; i++) {
-                                if (i < currentBlock) {
-                                    barText += '█';
-                                } else {
-                                    barText += '-';
+                        if (filling) {
+                            // Filling phase
+                            if (currentBlock <= filledBlocks) {
+                                let barText = '[';
+                                for (let i = 0; i < totalBlocks; i++) {
+                                    if (i < currentBlock) {
+                                        barText += '█';
+                                    } else {
+                                        barText += '-';
+                                    }
                                 }
+                                barText += '] ' + Math.round((currentBlock / totalBlocks) * 100) + '%';
+                                barElement.textContent = barText;
+                                currentBlock++;
+                            } else {
+                                // Wait at full, then start emptying
+                                setTimeout(() => {
+                                    filling = false;
+                                    currentBlock = filledBlocks;
+                                }, 1500);
                             }
-                            barText += '] ' + Math.round((currentBlock / totalBlocks) * 100) + '%';
-                            barElement.textContent = barText;
-                            currentBlock++;
                         } else {
-                            clearInterval(interval);
+                            // Emptying phase
+                            if (currentBlock >= 0) {
+                                let barText = '[';
+                                for (let i = 0; i < totalBlocks; i++) {
+                                    if (i < currentBlock) {
+                                        barText += '█';
+                                    } else {
+                                        barText += '-';
+                                    }
+                                }
+                                barText += '] ' + Math.round((currentBlock / totalBlocks) * 100) + '%';
+                                barElement.textContent = barText;
+                                currentBlock--;
+                            } else {
+                                // Restart the cycle
+                                setTimeout(() => {
+                                    filling = true;
+                                    currentBlock = 0;
+                                }, 500);
+                            }
                         }
                     }, 100);
-                }, index * 200);
+                }
+                
+                setTimeout(animateSingleSkill, index * 200);
             });
         }
 
@@ -904,6 +945,7 @@
         // Animate ASCII art character by character with loop
         function animateAsciiArt() {
             const asciiArt = document.querySelector('.ascii-art');
+            const terminalContent = document.querySelector('.terminal-content');
             if (!asciiArt) return;
 
             const originalText = asciiArt.textContent;
@@ -911,6 +953,8 @@
             function startAnimation() {
                 asciiArt.innerHTML = '';
                 asciiArt.classList.add('reveal');
+                // Show scrollbar when appearing
+                if (terminalContent) terminalContent.classList.remove('hide-scrollbar');
 
                 let index = 0;
                 const chars = originalText.split('');
@@ -946,6 +990,9 @@
                 }
                 
                 function disappearAndRestart() {
+                    // Hide scrollbar when disappearing
+                    if (terminalContent) terminalContent.classList.add('hide-scrollbar');
+                    
                     // Fade out all characters
                     const allChars = asciiArt.querySelectorAll('.char');
                     allChars.forEach((char, i) => {
