@@ -6,6 +6,11 @@
     <title>KALANA MADURANGA - Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        @import url("https://fonts.googleapis.com/css?family=Raleway");
+        
+        :root {
+            --glow-color: hsl(186 100% 69%);
+        }
         
         * {
             margin: 0;
@@ -442,21 +447,17 @@
         }
 
         .terminal-content::-webkit-scrollbar-track {
-            background: rgba(0, 217, 255, 0.1);
+            background: transparent;
         }
 
         .terminal-content::-webkit-scrollbar-thumb {
-            background: rgba(0, 217, 255, 0.5);
+            background: rgba(0, 217, 255, 0.3);
             border-radius: 4px;
+            transition: background 0.3s ease;
         }
 
-        /* Hide scrollbar during ASCII art disappear */
-        .terminal-content.hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .terminal-content.hide-scrollbar {
-            scrollbar-width: none; /* Firefox */
+        .terminal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 217, 255, 0.5);
         }
 
         .ascii-art {
@@ -465,50 +466,94 @@
             line-height: 1.1;
             margin-bottom: 20px;
             text-align: left;
-            text-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
             font-weight: 700;
             font-family: 'Courier New', 'Courier', monospace;
             letter-spacing: 0;
             white-space: pre;
             overflow-x: auto;
-            opacity: 0;
         }
 
-        .ascii-art.reveal {
-            animation: fadeIn 0.5s ease-in forwards;
+        /* Glowing text effects from CSS */
+        .glowing-txt {
+            -webkit-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+                0 0 0.45em var(--glow-color);
+            -moz-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+                0 0 0.45em var(--glow-color);
+            text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
+            animation: text-flicker 3s linear infinite;
         }
 
-        @keyframes fadeIn {
-            to {
+        .faulty-letter {
+            opacity: 0.5;
+            animation: faulty-flicker 2s linear infinite;
+        }
+
+        @keyframes faulty-flicker {
+            0% {
+                opacity: 0.1;
+            }
+            2% {
+                opacity: 0.1;
+            }
+            4% {
+                opacity: 0.5;
+            }
+            19% {
+                opacity: 0.5;
+            }
+            21% {
+                opacity: 0.1;
+            }
+            23% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            83% {
+                opacity: 0.4;
+            }
+            87% {
                 opacity: 1;
             }
         }
 
-        .ascii-art .char {
-            opacity: 0;
-            display: inline-block;
-            animation: charReveal 0.1s ease-in forwards;
-        }
-
-        @keyframes charReveal {
+        @keyframes text-flicker {
             0% {
-                opacity: 0;
-                transform: translateY(-5px);
+                opacity: 0.1;
+            }
+            2% {
+                opacity: 1;
+            }
+            8% {
+                opacity: 0.1;
+            }
+            9% {
+                opacity: 1;
+            }
+            12% {
+                opacity: 0.1;
+            }
+            20% {
+                opacity: 1;
+            }
+            25% {
+                opacity: 0.3;
+            }
+            30% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.7;
+            }
+            72% {
+                opacity: 0.2;
+            }
+            77% {
+                opacity: 0.9;
             }
             100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes charDisappear {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(5px);
+                opacity: 0.9;
             }
         }
 
@@ -540,9 +585,6 @@
 
         /* Skills */
         .skills-section {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 217, 255, 0.3);
         }
 
         .skills-title {
@@ -723,14 +765,14 @@
             </div>
             <div class="terminal-body">
                 <div class="terminal-content">
-<pre class="ascii-art"> █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
+<pre class="ascii-art" id="asciiArt"> █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ███╗   ███╗███████╗
 ██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ████╗ ████║██╔════╝
 ███████║██████╔╝██║   ██║██║   ██║   ██║       ██╔████╔██║█████╗  
 ██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║╚██╔╝██║██╔══╝  
 ██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ██║ ╚═╝ ██║███████╗
 ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚══════╝</pre>
                 
-                    <p><span class="prompt">➜</span>卐 Hello, I'm KALANA MADURANGA 卐 a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites.</p>
+                    <p><span class="prompt">➜</span> Hello, I'm KALANA MADURANGA - a 22-year-old software engineer with a passion for clean code, futuristic design, and building immersive user experiences. I specialize in full-stack development with Java and enjoy building websites.</p>
                 
                     <p><span class="prompt">➜</span> Download my <a href="#" class="scroll-link">resume</a> !</p>
                 
@@ -752,6 +794,11 @@
                             <div class="skill-item">
                                 <span class="skill-name"><span class="prompt">➜</span> React</span>
                                 <span class="skill-bar-text" data-skill="react" data-target="80"></span>
+                            </div>
+
+                            <div class="skill-item">
+                                <span class="skill-name"><span class="prompt">➜</span> React Native</span>
+                                <span class="skill-bar-text" data-skill="reactnative" data-target="80"></span>
                             </div>
 
                             <div class="skill-item">
@@ -861,11 +908,39 @@
     </section>
 
     <script>
+        // Apply glowing effect to ASCII art
+        function applyGlowToAscii() {
+            const asciiElement = document.getElementById('asciiArt');
+            const text = asciiElement.textContent;
+            let wrappedText = '';
+            
+            // Special characters that should have faulty flicker effect
+            const faultyChars = ['█', '╗', '╔', '║', '═', '╝', '╚'];
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                
+                if (char === '\n') {
+                    wrappedText += '\n';
+                } else if (char === ' ') {
+                    wrappedText += ' ';
+                } else {
+                    // Randomly make some characters faulty (more likely for special chars)
+                    const isFaulty = faultyChars.includes(char) ? Math.random() < 0.3 : Math.random() < 0.1;
+                    const className = isFaulty ? 'glowing-txt faulty-letter' : 'glowing-txt';
+                    wrappedText += `<span class="${className}">${char}</span>`;
+                }
+            }
+            
+            asciiElement.innerHTML = wrappedText;
+        }
+
         // Skill animation with looping
         const skills = [
             { name: 'java', target: 95 },
             { name: 'flutter', target: 85 },
             { name: 'react', target: 80 },
+            { name: 'reactnative', target: 80 },
             { name: 'python', target: 75 },
             { name: 'csharp', target: 70 },
             { name: 'mysql', target: 90 },
@@ -937,81 +1012,10 @@
         // Start animations on page load
         window.addEventListener('load', () => {
             setTimeout(() => {
-                animateAsciiArt();
-                setTimeout(animateSkills, 1500);
+                applyGlowToAscii();
+                animateSkills();
             }, 300);
         });
-
-        // Animate ASCII art character by character with loop
-        function animateAsciiArt() {
-            const asciiArt = document.querySelector('.ascii-art');
-            const terminalContent = document.querySelector('.terminal-content');
-            if (!asciiArt) return;
-
-            const originalText = asciiArt.textContent;
-            
-            function startAnimation() {
-                asciiArt.innerHTML = '';
-                asciiArt.classList.add('reveal');
-                // Show scrollbar when appearing
-                if (terminalContent) terminalContent.classList.remove('hide-scrollbar');
-
-                let index = 0;
-                const chars = originalText.split('');
-                
-                function addNextChar() {
-                    if (index < chars.length) {
-                        const char = chars[index];
-                        const span = document.createElement('span');
-                        span.className = 'char';
-                        span.textContent = char;
-                        span.style.animationDelay = '0s';
-                        
-                        // Preserve spaces and newlines
-                        if (char === ' ') {
-                            span.innerHTML = '&nbsp;';
-                        } else if (char === '\n') {
-                            span.innerHTML = '<br>';
-                            span.style.display = 'block';
-                            span.style.height = '0';
-                        }
-                        
-                        asciiArt.appendChild(span);
-                        index++;
-                        
-                        // 15ms per character for smooth reveal
-                        setTimeout(addNextChar, 15);
-                    } else {
-                        // Wait 2 seconds after fully displayed, then disappear and restart
-                        setTimeout(() => {
-                            disappearAndRestart();
-                        }, 2000);
-                    }
-                }
-                
-                function disappearAndRestart() {
-                    // Hide scrollbar when disappearing
-                    if (terminalContent) terminalContent.classList.add('hide-scrollbar');
-                    
-                    // Fade out all characters
-                    const allChars = asciiArt.querySelectorAll('.char');
-                    allChars.forEach((char, i) => {
-                        setTimeout(() => {
-                            char.style.animation = 'charDisappear 0.1s ease-out forwards';
-                        }, i * 5); // Faster disappear - 5ms per character
-                    });
-                    
-                    // Restart animation after disappearing
-                    setTimeout(() => {
-                        startAnimation();
-                    }, allChars.length * 5 + 200);
-                }
-                
-                addNextChar();
-            }
-            
-            startAnimation();
-        }
 
         // Enhanced scroll arrow functionality
         const scrollArrow = document.querySelector('.scroll-arrow');
