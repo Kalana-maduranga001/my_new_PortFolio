@@ -16,9 +16,9 @@
         body {
             font-family: "Space Mono", monospace;
             background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%),
-                radial-gradient(circle at center, rgba(0, 217, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at top left, rgba(255, 0, 200, 0.03), transparent 60%),
-                radial-gradient(circle at bottom right, rgba(0, 217, 255, 0.03), transparent 60%),
+                radial-gradient(circle at center, rgba(0, 245, 201, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at top left, rgba(255, 0, 200, 0.04), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(0, 245, 201, 0.04), transparent 60%),
                 linear-gradient(135deg, #050510 0%, #0a0f1a 50%, #050a15 100%);
             color: #00d9ff;
             overflow-x: hidden;
@@ -46,7 +46,7 @@
             left: 50%;
             width: 65%;
             aspect-ratio: 1/1;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.3), transparent 70%);
+            background: radial-gradient(circle, rgba(0, 245, 201, 0.5), transparent 70%);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             animation: cyberPulse 5s ease-in-out infinite;
@@ -121,22 +121,18 @@
         /* Corner Decorations */
         .corner {
             position: fixed;
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             pointer-events: none;
             z-index: 101;
         }
 
-        .corner svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .corner-line {
-            stroke: #00d9ff;
-            stroke-width: 2;
-            fill: none;
-            filter: drop-shadow(0 0 8px #00d9ff);
+        .corner::before,
+        .corner::after {
+            content: "";
+            position: absolute;
+            background: #00d9ff;
+            box-shadow: 0 0 15px #00d9ff;
         }
 
         .corner-tl {
@@ -144,19 +140,37 @@
             left: 0;
         }
 
+        .corner-tl::before {
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 40px;
+        }
+
+        .corner-tl::after {
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+        }
+
         .corner-tr {
             top: 0;
             right: 0;
         }
 
-        .corner-bl {
-            bottom: 0;
-            left: 0;
+        .corner-tr::before {
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 40px;
         }
 
-        .corner-br {
-            bottom: 0;
+        .corner-tr::after {
+            top: 0;
             right: 0;
+            width: 40px;
+            height: 3px;
         }
 
         /* Code Tags */
@@ -203,56 +217,60 @@
             margin-bottom: 20px;
         }
 
-        /* Circuit Line Decoration */
-        .circuit-line {
+        /* ASCII Art Decoration */
+        .ascii-art-container {
             position: relative;
-            height: 350px;
-            margin: 60px auto;
-            width: 90%;
-            max-width: 1000px;
-        }
-
-        .circuit-line svg {
             width: 100%;
-            height: 100%;
+            margin: 60px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .circuit-path {
-            fill: none;
-            stroke: #00d9ff;
-            stroke-width: 2;
-            stroke-dasharray: 2000;
-            stroke-dashoffset: 2000;
-            animation: drawPath 4s ease-in-out forwards;
-            filter: drop-shadow(0 0 8px #00d9ff);
+        .ascii-art {
+            font-family: "Courier Prime", monospace;
+            font-size: 6px;
+            line-height: 1;
+            white-space: pre;
+            color: #00d9ff;
+            text-align: center;
+            animation: colorGlow 4s ease-in-out infinite;
+            text-shadow: 0 0 10px #00d9ff,
+                         0 0 20px #00d9ff,
+                         0 0 30px #00d9ff;
         }
 
-        @keyframes drawPath {
-            to {
-                stroke-dashoffset: 0;
+        @keyframes colorGlow {
+            0% {
+                color: #00d9ff;
+                text-shadow: 0 0 10px #00d9ff,
+                             0 0 20px #00d9ff,
+                             0 0 30px #00d9ff;
             }
-        }
-
-        .circuit-node {
-            fill: #00d9ff;
-            filter: drop-shadow(0 0 10px #00d9ff);
-            animation: nodePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes nodePulse {
-            0%, 100% {
-                opacity: 1;
+            25% {
+                color: #00f5c9;
+                text-shadow: 0 0 10px #00f5c9,
+                             0 0 20px #00f5c9,
+                             0 0 30px #00f5c9;
             }
             50% {
-                opacity: 0.6;
+                color: #0099ff;
+                text-shadow: 0 0 10px #0099ff,
+                             0 0 20px #0099ff,
+                             0 0 30px #0099ff;
             }
-        }
-
-        .circuit-code-tag {
-            fill: #00d9ff;
-            font-family: "Courier Prime", monospace;
-            font-size: 14px;
-            opacity: 0.8;
+            75% {
+                color: #00f5c9;
+                text-shadow: 0 0 10px #00f5c9,
+                             0 0 20px #00f5c9,
+                             0 0 30px #00f5c9;
+            }
+            100% {
+                color: #00d9ff;
+                text-shadow: 0 0 10px #00d9ff,
+                             0 0 20px #00d9ff,
+                             0 0 30px #00d9ff;
+            }
         }
 
         /* Portfolio Section */
@@ -391,11 +409,19 @@
             border-radius: 20px;
         }
 
-        /* Download Button */
-        .download-btn {
+        /* Download Button with Orbiting Circles */
+        .download-btn-wrapper {
             position: absolute;
             top: 20px;
             right: 20px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .download-btn {
             width: 120px;
             height: 120px;
             border: 2px solid #00d9ff;
@@ -408,7 +434,8 @@
             text-decoration: none;
             transition: all 0.4s ease;
             background: rgba(10, 14, 26, 0.8);
-            animation: rotate 10s linear infinite;
+            position: relative;
+            z-index: 2;
         }
 
         .download-btn:hover {
@@ -417,14 +444,165 @@
             transform: scale(1.1);
         }
 
-        @keyframes rotate {
+        /* Orbital Circle Lines - Partial arcs that follow dots */
+        .orbit-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            pointer-events: none;
+            border-top-color: rgba(0, 217, 255, 0.4);
+            border-right-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .orbit-circle-1 {
+            width: 140px;
+            height: 140px;
+            animation: orbitRotate1 4s linear infinite;
+            border-top-color: rgba(0, 217, 255, 0.5);
+            border-right-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .orbit-circle-2 {
+            width: 170px;
+            height: 170px;
+            animation: orbitRotate2 3s linear infinite reverse;
+            border-top-color: rgba(0, 217, 255, 0.4);
+            border-right-color: rgba(0, 217, 255, 0.2);
+        }
+
+        .orbit-circle-3 {
+            width: 190px;
+            height: 190px;
+            animation: orbitRotate3 5s linear infinite;
+            border-top-color: rgba(0, 245, 201, 0.5);
+            border-right-color: rgba(0, 245, 201, 0.3);
+        }
+
+        .orbit-circle-4 {
+            width: 150px;
+            height: 150px;
+            animation: orbitRotate4 3.5s linear infinite reverse;
+            border-top-color: rgba(0, 245, 201, 0.4);
+            border-right-color: rgba(0, 245, 201, 0.2);
+        }
+
+        .orbit-circle-5 {
+            width: 160px;
+            height: 160px;
+            animation: orbitRotate5 4.5s linear infinite;
+            border-top-color: rgba(0, 217, 255, 0.4);
+            border-right-color: rgba(0, 217, 255, 0.2);
+        }
+
+        @keyframes orbitRotate1 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitRotate2 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitRotate3 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitRotate4 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitRotate5 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Orbiting Dots */
+        .orbit-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d9ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00d9ff;
+        }
+
+        .orbit-dot-1 {
+            animation: orbit1 4s linear infinite;
+        }
+
+        .orbit-dot-2 {
+            animation: orbit2 3s linear infinite reverse;
+        }
+
+        .orbit-dot-3 {
+            animation: orbit3 5s linear infinite;
+            background: #00f5c9;
+            box-shadow: 0 0 15px #00f5c9;
+        }
+
+        .orbit-dot-4 {
+            animation: orbit4 3.5s linear infinite reverse;
+            width: 6px;
+            height: 6px;
+            background: #00f5c9;
+            box-shadow: 0 0 12px #00f5c9;
+        }
+
+        .orbit-dot-5 {
+            animation: orbit5 4.5s linear infinite;
+            width: 6px;
+            height: 6px;
+        }
+
+        @keyframes orbit1 {
             from {
-                transform: rotate(0deg);
+                transform: rotate(0deg) translateX(70px) rotate(0deg);
             }
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg) translateX(70px) rotate(-360deg);
             }
         }
+
+        @keyframes orbit2 {
+            from {
+                transform: rotate(0deg) translateX(85px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(85px) rotate(-360deg);
+            }
+        }
+
+        @keyframes orbit3 {
+            from {
+                transform: rotate(0deg) translateX(95px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(95px) rotate(-360deg);
+            }
+        }
+
+        @keyframes orbit4 {
+            from {
+                transform: rotate(45deg) translateX(75px) rotate(-45deg);
+            }
+            to {
+                transform: rotate(405deg) translateX(75px) rotate(-405deg);
+            }
+        }
+
+        @keyframes orbit5 {
+            from {
+                transform: rotate(90deg) translateX(80px) rotate(-90deg);
+            }
+            to {
+                transform: rotate(450deg) translateX(80px) rotate(-450deg);
+            }
+        }
+
+
 
         /* Press Section */
         .press-section {
@@ -543,22 +721,7 @@
             transition: all 0.4s ease;
             background: rgba(10, 14, 26, 0.8);
             position: relative;
-            animation: socialFloat 3s ease-in-out infinite;
         }
-
-        @keyframes socialFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .social-link:nth-child(1) { animation-delay: 0s; }
-        .social-link:nth-child(2) { animation-delay: 0.2s; }
-        .social-link:nth-child(3) { animation-delay: 0.4s; }
-        .social-link:nth-child(4) { animation-delay: 0.6s; }
 
         .social-link::before {
             content: "";
@@ -567,18 +730,6 @@
             border-radius: 50%;
             border: 1px solid rgba(0, 217, 255, 0.2);
             transition: all 0.4s ease;
-            animation: ringPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes ringPulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
         }
 
         .social-link:hover::before {
@@ -601,21 +752,6 @@
         .social-name {
             font-size: 18px;
             font-family: "Orbitron", sans-serif;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Connecting lines between social circles */
-        .connect-section::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
-            opacity: 0.3;
-            z-index: 0;
         }
 
         /* Navigation Arrows */
@@ -708,7 +844,7 @@
                 padding: 30px 20px;
             }
 
-            .download-btn {
+            .download-btn-wrapper {
                 position: relative;
                 top: auto;
                 right: auto;
@@ -738,40 +874,8 @@
     <div class="frame-border"></div>
     <div class="frame-left"></div>
     <div class="frame-right"></div>
-    
-    <!-- Complex Corner Decorations -->
-    <div class="corner corner-tl">
-        <svg viewBox="0 0 120 120">
-            <path class="corner-line" d="M 0 40 L 0 0 L 40 0" />
-            <path class="corner-line" d="M 10 50 L 10 10 L 50 10" />
-            <circle class="circuit-node" cx="0" cy="40" r="4" />
-            <circle class="circuit-node" cx="40" cy="0" r="4" />
-        </svg>
-    </div>
-    <div class="corner corner-tr">
-        <svg viewBox="0 0 120 120">
-            <path class="corner-line" d="M 120 40 L 120 0 L 80 0" />
-            <path class="corner-line" d="M 110 50 L 110 10 L 70 10" />
-            <circle class="circuit-node" cx="120" cy="40" r="4" />
-            <circle class="circuit-node" cx="80" cy="0" r="4" />
-        </svg>
-    </div>
-    <div class="corner corner-bl">
-        <svg viewBox="0 0 120 120">
-            <path class="corner-line" d="M 0 80 L 0 120 L 40 120" />
-            <path class="corner-line" d="M 10 70 L 10 110 L 50 110" />
-            <circle class="circuit-node" cx="0" cy="80" r="4" />
-            <circle class="circuit-node" cx="40" cy="120" r="4" />
-        </svg>
-    </div>
-    <div class="corner corner-br">
-        <svg viewBox="0 0 120 120">
-            <path class="corner-line" d="M 120 80 L 120 120 L 80 120" />
-            <path class="corner-line" d="M 110 70 L 110 110 L 70 110" />
-            <circle class="circuit-node" cx="120" cy="80" r="4" />
-            <circle class="circuit-node" cx="80" cy="120" r="4" />
-        </svg>
-    </div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
 
     <a href="index.html" class="back-button">← Home</a>
 
@@ -784,46 +888,51 @@
             <h2 class="subtitle">UI/UX Designer & Software Engineer</h2>
             <p class="code-tag-header">&lt;p&gt;Entrepreneur and Developer&lt;/p&gt;</p>
             
-            <a href="#" class="download-btn">
-                <svg viewBox="0 0 120 120" style="position: absolute; width: 100%; height: 100%;">
-                    <circle cx="60" cy="60" r="50" fill="none" stroke="#00d9ff" stroke-width="2" opacity="0.3"/>
-                    <circle cx="60" cy="60" r="45" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.2"/>
-                </svg>
-                <span style="position: relative; z-index: 1;">&lt;Download CV/&gt;</span>
-            </a>
+            <div class="download-btn-wrapper">
+                <!-- Orbital Circle Lines -->
+                <div class="orbit-circle orbit-circle-1"></div>
+                <div class="orbit-circle orbit-circle-2"></div>
+                <div class="orbit-circle orbit-circle-3"></div>
+                <div class="orbit-circle orbit-circle-4"></div>
+                <div class="orbit-circle orbit-circle-5"></div>
+                
+                <!-- Download Button -->
+                <a href="#" class="download-btn">
+                    &lt;Download CV/&gt;
+                </a>
+                
+                <!-- Orbiting Dots -->
+                <span class="orbit-dot orbit-dot-1"></span>
+                <span class="orbit-dot orbit-dot-2"></span>
+                <span class="orbit-dot orbit-dot-3"></span>
+                <span class="orbit-dot orbit-dot-4"></span>
+                <span class="orbit-dot orbit-dot-5"></span>
+            </div>
         </header>
 
-        <div class="circuit-line">
-            <svg viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid meet">
-                <!-- Starting node top left -->
-                <circle class="circuit-node" cx="50" cy="50" r="8"/>
-                
-                <!-- Main curved path from top-left to right side -->
-                <path class="circuit-path" d="M 50 50 Q 100 50 150 80 L 350 80 Q 450 80 500 30 L 900 30 Q 950 30 950 80 L 950 150" style="animation-delay: 0s;"/>
-                
-                <!-- Circle on right side -->
-                <circle cx="950" cy="200" r="60" fill="none" stroke="#00d9ff" stroke-width="2" opacity="0.5"/>
-                <circle cx="950" cy="200" r="55" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.3"/>
-                
-                <!-- Arrow inside circle -->
-                <text x="940" y="215" fill="#00d9ff" font-size="40" font-family="monospace">&gt;</text>
-                
-                <!-- Path continues from circle down and curves left -->
-                <path class="circuit-path" d="M 950 260 L 950 300 Q 950 320 920 320 L 300 320" style="animation-delay: 1.5s;"/>
-                
-                <!-- Code tag in middle -->
-                <text class="circuit-code-tag" x="470" y="330">&lt;/&gt;</text>
-                
-                <!-- Final curve to bottom left -->
-                <path class="circuit-path" d="M 300 320 Q 200 320 150 280 L 50 220 Q 30 200 50 180" style="animation-delay: 2.5s;"/>
-                
-                <!-- End node bottom left -->
-                <circle class="circuit-node" cx="50" cy="300" r="8" style="animation-delay: 3s;"/>
-                
-                <!-- Connection nodes -->
-                <circle class="circuit-node" cx="950" cy="150" r="6" style="animation-delay: 1s;"/>
-                <circle class="circuit-node" cx="950" cy="260" r="6" style="animation-delay: 2s;"/>
-            </svg>
+        <!-- ASCII Art Decoration -->
+        <div class="ascii-art-container">
+            <pre class="ascii-art">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣠⣼⠀⠀⠀⠀⠈⠙⡆⢤⠀⠀⠀⠀⠀⣷⣄⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣴⣾⣿⣿⣿⣿⣿⣿⡿⢿⡷⡆⠀⣵⣶⣿⣾⣷⣸⣄⠀⠀⠀⢰⠾⡿⢿⣿⣿⣿⣿⣿⣿⣷⣦⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣾⣿⣿⣿⣿⣽⣿⣿⣿⣿⡟⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⣻⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⠐⣻⣿⣿⡏⢹⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣟⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⡄⠀⠀⠀⠀⢻⣿⣿⣷⡌⠸⣿⣾⢿⡧⠀⠀⠀⠀⠀⢀⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⣾⡿⢛⣵⣾⣿⣿⣿⣿⣿⣯⣾⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⢻⣿⣿⣿⣶⣌⠙⠋⠁⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣷⣽⣿⣿⣿⣿⣿⣷⣮⡙⢿⣿⣆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣰⡿⢋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⣿⣧⡀⠀⠀⠀⣠⣽⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⢀⣼⣿⣿⣿⣿⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣝⢿⣇⠀⠀⠀⠀
+⠀⠀⠀⣴⣯⣴⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⡿⢫⣾⣿⣿⣿⣿⣿⣿⡦⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⢴⣿⣿⣿⣿⣿⣿⣷⣝⢿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣧⣽⣦⠀⠀⠀
+⠀⠀⣼⣿⣿⣿⠟⢁⣴⣿⡿⢿⣿⣿⡿⠛⣰⣿⠟⣻⣿⣿⣿⣿⣿⣿⣿⡿⠿⠋⢿⣿⣿⣿⣿⣿⠻⢿⣿⣿⣿⣿⣿⣿⣿⣟⠻⣿⣆⠙⢿⣿⣿⡿⢿⣿⣦⡈⠻⣿⣿⣿⣧⠀⠀
+⠀⡼⣻⣿⡟⢁⣴⡿⠋⠁⢀⣼⣿⠟⠁⣰⣿⠁⢰⣿⣿⣿⡿⣿⣿⣿⠿⠀⣠⣤⣾⣿⣿⣿⣿⣿⠀⠀⠽⣿⣿⣿⢿⣿⣿⣿⡆⠈⢿⣆⠀⠻⣿⣧⡀⠈⠙⢿⣦⡈⠻⣿⣟⢧⠀
+⠀⣱⣿⠋⢠⡾⠋⠀⢀⣠⡾⠟⠁⠀⢀⣿⠟⠀⢸⣿⠙⣿⠀⠈⢿⠏⠀⣾⣿⠛⣻⣿⣿⣿⣿⣯⣤⠀⠀⠹⡿⠁⠀⣿⠏⣿⡇⠀⠹⣿⡄⠀⠈⠻⢷⣄⡀⠀⠙⢷⣄⠙⣿⣎⠂
+⢠⣿⠏⠀⣏⢀⣠⠴⠛⠉⠀⠀⠀⠀⠈⠁⠀⠀⠀⠛⠀⠈⠀⠀⠀⠀⠈⢿⣿⣼⣿⣿⣿⣿⢿⣿⣿⣶⠀⠀⠀⠀⠀⠁⠀⠛⠀⠀⠀⠀⠁⠀⠀⠀⠀⠉⠛⠦⣄⣀⣹⠀⠹⣿⡄
+⣼⡟⠀⣼⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠛⠋⠁⠀⢹⣿⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣧⠀⢻⣷
+⣿⠃⢰⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⣶⣦⣤⠀⠀⣿⡿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡆⠘⣿
+⣿⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠁⠈⢻⣷⣸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⣿
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣷⣀⣀⣸⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⣿
+⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⣿⡿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡇
+⠈⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣴⡿⣷⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠴⡿⣟⣿⣿⣶⡶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
         </div>
 
         <!-- Portfolio Section -->
@@ -896,22 +1005,6 @@
             </div>
         </section>
 
-        <div class="circuit-line">
-            <svg viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid meet">
-                <circle class="circuit-node" cx="50" cy="50" r="8"/>
-                <path class="circuit-path" d="M 50 50 Q 100 50 150 80 L 350 80 Q 450 80 500 30 L 900 30 Q 950 30 950 80 L 950 150" style="animation-delay: 0s;"/>
-                <circle cx="950" cy="200" r="60" fill="none" stroke="#00d9ff" stroke-width="2" opacity="0.5"/>
-                <circle cx="950" cy="200" r="55" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.3"/>
-                <text x="940" y="215" fill="#00d9ff" font-size="40" font-family="monospace">&gt;</text>
-                <path class="circuit-path" d="M 950 260 L 950 300 Q 950 320 920 320 L 300 320" style="animation-delay: 1.5s;"/>
-                <text class="circuit-code-tag" x="470" y="330">&lt;/&gt;</text>
-                <path class="circuit-path" d="M 300 320 Q 200 320 150 280 L 50 220 Q 30 200 50 180" style="animation-delay: 2.5s;"/>
-                <circle class="circuit-node" cx="50" cy="300" r="8" style="animation-delay: 3s;"/>
-                <circle class="circuit-node" cx="950" cy="150" r="6" style="animation-delay: 1s;"/>
-                <circle class="circuit-node" cx="950" cy="260" r="6" style="animation-delay: 2s;"/>
-            </svg>
-        </div>
-
         <!-- Press Section -->
         <section class="press-section">
             <div class="section-title-tag">&lt;h3&gt;</div>
@@ -950,8 +1043,6 @@
             </ul>
         </section>
 
-        <div class="circuit-line"></div>
-
         <!-- Connect Section -->
         <section class="connect-section">
             <div class="code-tag" style="position: relative; margin-bottom: 20px;">&lt;h4&gt;</div>
@@ -959,38 +1050,23 @@
             <div class="code-tag" style="position: relative; margin-bottom: 40px;">&lt;/h4&gt;</div>
 
             <div class="social-grid">
-                <a href="#" class="social-link" style="animation-delay: 0s;">
-                    <svg viewBox="0 0 150 150" style="position: absolute; width: 100%; height: 100%;">
-                        <circle cx="75" cy="75" r="70" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.2"/>
-                        <circle cx="75" cy="75" r="65" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.1"/>
-                    </svg>
+                <a href="#" class="social-link">
                     <span class="social-code">&lt;&gt;</span>
                     <span class="social-name">LinkedIn</span>
+                    <span class="social-code">&lt;/&gt
                     <span class="social-code">&lt;/&gt;</span>
                 </a>
-                <a href="#" class="social-link" style="animation-delay: 0.1s;">
-                    <svg viewBox="0 0 150 150" style="position: absolute; width: 100%; height: 100%;">
-                        <circle cx="75" cy="75" r="70" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.2"/>
-                        <circle cx="75" cy="75" r="65" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.1"/>
-                    </svg>
+                <a href="#" class="social-link">
                     <span class="social-code">&lt;&gt;</span>
                     <span class="social-name">GitHub</span>
                     <span class="social-code">&lt;/&gt;</span>
                 </a>
-                <a href="#" class="social-link" style="animation-delay: 0.2s;">
-                    <svg viewBox="0 0 150 150" style="position: absolute; width: 100%; height: 100%;">
-                        <circle cx="75" cy="75" r="70" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.2"/>
-                        <circle cx="75" cy="75" r="65" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.1"/>
-                    </svg>
+                <a href="#" class="social-link">
                     <span class="social-code">&lt;&gt;</span>
                     <span class="social-name">Twitter</span>
                     <span class="social-code">&lt;/&gt;</span>
                 </a>
-                <a href="#" class="social-link" style="animation-delay: 0.3s;">
-                    <svg viewBox="0 0 150 150" style="position: absolute; width: 100%; height: 100%;">
-                        <circle cx="75" cy="75" r="70" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.2"/>
-                        <circle cx="75" cy="75" r="65" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.1"/>
-                    </svg>
+                <a href="#" class="social-link">
                     <span class="social-code">&lt;&gt;</span>
                     <span class="social-name">Gmail</span>
                     <span class="social-code">&lt;/&gt;</span>
