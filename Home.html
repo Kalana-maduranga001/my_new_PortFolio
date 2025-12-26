@@ -183,7 +183,7 @@
         .chatbot-button {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
+            background: linear-gradient(135deg, #00d9ff 0%);
             border: 2px solid #00d9ff;
             border-radius: 50%;
             cursor: pointer;
@@ -234,8 +234,8 @@
         }
 
         .chatbot-header {
-            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
-            color: white;
+            background: linear-gradient(135deg, #00d9ff 0%);
+            color: rgb(22, 4, 4);
             padding: 20px;
             border-radius: 13px 13px 0 0;
             display: flex;
@@ -252,7 +252,7 @@
         .chatbot-header .close-btn {
             background: none;
             border: none;
-            color: white;
+            color:black;
             font-size: 24px;
             cursor: pointer;
             transition: transform 0.2s;
@@ -333,9 +333,9 @@
         }
 
         .chatbot-input button {
-            background: linear-gradient(135deg, #00d9ff 0%, #ff006e 100%);
+            background: linear-gradient(135deg, #00d9ff 0%);
             border: none;
-            color: white;
+            color:black;
             padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
@@ -1901,6 +1901,9 @@
         });
 
         // Chatbot functionality
+        const CHAT_API_URL = ''; // e.g. 'https://your-api.example.com/chat' - set your endpoint here
+        const CHAT_API_KEY = ''; // optional API key if your endpoint requires it
+
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const closeChatbot = document.getElementById('closeChatbot');
@@ -1918,7 +1921,7 @@
             chatbotWindow.classList.remove('active');
         });
 
-        // Sample responses for the chatbot
+        // Sample fallback responses for when the API is unavailable
         const botResponses = {
             'hello': 'Hi there! 👋 How can I help you?',
             'hi': 'Hey! What can I do for you?',
@@ -1930,16 +1933,11 @@
             'default': 'That\'s interesting! Can you tell me more about what you\'d like to know?'
         };
 
-        // Get bot response
         function getBotResponse(userMessage) {
             const message = userMessage.toLowerCase().trim();
-            
             for (let key in botResponses) {
-                if (message.includes(key)) {
-                    return botResponses[key];
-                }
+                if (message.includes(key)) return botResponses[key];
             }
-            
             return botResponses['default'];
         }
 
@@ -1947,33 +1945,162 @@
         function addMessage(text, isUser) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-            
+
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             contentDiv.textContent = text;
-            
+
             messageDiv.appendChild(contentDiv);
             chatMessages.appendChild(messageDiv);
-            
+
             // Auto-scroll to bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Send message
-        function sendMessage() {
+        // Show a temporary typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot typing';
+            typingDiv.id = 'typingIndicator';
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = '...';
+            typingDiv.appendChild(contentDiv);
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        // Call external chat API (expects JSON { reply: '...' })
+        async function callChatAPI(userMessage) {
+            if (!CHAT_API_URL) throw new Error('CHAT_API_URL not set');
+
+            // include extracted portfolio context to give the API page-specific info
+            const context = extractPortfolioContext();
+            const body = { message: userMessage, context };
+
+            const headers = { 'Content-Type': 'application/json' };
+            if (CHAT_API_KEY) headers['Authorization'] = `Bearer ${CHAT_API_KEY}`;
+
+            const resp = await fetch(CHAT_API_URL, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(body)
+            });
+
+            if (!resp.ok) {
+                const text = await resp.text();
+                throw new Error(`API error: ${resp.status} ${text}`);
+            }
+
+            const data = await resp.json();
+            // Support different response shapes
+            if (data.reply) return data.reply;
+            if (data.message) return data.message;
+            // If API returns array of messages
+            if (Array.isArray(data) && data.length) return data[0].reply || data[0].message || JSON.stringify(data[0]);
+            return JSON.stringify(data);
+        }
+
+        // Extract portfolio content from the page to provide richer context to the AI
+        function extractPortfolioContext() {
+            const parts = [];
+
+            // Hero / brand
+            const hero = document.querySelector('.hero');
+            if (hero) parts.push(hero.innerText.trim());
+
+            // Navigation labels
+            const navLinks = Array.from(document.querySelectorAll('nav .nav-links a')).map(a => a.textContent.trim()).filter(Boolean);
+            if (navLinks.length) parts.push('Nav: ' + navLinks.join(', '));
+
+            // Project / services / about sections if present
+            ['projects', 'services', 'about', 'contact', 'case-studies', 'testimonials'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) parts.push(id + ': ' + el.innerText.trim());
+            });
+
+            // Fallback: collect meaningful headings and project items
+            const headings = Array.from(document.querySelectorAll('h1,h2,h3')).slice(0, 20).map(h => h.textContent.trim());
+            if (headings.length) parts.push('Headings: ' + headings.join(' | '));
+
+            // Projects list detection (common patterns)
+            const projectEls = Array.from(document.querySelectorAll('.project, .card, .work-item')).slice(0, 20);
+            if (projectEls.length) {
+                const projects = projectEls.map(p => p.innerText.trim().split('\n').slice(0,3).join(' - '));
+                parts.push('Projects: ' + projects.join(' || '));
+            }
+
+            // Keep the context reasonably small
+            return parts.join('\n\n').slice(0, 3000);
+        }
+
+        // Local portfolio analyzer used as a fallback when API is not available
+        function analyzePortfolioLocally() {
+            const context = extractPortfolioContext();
+
+            // Basic heuristics-based analysis to emulate an "AI-like" response
+            const analysis = [];
+            if (/3d|3d design|interactive|animation/i.test(context)) {
+                analysis.push('Strength: Clear focus on 3D and interactive experiences.');
+            } else {
+                analysis.push('Suggestion: Consider highlighting 3D or interactive projects more prominently.');
+            }
+
+            if (/projects|portfolio|work/i.test(context)) {
+                analysis.push('Structure: Portfolio contains project entries — consider adding short case study summaries for each (challenge, approach, results).');
+            } else {
+                analysis.push('Suggestion: Add a dedicated Projects/Portfolio section with thumbnails and short descriptions.');
+            }
+
+            // Check calls to action
+            if (/contact|quote|collaborate/i.test(context)) {
+                analysis.push('Accessibility: Contact/CTA present — good for conversions.');
+            } else {
+                analysis.push('Suggestion: Add clear CTAs like "Contact" or "Hire me" on key pages.');
+            }
+
+            // Extract stylistic notes
+            if (/dark|neon|cyber|glow/i.test(document.body.innerHTML)) {
+                analysis.push('Visual: Bold neon/dark aesthetic — works well for creative portfolios but ensure readability on small screens.');
+            }
+
+            // Provide short actionable recommendations
+            analysis.push('Actions: (1) Add 1-2 short case studies. (2) Add tags/skills per project. (3) Add testimonials or metrics if available.');
+
+            return analysis.join('\n\n');
+        }
+
+        // Send message (tries API, falls back to local responses)
+        async function sendMessage() {
             const message = userInput.value.trim();
-            
             if (message === '') return;
-            
+
             // Add user message
             addMessage(message, true);
             userInput.value = '';
-            
-            // Simulate bot typing delay
-            setTimeout(() => {
-                const response = getBotResponse(message);
-                addMessage(response, false);
-            }, 500);
+
+            // Show typing
+            showTypingIndicator();
+
+            // Try calling API, fallback to local logic on error
+            try {
+                const reply = await callChatAPI(message);
+                removeTypingIndicator();
+                addMessage(reply, false);
+            } catch (err) {
+                console.warn('Chat API failed, using fallback:', err);
+                removeTypingIndicator();
+                // small delay to feel natural
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response, false);
+                }, 400);
+            }
         }
 
         // Send on button click
@@ -1981,9 +2108,7 @@
 
         // Send on Enter key
         userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') sendMessage();
         });
     </script>
 </body>
