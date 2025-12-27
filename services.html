@@ -305,10 +305,11 @@
             justify-content: center;
             position: relative;
             transition: transform 0.6s ease;
+            transform: none !important;
         }
 
         .project-card:hover .project-image-wrapper {
-            transform: scale(1.05) rotateZ(5deg);
+            transform: scale(1.05) rotateZ(5deg) !important;
         }
 
         .project-image-wrapper::before {
@@ -1344,7 +1345,6 @@
                     <div class="services-tech-stack services-center">
                         <span>JavaFX</span><span>Hibernate</span><span>MySQL</span><span>Maven</span><span>JUnit</span>
                     </div>
-                    <span class="project-role">POS Software</span>
                     <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
                 </div>
             </div>
@@ -1569,21 +1569,14 @@
             });
         });
 
-        // Smooth parallax scroll effect
+        // Smooth parallax scroll effect - DISABLED for project images
         let ticking = false;
         
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
-                    const parallaxElements = document.querySelectorAll('.project-image-wrapper');
-                    
-                    parallaxElements.forEach((el, index) => {
-                        const speed = 0.1 + (index * 0.05);
-                        const yPos = -(scrolled * speed);
-                        el.style.transform = `translateY(${yPos}px)`;
-                    });
-                    
+                    // Parallax effect disabled for project-image-wrapper
+                    // to keep circles in fixed position
                     ticking = false;
                 });
                 ticking = true;
