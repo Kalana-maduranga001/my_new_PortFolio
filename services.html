@@ -217,62 +217,6 @@
             margin-bottom: 20px;
         }
 
-        /* ASCII Art Decoration */
-        .ascii-art-container {
-            position: relative;
-            width: 100%;
-            margin: 60px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .ascii-art {
-            font-family: "Courier Prime", monospace;
-            font-size: 6px;
-            line-height: 1;
-            white-space: pre;
-            color: #00d9ff;
-            text-align: center;
-            animation: colorGlow 4s ease-in-out infinite;
-            text-shadow: 0 0 10px #00d9ff,
-                         0 0 20px #00d9ff,
-                         0 0 30px #00d9ff;
-        }
-
-        @keyframes colorGlow {
-            0% {
-                color: #00d9ff;
-                text-shadow: 0 0 10px #00d9ff,
-                             0 0 20px #00d9ff,
-                             0 0 30px #00d9ff;
-            }
-            25% {
-                color: #00f5c9;
-                text-shadow: 0 0 10px #00f5c9,
-                             0 0 20px #00f5c9,
-                             0 0 30px #00f5c9;
-            }
-            50% {
-                color: #0099ff;
-                text-shadow: 0 0 10px #0099ff,
-                             0 0 20px #0099ff,
-                             0 0 30px #0099ff;
-            }
-            75% {
-                color: #00f5c9;
-                text-shadow: 0 0 10px #00f5c9,
-                             0 0 20px #00f5c9,
-                             0 0 30px #00f5c9;
-            }
-            100% {
-                color: #00d9ff;
-                text-shadow: 0 0 10px #00d9ff,
-                             0 0 20px #00d9ff,
-                             0 0 30px #00d9ff;
-            }
-        }
-
         /* Portfolio Section */
         .portfolio-section {
             margin-bottom: 100px;
@@ -407,6 +351,37 @@
             padding: 8px 20px;
             border: 1px solid #00d9ff;
             border-radius: 20px;
+        }
+
+        .service-list {
+            margin: 15px 0;
+            padding-left: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .service-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .services-tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .services-tech-stack span {
+            padding: 6px 14px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            font-size: 12px;
+            color: #00d9ff;
+        }
+
+        .services-center {
+            justify-content: center;
         }
 
         /* Download Button with Orbiting Circles */
@@ -602,8 +577,6 @@
             }
         }
 
-
-
         /* Press Section */
         .press-section {
             margin-bottom: 100px;
@@ -682,6 +655,113 @@
 
         .press-item:hover .press-arrow {
             transform: translateX(10px);
+        }
+
+        /* Certificate Image Preview */
+        .press-item {
+            position: relative;
+        }
+
+        .certificate-preview {
+            position: absolute;
+            right: -450px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.7) rotateY(-15deg);
+            width: 400px;
+            height: 280px;
+            border: 3px solid #00d9ff;
+            border-radius: 15px;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(10, 14, 26, 0.98);
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.6),
+                        0 10px 50px rgba(0, 0, 0, 0.5),
+                        inset 0 0 30px rgba(0, 217, 255, 0.1);
+            z-index: 10;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .certificate-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .press-item:hover .certificate-preview {
+            opacity: 1;
+            transform: translateY(-50%) scale(1) rotateY(0deg);
+            right: -480px;
+            animation: certificateFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes certificateFloat {
+            0%, 100% {
+                transform: translateY(-50%) scale(1) rotateY(0deg) rotateX(0deg);
+            }
+            25% {
+                transform: translateY(-52%) scale(1.02) rotateY(2deg) rotateX(-1deg);
+            }
+            50% {
+                transform: translateY(-48%) scale(1) rotateY(-2deg) rotateX(1deg);
+            }
+            75% {
+                transform: translateY(-52%) scale(1.02) rotateY(2deg) rotateX(-1deg);
+            }
+        }
+
+        .certificate-preview::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border: 2px solid rgba(0, 217, 255, 0.4);
+            border-radius: 15px;
+            pointer-events: none;
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 217, 255, 0.4),
+                            inset 0 0 20px rgba(0, 217, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 217, 255, 0.8),
+                            inset 0 0 30px rgba(0, 217, 255, 0.4);
+            }
+        }
+
+        .certificate-preview::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(0, 217, 255, 0.1) 50%, 
+                transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .press-item:hover .certificate-preview::after {
+            opacity: 1;
+            animation: shine 2s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .certificate-preview:hover img {
+            transform: scale(1.05);
         }
 
         /* Connect Section */
@@ -909,35 +989,10 @@
             </div>
         </header>
 
-        <!-- ASCII Art Decoration -->
-        <div class="ascii-art-container">
-            <pre class="ascii-art">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣠⣼⠀⠀⠀⠀⠈⠙⡆⢤⠀⠀⠀⠀⠀⣷⣄⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣴⣾⣿⣿⣿⣿⣿⣿⡿⢿⡷⡆⠀⣵⣶⣿⣾⣷⣸⣄⠀⠀⠀⢰⠾⡿⢿⣿⣿⣿⣿⣿⣿⣷⣦⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣾⣿⣿⣿⣿⣽⣿⣿⣿⣿⡟⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⣻⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⠐⣻⣿⣿⡏⢹⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣟⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⡄⠀⠀⠀⠀⢻⣿⣿⣷⡌⠸⣿⣾⢿⡧⠀⠀⠀⠀⠀⢀⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣠⣾⡿⢛⣵⣾⣿⣿⣿⣿⣿⣯⣾⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⢻⣿⣿⣿⣶⣌⠙⠋⠁⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣷⣽⣿⣿⣿⣿⣿⣷⣮⡙⢿⣿⣆⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣰⡿⢋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⣿⣧⡀⠀⠀⠀⣠⣽⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⢀⣼⣿⣿⣿⣿⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣝⢿⣇⠀⠀⠀⠀
-⠀⠀⠀⣴⣯⣴⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⡿⢫⣾⣿⣿⣿⣿⣿⣿⡦⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⢴⣿⣿⣿⣿⣿⣿⣷⣝⢿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣧⣽⣦⠀⠀⠀
-⠀⠀⣼⣿⣿⣿⠟⢁⣴⣿⡿⢿⣿⣿⡿⠛⣰⣿⠟⣻⣿⣿⣿⣿⣿⣿⣿⡿⠿⠋⢿⣿⣿⣿⣿⣿⠻⢿⣿⣿⣿⣿⣿⣿⣿⣟⠻⣿⣆⠙⢿⣿⣿⡿⢿⣿⣦⡈⠻⣿⣿⣿⣧⠀⠀
-⠀⡼⣻⣿⡟⢁⣴⡿⠋⠁⢀⣼⣿⠟⠁⣰⣿⠁⢰⣿⣿⣿⡿⣿⣿⣿⠿⠀⣠⣤⣾⣿⣿⣿⣿⣿⠀⠀⠽⣿⣿⣿⢿⣿⣿⣿⡆⠈⢿⣆⠀⠻⣿⣧⡀⠈⠙⢿⣦⡈⠻⣿⣟⢧⠀
-⠀⣱⣿⠋⢠⡾⠋⠀⢀⣠⡾⠟⠁⠀⢀⣿⠟⠀⢸⣿⠙⣿⠀⠈⢿⠏⠀⣾⣿⠛⣻⣿⣿⣿⣿⣯⣤⠀⠀⠹⡿⠁⠀⣿⠏⣿⡇⠀⠹⣿⡄⠀⠈⠻⢷⣄⡀⠀⠙⢷⣄⠙⣿⣎⠂
-⢠⣿⠏⠀⣏⢀⣠⠴⠛⠉⠀⠀⠀⠀⠈⠁⠀⠀⠀⠛⠀⠈⠀⠀⠀⠀⠈⢿⣿⣼⣿⣿⣿⣿⢿⣿⣿⣶⠀⠀⠀⠀⠀⠁⠀⠛⠀⠀⠀⠀⠁⠀⠀⠀⠀⠉⠛⠦⣄⣀⣹⠀⠹⣿⡄
-⣼⡟⠀⣼⣿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠛⠋⠁⠀⢹⣿⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣧⠀⢻⣷
-⣿⠃⢰⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⣶⣦⣤⠀⠀⣿⡿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡆⠘⣿
-⣿⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡟⠁⠈⢻⣷⣸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⣿
-⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣷⣀⣀⣸⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⣿
-⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⣿⡿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡇
-⠈⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠁
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣴⡿⣷⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠴⡿⣟⣿⣿⣶⡶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
-        </div>
-
         <!-- Portfolio Section -->
         <section class="portfolio-section">
             <div class="section-title-tag">&lt;h2&gt;</div>
-            <h2 class="section-title">My Services</h2>
+            <h2 class="section-title">About Services</h2>
             <div class="section-title-tag">&lt;/h2&gt;</div>
 
             <!-- Project 1 -->
@@ -1022,7 +1077,7 @@
         <!-- Press Section -->
        <section class="press-section">
     <div class="section-title-tag">&lt;h3&gt;</div>
-    <h2 class="section-title">My Certificates</h2>
+    <h2 class="section-title">My Qulification and Certificates</h2>
     <div class="section-title-tag">&lt;/h3&gt;</div>
 
     <ul class="press-list">
@@ -1033,6 +1088,9 @@
                 <p class="press-date">November 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/devops foundation.png" alt="DevOps Foundations Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1041,6 +1099,9 @@
                 <p class="press-date">November 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/DevOps Foundations-Continuous Delivery and Continuous Integration.png" alt="CI/CD Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1049,6 +1110,9 @@
                 <p class="press-date">November 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/DevOps Foundations Incident Management_PMI.png" alt="Incident Management Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1057,6 +1121,9 @@
                 <p class="press-date">August 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/CodeRally 6.0 Competitive Programming Hackathon.png" alt="CodeRally 6.0 Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1065,6 +1132,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Cloud Essentials Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1073,6 +1143,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Advanced Testing Practices Using AWS DevOps Tools.png" alt="AWS Testing Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1081,6 +1154,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Badge Assessment Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1089,6 +1165,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/DevOps Engineer Learning Plan.png" alt="DevOps Learning Plan Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1097,6 +1176,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Getting into the Serverless Mindset.png" alt="Serverless Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1105,6 +1187,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Introduction to Git.png" alt="Git Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1113,6 +1198,9 @@
                 <p class="press-date">May 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Introduction to Observability.png" alt="Observability Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1121,6 +1209,9 @@
                 <p class="press-date">April 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Shell Scripting Begineers.png" alt="Shell Scripting Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1129,6 +1220,9 @@
                 <p class="press-date">April 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/TechXplore 1.0.png" alt="TechXplore Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1137,6 +1231,9 @@
                 <p class="press-date">March 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Skill Up 3.0.png" alt="Skill Up Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1145,6 +1242,9 @@
                 <p class="press-date">February 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Jenkins.png" alt="Jenkins Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1153,6 +1253,9 @@
                 <p class="press-date">February 2025</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/OCI Certification.png" alt="Oracle Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1161,6 +1264,9 @@
                 <p class="press-date">December 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/AWS Cloud Practitioner Essentials Certification.png" alt="AWS Practitioner Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1169,6 +1275,9 @@
                 <p class="press-date">December 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/AWS Command Line Interface (CLI) Basics.png" alt="AWS CLI Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1177,6 +1286,9 @@
                 <p class="press-date">December 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/AWS Educate Introduction to Cloud 101.png" alt="AWS Cloud 101 Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1185,6 +1297,9 @@
                 <p class="press-date">December 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Docker Basics for DevOps certificate.png" alt="Docker Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1193,6 +1308,9 @@
                 <p class="press-date">December 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Getting Started with DevOps on AWS.png" alt="DevOps AWS Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1201,6 +1319,9 @@
                 <p class="press-date">October 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Microsoft Learn Student Ambassador.png" alt="Azure Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1209,6 +1330,9 @@
                 <p class="press-date">September 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/CodeRally5.0 hackathon, hosted by IEEE Computer Society Student Branch Chapter of IIT.png" alt="CodeRally 5.0 Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1217,6 +1341,9 @@
                 <p class="press-date">September 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1225,6 +1352,9 @@
                 <p class="press-date">September 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Problem Solving Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1233,6 +1363,9 @@
                 <p class="press-date">August 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1241,6 +1374,9 @@
                 <p class="press-date">June 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Cloud Computing Foundation.png" alt="Cloud Computing Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1249,6 +1385,9 @@
                 <p class="press-date">June 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Intro Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1257,6 +1396,9 @@
                 <p class="press-date">June 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Intro Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1265,6 +1407,9 @@
                 <p class="press-date">February 2024</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="ISC2 Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1273,6 +1418,9 @@
                 <p class="press-date">December 2023</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Programming Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1281,6 +1429,9 @@
                 <p class="press-date">December 2023</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Postman Certificate">
+            </div>
         </li>
 
         <li class="press-item">
@@ -1289,6 +1440,10 @@
                 <p class="press-date">December 2023</p>
             </div>
             <span class="press-arrow">→</span>
+            <div class="certificate-preview">
+                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Programming Certificate">
+            </div>
+        </li></div>
         </li>
 
     </ul>
