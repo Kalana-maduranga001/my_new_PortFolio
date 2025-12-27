@@ -67,7 +67,6 @@
             }
         }
 
-        /* Animated Border Frame */
         .frame-border {
             position: fixed;
             inset: 0;
@@ -118,7 +117,6 @@
             right: 0;
         }
 
-        /* Corner Decorations */
         .corner {
             position: fixed;
             width: 80px;
@@ -173,7 +171,6 @@
             height: 3px;
         }
 
-        /* Code Tags */
         .code-tag {
             font-family: "Courier Prime", monospace;
             color: rgba(0, 217, 255, 0.6);
@@ -188,7 +185,6 @@
             position: relative;
         }
 
-        /* Header Section */
         .header {
             text-align: center;
             margin-bottom: 80px;
@@ -217,7 +213,6 @@
             margin-bottom: 20px;
         }
 
-        /* Portfolio Section */
         .portfolio-section {
             margin-bottom: 100px;
         }
@@ -238,7 +233,6 @@
             margin-bottom: 10px;
         }
 
-        /* Project Card */
         .project-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -384,16 +378,14 @@
             justify-content: center;
         }
 
-        /* Download Button with Orbiting Circles */
         .download-btn-wrapper {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: relative;
             width: 200px;
             height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 40px auto 0;
         }
 
         .download-btn {
@@ -419,7 +411,6 @@
             transform: scale(1.1);
         }
 
-        /* Orbital Circle Lines - Partial arcs that follow dots */
         .orbit-circle {
             position: absolute;
             border-radius: 50%;
@@ -494,7 +485,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Orbiting Dots */
         .orbit-dot {
             position: absolute;
             width: 8px;
@@ -577,7 +567,7 @@
             }
         }
 
-        /* Press Section */
+        /* ===== SCROLL-DRIVEN ANIMATIONS ===== */
         .press-section {
             margin-bottom: 100px;
         }
@@ -586,6 +576,19 @@
             list-style: none;
         }
 
+        /* Smooth fade-up animation for all scrollable elements */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply scroll animation to press items */
         .press-item {
             background: rgba(0, 217, 255, 0.05);
             border: 2px solid rgba(0, 217, 255, 0.3);
@@ -599,6 +602,25 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            
+            /* Scroll-driven animation */
+            animation: fadeUp linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+
+        /* Apply scroll animation to project cards */
+        .project-card {
+            animation: fadeUp linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
+        }
+
+        /* Apply scroll animation to section titles */
+        .section-title {
+            animation: fadeUp linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 40%;
         }
 
         .press-item::before {
@@ -655,11 +677,6 @@
 
         .press-item:hover .press-arrow {
             transform: translateX(10px);
-        }
-
-        /* Certificate Image Preview */
-        .press-item {
-            position: relative;
         }
 
         .certificate-preview {
@@ -764,7 +781,6 @@
             transform: scale(1.05);
         }
 
-        /* Connect Section */
         .connect-section {
             text-align: center;
             padding: 60px 40px;
@@ -834,7 +850,6 @@
             font-family: "Orbitron", sans-serif;
         }
 
-        /* Navigation Arrows */
         .nav-arrows {
             display: flex;
             justify-content: space-between;
@@ -885,7 +900,6 @@
             border-radius: 2px;
         }
 
-        /* Back Button */
         .back-button {
             position: fixed;
             top: 30px;
@@ -911,7 +925,6 @@
             box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .main-title {
                 font-size: 42px;
@@ -946,11 +959,14 @@
                 padding: 10px 20px;
                 font-size: 12px;
             }
+
+            .certificate-preview {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Frame Border -->
     <div class="frame-border"></div>
     <div class="frame-left"></div>
     <div class="frame-right"></div>
@@ -960,27 +976,23 @@
     <a href="index.html" class="back-button">← Home</a>
 
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <div class="code-tag-header">//01. &lt;Do you want any services/&gt;</div>
-            <h1 class="main-title">Wellcome Services Page</h1>
+            <h1 class="main-title">Welcome Services Page</h1>
             <h2 class="subtitle">Read me And make a decision</h2>
             <p class="code-tag-header">&lt;p&gt;What Services Do You Want?&lt;/p&gt;</p>
             
             <div class="download-btn-wrapper">
-                <!-- Orbital Circle Lines -->
                 <div class="orbit-circle orbit-circle-1"></div>
                 <div class="orbit-circle orbit-circle-2"></div>
                 <div class="orbit-circle orbit-circle-3"></div>
                 <div class="orbit-circle orbit-circle-4"></div>
                 <div class="orbit-circle orbit-circle-5"></div>
                 
-                <!-- Download Button -->
                 <a href="#" class="download-btn">
                     &lt;Download CV/&gt;
                 </a>
                 
-                <!-- Orbiting Dots -->
                 <span class="orbit-dot orbit-dot-1"></span>
                 <span class="orbit-dot orbit-dot-2"></span>
                 <span class="orbit-dot orbit-dot-3"></span>
@@ -989,17 +1001,81 @@
             </div>
         </header>
 
-        <!-- Portfolio Section -->
         <section class="portfolio-section">
             <div class="section-title-tag">&lt;h2&gt;</div>
             <h2 class="section-title">About Services</h2>
             <div class="section-title-tag">&lt;/h2&gt;</div>
 
-            <!-- Project 1 -->
             <div class="project-card">
                 <div class="project-image">
                     <div class="project-image-wrapper">
-                        <img src="./animation/custom_softwer_image.gif" alt="Project">
+                        <img src="https://i.postimg.cc/prDTPQvG/globe-icon.png" alt="Web Development Icon" style="width: 60%;">
+                    </div>
+                    <p class="project-code">&lt;p&gt;</p>
+                </div>
+                <div class="project-content">
+                    <div class="code-tag" style="margin-bottom: 10px;">&lt;h3&gt;</div>
+                    <h3 class="project-title">Web Development</h3>
+                    <p class="project-description">
+                        Creating modern, responsive websites with fast performance and a neon-inspired UI. 
+                        Crafted with pixel-perfect precision and user experience in mind.
+                    </p>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 15px;">Services offered:</p>
+                    <ul class="service-list">
+                        <li>Responsive design for mobile and desktop</li>
+                        <li>SEO optimization for better search rankings</li>
+                        <li>Neon-style and futuristic UI/UX design</li>
+                    </ul>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 15px 0;">We specialize in:</p>
+                    <ul class="service-list">
+                        <li>Static and dynamic web applications</li>
+                        <li>Integration with third-party APIs</li>
+                        <li>Performance tuning and accessibility</li>
+                    </ul>
+                    <div class="services-tech-stack">
+                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span><span>Node.js</span>
+                    </div>
+                    <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="https://i.postimg.cc/SKL5zXh5/brain-icon.png" alt="System Architecture Icon" style="width: 60%;">
+                    </div>
+                    <p class="project-code">&lt;p&gt;</p>
+                </div>
+                <div class="project-content">
+                    <div class="code-tag" style="margin-bottom: 10px;">&lt;h3&gt;</div>
+                    <h3 class="project-title">System Architecture</h3>
+                    <p class="project-description">
+                        Designing robust backend systems with secure databases, clean MVC architecture, 
+                        and encrypted authentication flows.
+                    </p>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 15px;">Key features include:</p>
+                    <ul class="service-list">
+                        <li>Scalable microservices and API design</li>
+                        <li>Data encryption and secure authentication</li>
+                        <li>Comprehensive logging and monitoring</li>
+                    </ul>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 15px 0;">We deliver:</p>
+                    <ul class="service-list">
+                        <li>Clean, maintainable, and testable code</li>
+                        <li>Optimized database schemas</li>
+                        <li>Best practices for DevOps and CI/CD</li>
+                    </ul>
+                    <div class="services-tech-stack">
+                        <span>Spring Boot</span><span>Docker</span><span>PostgreSQL</span><span>OAuth2</span><span>Jenkins</span>
+                    </div>
+                    <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="./animation/custom_softwer_image.gif" alt="Custom Software">
                     </div>
                     <p class="project-code">&lt;p&gt;</p>
                 </div>
@@ -1011,477 +1087,175 @@
                          designed to be structured, scalable, 
                          and user-friendly for real-world business needs.
                     </p>
-                    <p>Our solutions include:</p>
-                <ul class="service-list">
-                    <li>Custom UI components for enhanced usability</li>
-                    <li>Integration with existing databases and APIs</li>
-                    <li>Robust error handling and logging mechanisms</li>
-                </ul>
-                <p>We ensure:</p>
-                <ul class="service-list">
-                    <li>High performance and reliability</li>
-                    <li>Easy maintenance and updates</li>
-                    <li>Comprehensive user documentation</li>
-                </ul>
-                <div class="services-tech-stack services-center">
-                    <span>JavaFX</span><span>Hibernate</span><span>MySQL</span><span>Maven</span><span>JUnit</span>
-                </div>
-                    <span class="project-role">Pos Software</span>
-                    <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-wrapper">
-                        <img src="https://via.placeholder.com/300" alt="Project">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 15px;">Our solutions include:</p>
+                    <ul class="service-list">
+                        <li>Custom UI components for enhanced usability</li>
+                        <li>Integration with existing databases and APIs</li>
+                        <li>Robust error handling and logging mechanisms</li>
+                    </ul>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 15px 0;">We ensure:</p>
+                    <ul class="service-list">
+                        <li>High performance and reliability</li>
+                        <li>Easy maintenance and updates</li>
+                        <li>Comprehensive user documentation</li>
+                    </ul>
+                    <div class="services-tech-stack services-center">
+                        <span>JavaFX</span><span>Hibernate</span><span>MySQL</span><span>Maven</span><span>JUnit</span>
                     </div>
-                    <p class="project-code">&lt;p&gt;</p>
-                </div>
-                <div class="project-content">
-                    <div class="code-tag" style="margin-bottom: 10px;">&lt;h3&gt;</div>
-                    <h3 class="project-title">E-Commerce Platform</h3>
-                    <p class="project-description">
-                        Modern web application with responsive design, shopping cart functionality, 
-                        payment gateway integration, and admin dashboard. Built with React and Node.js 
-                        for optimal performance.
-                    </p>
-                    <span class="project-role">Full Stack Developer</span>
-                    <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-image-wrapper">
-                        <img src="https://via.placeholder.com/300" alt="Project">
-                    </div>
-                    <p class="project-code">&lt;p&gt;</p>
-                </div>
-                <div class="project-content">
-                    <div class="code-tag" style="margin-bottom: 10px;">&lt;h3&gt;</div>
-                    <h3 class="project-title">Database Architecture</h3>
-                    <p class="project-description">
-                        Designed and implemented scalable database systems with optimized queries, 
-                        data encryption, and backup automation. Specialized in PostgreSQL and MySQL 
-                        with focus on security and performance.
-                    </p>
-                    <span class="project-role">Database Analyst</span>
+                    <span class="project-role">POS Software</span>
                     <div class="code-tag" style="margin-top: 10px;">&lt;/p&gt;</div>
                 </div>
             </div>
         </section>
 
-        <!-- Press Section -->
-       <section class="press-section">
-    <div class="section-title-tag">&lt;h3&gt;</div>
-    <h2 class="section-title">My Qulification and Certificates</h2>
-    <div class="section-title-tag">&lt;/h3&gt;</div>
+        <section class="press-section">
+            <div class="section-title-tag">&lt;h3&gt;</div>
+            <h2 class="section-title">My Qualification and Certificates</h2>
+            <div class="section-title-tag">&lt;/h3&gt;</div>
 
-    <ul class="press-list">
+            <ul class="press-list">
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">DevOps Foundations: Site Reliability</h3>
+                        <p class="press-date">November 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/devops foundation.png" alt="DevOps Foundations Certificate">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">DevOps Foundations: Site Reliability</h3>
-                <p class="press-date">November 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/devops foundation.png" alt="DevOps Foundations Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">DevOps Foundations: Continuous Delivery/CI</h3>
+                        <p class="press-date">November 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/DevOps Foundations-Continuous Delivery and Continuous Integration.png" alt="CI/CD Certificate">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">DevOps Foundations: Continuous Delivery / Continuous Integration</h3>
-                <p class="press-date">November 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/DevOps Foundations-Continuous Delivery and Continuous Integration.png" alt="CI/CD Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">DevOps Foundations: Incident Management</h3>
+                        <p class="press-date">November 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/DevOps Foundations Incident Management_PMI.png" alt="Incident Management">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">DevOps Foundations: Incident Management</h3>
-                <p class="press-date">November 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/DevOps Foundations Incident Management_PMI.png" alt="Incident Management Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">CodeRally 6.0 Programming Hackathon</h3>
+                        <p class="press-date">August 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/CodeRally 6.0 Competitive Programming Hackathon.png" alt="CodeRally">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">CodeRally 6.0 Competitive Programming Hackathon</h3>
-                <p class="press-date">August 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/CodeRally 6.0 Competitive Programming Hackathon.png" alt="CodeRally 6.0 Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">AWS Knowledge: Cloud Essentials</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Cloud Essentials">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">AWS Knowledge: Cloud Essentials</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Cloud Essentials Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">AWS DevOps Testing Practices</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/Advanced Testing Practices Using AWS DevOps Tools.png" alt="AWS Testing">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Advanced Testing Practices Using AWS DevOps Tools</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Advanced Testing Practices Using AWS DevOps Tools.png" alt="AWS Testing Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">DevOps Engineer Learning Plan</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/DevOps Engineer Learning Plan.png" alt="Learning Plan">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Cloud Essentials Knowledge Badge Assessment</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Badge Assessment Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">Getting into the Serverless Mindset</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/Getting into the Serverless Mindset.png" alt="Serverless">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">DevOps Engineer Learning Plan</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/DevOps Engineer Learning Plan.png" alt="DevOps Learning Plan Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">Introduction to Git</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/Introduction to Git.png" alt="Git">
+                    </div>
+                </li>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Getting into the Serverless Mindset</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Getting into the Serverless Mindset.png" alt="Serverless Certificate">
-            </div>
-        </li>
+                <li class="press-item">
+                    <div class="press-content">
+                        <h3 class="press-name">Introduction to Observability</h3>
+                        <p class="press-date">May 2025</p>
+                    </div>
+                    <span class="press-arrow">→</span>
+                    <div class="certificate-preview">
+                        <img src="portfolioSetificat/Introduction to Observability.png" alt="Observability">
+                    </div>
+                </li>
+            </ul>
+        </section>
 
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Introduction to Git</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Introduction to Git.png" alt="Git Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Introduction to Observability</h3>
-                <p class="press-date">May 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Introduction to Observability.png" alt="Observability Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Shell Script for Beginners</h3>
-                <p class="press-date">April 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Shell Scripting Begineers.png" alt="Shell Scripting Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">TechXplore 1.0</h3>
-                <p class="press-date">April 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/TechXplore 1.0.png" alt="TechXplore Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Skill Up 3.0</h3>
-                <p class="press-date">March 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Skill Up 3.0.png" alt="Skill Up Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Jenkins</h3>
-                <p class="press-date">February 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Jenkins.png" alt="Jenkins Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Oracle Certified Foundations Associate</h3>
-                <p class="press-date">February 2025</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/OCI Certification.png" alt="Oracle Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">AWS Cloud Practitioner Essentials</h3>
-                <p class="press-date">December 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/AWS Cloud Practitioner Essentials Certification.png" alt="AWS Practitioner Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">AWS Command Line Interface (CLI) Basics</h3>
-                <p class="press-date">December 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/AWS Command Line Interface (CLI) Basics.png" alt="AWS CLI Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">AWS Educate Introduction to Cloud 101</h3>
-                <p class="press-date">December 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/AWS Educate Introduction to Cloud 101.png" alt="AWS Cloud 101 Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Docker Training Course for the Absolute Beginner</h3>
-                <p class="press-date">December 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Docker Basics for DevOps certificate.png" alt="Docker Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Getting Started with DevOps on AWS</h3>
-                <p class="press-date">December 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Getting Started with DevOps on AWS.png" alt="DevOps AWS Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Deploying Microsoft Azure Solutions</h3>
-                <p class="press-date">October 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Microsoft Learn Student Ambassador.png" alt="Azure Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">CodeRally 5.0 Hackathon</h3>
-                <p class="press-date">September 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/CodeRally5.0 hackathon, hosted by IEEE Computer Society Student Branch Chapter of IIT.png" alt="CodeRally 5.0 Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">HackerRank Python (Basic)</h3>
-                <p class="press-date">September 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Problem Solving (Basic)</h3>
-                <p class="press-date">September 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Problem Solving Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">HackerRank Java (Basic)</h3>
-                <p class="press-date">August 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Cloud Computing Foundations</h3>
-                <p class="press-date">June 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Cloud Computing Foundation.png" alt="Cloud Computing Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Introduction to Java</h3>
-                <p class="press-date">June 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Intro Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Introduction to Python</h3>
-                <p class="press-date">June 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Intro Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">ISC2 Candidate</h3>
-                <p class="press-date">February 2024</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="ISC2 Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Java Programming</h3>
-                <p class="press-date">December 2023</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Java Programming Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Postman API Fundamentals Student Expert</h3>
-                <p class="press-date">December 2023</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Postman Certificate">
-            </div>
-        </li>
-
-        <li class="press-item">
-            <div class="press-content">
-                <h3 class="press-name">Programming Using Python</h3>
-                <p class="press-date">December 2023</p>
-            </div>
-            <span class="press-arrow">→</span>
-            <div class="certificate-preview">
-                <img src="portfolioSetificat/Meta and Coursera course certificate.png" alt="Python Programming Certificate">
-            </div>
-        </li></div>
-        </li>
-
-    </ul>
-</section>
-
-
-        <!-- Connect Section -->
         <section class="connect-section">
             <div class="code-tag" style="position: relative; margin-bottom: 20px;">&lt;h4&gt;</div>
             <h2 class="connect-title">Achievements & Badges</h2>
             <div class="code-tag" style="position: relative; margin-bottom: 40px;">&lt;/h4&gt;</div>
 
-           <div class="social-grid">
-    <a href="#" class="social-link">
-        <span class="social-code">&lt;&gt;</span>
-        <span class="social-name">Best Problem Solver</span>
-        <span class="social-code">&lt;/&gt;</span>
-    </a>
+            <div class="social-grid">
+                <a href="#" class="social-link">
+                    <span class="social-code">&lt;&gt;</span>
+                    <span class="social-name">Best Problem Solver</span>
+                    <span class="social-code">&lt;/&gt;</span>
+                </a>
 
-    <a href="#" class="social-link">
-        <span class="social-code">&lt;&gt;</span>
-        <span class="social-name">Best Logic Breaker</span>
-        <span class="social-code">&lt;/&gt;</span>
-    </a>
+                <a href="#" class="social-link">
+                    <span class="social-code">&lt;&gt;</span>
+                    <span class="social-name">Best Logic Breaker</span>
+                    <span class="social-code">&lt;/&gt;</span>
+                </a>
 
-    <a href="#" class="social-link">
-        <span class="social-code">&lt;&gt;</span>
-        <span class="social-name">All-Rounder Knowledge Base</span>
-        <span class="social-code">&lt;/&gt;</span>
-    </a>
+                <a href="#" class="social-link">
+                    <span class="social-code">&lt;&gt;</span>
+                    <span class="social-name">All-Rounder Knowledge</span>
+                    <span class="social-code">&lt;/&gt;</span>
+                </a>
 
-    <a href="#" class="social-link">
-        <span class="social-code">&lt;&gt;</span>
-        <span class="social-name">Golden Discipline</span>
-        <span class="social-code">&lt;/&gt;</span>
-    </a>
-</div>
-
+                <a href="#" class="social-link">
+                    <span class="social-code">&lt;&gt;</span>
+                    <span class="social-name">Golden Discipline</span>
+                    <span class="social-code">&lt;/&gt;</span>
+                </a>
+            </div>
 
             <div class="nav-arrows">
                 <div class="nav-arrow">‹</div>
