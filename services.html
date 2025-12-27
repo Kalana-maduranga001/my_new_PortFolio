@@ -801,6 +801,22 @@
             gap: 40px;
             flex-wrap: wrap;
             margin-top: 60px;
+            position: relative;
+        }
+
+        /* Animation for badges appearing one by one */
+        @keyframes badgeAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .social-link {
@@ -817,6 +833,25 @@
             transition: all 0.4s ease;
             background: rgba(10, 14, 26, 0.8);
             position: relative;
+            opacity: 0;
+            animation: badgeAppear 0.6s ease-out forwards;
+        }
+
+        /* Stagger animation delays for each badge */
+        .social-link:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .social-link:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .social-link:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        .social-link:nth-child(4) {
+            animation-delay: 2.4s;
         }
 
         .social-link::before {
@@ -856,6 +891,30 @@
             align-items: center;
             margin-top: 60px;
             padding: 0 40px;
+            position: relative;
+        }
+
+        /* Animation for arrows moving apart */
+        @keyframes arrowMoveLeft {
+            0% {
+                transform: translateX(0);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes arrowMoveRight {
+            0% {
+                transform: translateX(0);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .nav-arrow {
@@ -871,6 +930,15 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: rgba(10, 14, 26, 0.8);
+            opacity: 0;
+        }
+
+        .nav-arrow:first-child {
+            animation: arrowMoveLeft 0.8s ease-out 0.3s forwards;
+        }
+
+        .nav-arrow:last-child {
+            animation: arrowMoveRight 0.8s ease-out 0.3s forwards;
         }
 
         .nav-arrow:hover {
@@ -886,6 +954,7 @@
             margin: 0 30px;
             position: relative;
             border-radius: 2px;
+            overflow: hidden;
         }
 
         .progress-bar::after {
@@ -894,10 +963,20 @@
             left: 0;
             top: 0;
             height: 100%;
-            width: 33%;
+            width: 0%;
             background: #00d9ff;
             box-shadow: 0 0 10px #00d9ff;
             border-radius: 2px;
+            animation: progressGrow 3s ease-out 0.3s forwards;
+        }
+
+        @keyframes progressGrow {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
         }
 
         .back-button {
