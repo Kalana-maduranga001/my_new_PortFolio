@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+</style>
+</head>
+<body>
+    <div class="frame-border"></div>
+    <div class="frame-left"></div>
+    <div class="frame-right"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+
+    <a href="index.html" class="back-button">← Home</a><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -670,6 +679,7 @@
             margin-left: 0;
             margin-right: auto;
             padding-right: 40px;
+            text-align: right;
         }
 
         .press-item:nth-child(even) {
@@ -677,10 +687,11 @@
             margin-right: 0;
             padding-left: 40px;
             animation-name: slideRightTimeline;
+            text-align: left;
         }
 
-        /* Timeline dot */
-        .press-item::before {
+        /* Timeline dot - repositioned to not conflict with hover */
+        .press-item > .press-content::before {
             content: "";
             position: absolute;
             width: 16px;
@@ -693,16 +704,16 @@
             z-index: 2;
         }
 
-        .press-item:nth-child(odd)::before {
-            right: -32px;
+        .press-item:nth-child(odd) > .press-content::before {
+            right: -72px;
         }
 
-        .press-item:nth-child(even)::before {
-            left: -32px;
+        .press-item:nth-child(even) > .press-content::before {
+            left: -72px;
         }
 
         /* Connecting line from item to center */
-        .press-item::after {
+        .press-item > .press-content::after {
             content: "";
             position: absolute;
             width: 25px;
@@ -711,12 +722,12 @@
             top: 35px;
         }
 
-        .press-item:nth-child(odd)::after {
-            right: -25px;
+        .press-item:nth-child(odd) > .press-content::after {
+            right: -65px;
         }
 
-        .press-item:nth-child(even)::after {
-            left: -25px;
+        .press-item:nth-child(even) > .press-content::after {
+            left: -65px;
         }
 
         .press-item::before {
@@ -729,6 +740,7 @@
             background: rgba(0, 217, 255, 0.1);
             transition: width 0.4s ease;
             z-index: 0;
+            border-radius: 10px;
         }
 
         .press-item:hover::before {
@@ -737,7 +749,6 @@
 
         .press-item:hover {
             border-color: #00d9ff;
-            transform: scale(1.02);
             box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
         }
 
@@ -1155,135 +1166,6 @@
                 font-size: 12px;
             }
         }
-
-        /* ===== TOYFIGHT-STYLE SCROLL ANIMATIONS FOR OTHER SECTIONS ===== */
-        
-        /* Smooth fade-up animation with parallax effect */
-        @keyframes fadeUpParallax {
-            from {
-                opacity: 0;
-                transform: translateY(80px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Fade from side with rotation */
-        @keyframes fadeFromLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px) rotateY(-15deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) rotateY(0deg);
-            }
-        }
-
-        @keyframes fadeFromRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px) rotateY(15deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) rotateY(0deg);
-            }
-        }
-
-        /* Zoom and fade effect */
-        @keyframes zoomFade {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
-        }
-
-        /* Apply animations to header and other sections */
-        .header {
-            animation: fadeUpParallax linear both;
-            animation-timeline: view();
-            animation-range: entry 10% cover 50%;
-        }
-
-        .section-title {
-            animation: zoomFade linear both;
-            animation-timeline: view();
-            animation-range: entry 20% cover 60%;
-            perspective: 1000px;
-        }
-
-        .section-title-tag {
-            animation: fadeUpParallax linear both;
-            animation-timeline: view();
-            animation-range: entry 20% cover 60%;
-        }
-
-        /* Project cards with alternating animations */
-        .project-card {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-
-        .project-card:nth-child(odd) {
-            animation: fadeFromLeft linear both;
-            animation-timeline: view();
-            animation-range: entry 15% cover 50%;
-        }
-
-        .project-card:nth-child(even) {
-            animation: fadeFromRight linear both;
-            animation-timeline: view();
-            animation-range: entry 15% cover 50%;
-        }
-
-        /* Connect section animations */
-        .connect-section {
-            animation: fadeUpParallax linear both;
-            animation-timeline: view();
-            animation-range: entry 20% cover 60%;
-        }
-
-        .connect-title {
-            animation: zoomFade linear both;
-            animation-timeline: view();
-            animation-range: entry 20% cover 60%;
-        }
-
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Parallax effect for background elements */
-        body::after {
-            animation: backgroundPulse linear both;
-            animation-timeline: scroll();
-            animation-range: 0% 100%;
-        }
-
-        @keyframes backgroundPulse {
-            0% {
-                transform: translate(-50%, -50%) scale(0.9);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.9;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(0.9);
-                opacity: 0.6;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1438,7 +1320,6 @@
                         <h3 class="press-name">DevOps Foundations: Site Reliability</h3>
                         <p class="press-date">November 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/devops foundation.png" alt="DevOps Foundations Certificate">
                     </div>
@@ -1449,7 +1330,6 @@
                         <h3 class="press-name">DevOps Foundations: Continuous Delivery/CI</h3>
                         <p class="press-date">November 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/DevOps Foundations-Continuous Delivery and Continuous Integration.png" alt="CI/CD Certificate">
                     </div>
@@ -1460,7 +1340,6 @@
                         <h3 class="press-name">DevOps Foundations: Incident Management</h3>
                         <p class="press-date">November 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/DevOps Foundations Incident Management_PMI.png" alt="Incident Management">
                     </div>
@@ -1471,7 +1350,6 @@
                         <h3 class="press-name">CodeRally 6.0 Programming Hackathon</h3>
                         <p class="press-date">August 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/CodeRally 6.0 Competitive Programming Hackathon.png" alt="CodeRally">
                     </div>
@@ -1482,7 +1360,6 @@
                         <h3 class="press-name">AWS Knowledge: Cloud Essentials</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Cloud Essentials">
                     </div>
@@ -1493,7 +1370,6 @@
                         <h3 class="press-name">AWS DevOps Testing Practices</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/Advanced Testing Practices Using AWS DevOps Tools.png" alt="AWS Testing">
                     </div>
@@ -1504,7 +1380,6 @@
                         <h3 class="press-name">DevOps Engineer Learning Plan</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/DevOps Engineer Learning Plan.png" alt="Learning Plan">
                     </div>
@@ -1515,7 +1390,6 @@
                         <h3 class="press-name">Getting into the Serverless Mindset</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/Getting into the Serverless Mindset.png" alt="Serverless">
                     </div>
@@ -1526,7 +1400,6 @@
                         <h3 class="press-name">Introduction to Git</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/Introduction to Git.png" alt="Git">
                     </div>
@@ -1537,7 +1410,6 @@
                         <h3 class="press-name">Introduction to Observability</h3>
                         <p class="press-date">May 2025</p>
                     </div>
-                    <span class="press-arrow">→</span>
                     <div class="certificate-preview">
                         <img src="portfolioSetificat/Introduction to Observability.png" alt="Observability">
                     </div>
@@ -1683,5 +1555,3 @@
     </script>
 </body>
 </html>
-
-
