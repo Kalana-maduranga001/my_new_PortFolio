@@ -1,13 +1,4 @@
-</style>
-</head>
-<body>
-    <div class="frame-border"></div>
-    <div class="frame-left"></div>
-    <div class="frame-right"></div>
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-
-    <a href="index.html" class="back-button">← Home</a><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -188,7 +179,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 80px 40px;
             position: relative;
@@ -610,12 +601,15 @@
         .press-section {
             margin-bottom: 100px;
             position: relative;
+            overflow: visible;
         }
 
         .press-list {
             list-style: none;
             position: relative;
             padding: 40px 0;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         /* Vertical timeline line */
@@ -690,7 +684,7 @@
             text-align: left;
         }
 
-        /* Timeline dot - repositioned to not conflict with hover */
+        /* Timeline dot */
         .press-item > .press-content::before {
             content: "";
             position: absolute;
@@ -785,12 +779,12 @@
         }
 
         .certificate-preview {
-            position: absolute;
-            right: -450px;
+            position: fixed;
+            right: 40px;
             top: 50%;
-            transform: translateY(-50%) scale(0.7) rotateY(-15deg);
-            width: 400px;
-            height: 280px;
+            transform: translateY(-50%) scale(0.7);
+            width: 380px;
+            height: 270px;
             border: 3px solid #00d9ff;
             border-radius: 15px;
             overflow: hidden;
@@ -801,9 +795,7 @@
             box-shadow: 0 0 40px rgba(0, 217, 255, 0.6),
                         0 10px 50px rgba(0, 0, 0, 0.5),
                         inset 0 0 30px rgba(0, 217, 255, 0.1);
-            z-index: 10;
-            perspective: 1000px;
-            transform-style: preserve-3d;
+            z-index: 1000;
         }
 
         .certificate-preview img {
@@ -815,23 +807,22 @@
 
         .press-item:hover .certificate-preview {
             opacity: 1;
-            transform: translateY(-50%) scale(1) rotateY(0deg);
-            right: -480px;
+            transform: translateY(-50%) scale(1);
             animation: certificateFloat 3s ease-in-out infinite;
         }
 
         @keyframes certificateFloat {
             0%, 100% {
-                transform: translateY(-50%) scale(1) rotateY(0deg) rotateX(0deg);
+                transform: translateY(-50%) scale(1);
             }
             25% {
-                transform: translateY(-52%) scale(1.02) rotateY(2deg) rotateX(-1deg);
+                transform: translateY(-52%) scale(1.02);
             }
             50% {
-                transform: translateY(-48%) scale(1) rotateY(-2deg) rotateX(1deg);
+                transform: translateY(-48%) scale(1);
             }
             75% {
-                transform: translateY(-52%) scale(1.02) rotateY(2deg) rotateX(-1deg);
+                transform: translateY(-52%) scale(1.02);
             }
         }
 
@@ -992,7 +983,6 @@
             position: relative;
         }
 
-        /* Animation for arrows moving apart */
         @keyframes arrowMoveLeft {
             0% {
                 transform: translateX(0);
@@ -1051,12 +1041,6 @@
             pointer-events: none;
         }
 
-        .nav-arrow:hover {
-            background: rgba(0, 217, 255, 0.2);
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
-        }
-
         .progress-bar {
             flex: 1;
             height: 3px;
@@ -1105,6 +1089,12 @@
             box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
         }
 
+        @media (max-width: 1200px) {
+            .certificate-preview {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-title {
                 font-size: 42px;
@@ -1132,7 +1122,6 @@
                 font-size: 11px;
             }
 
-            /* Timeline adjustments for mobile */
             .press-list::before {
                 left: 20px;
             }
@@ -1142,14 +1131,15 @@
                 margin-left: 60px !important;
                 margin-right: 0 !important;
                 padding: 15px 20px !important;
+                text-align: left !important;
             }
 
-            .press-item::before {
+            .press-item > .press-content::before {
                 left: -48px !important;
                 right: auto !important;
             }
 
-            .press-item::after {
+            .press-item > .press-content::after {
                 left: -25px !important;
                 right: auto !important;
             }
@@ -1277,7 +1267,7 @@
             <div class="project-card">
                 <div class="project-image">
                     <div class="project-image-wrapper">
-                        <img src="./animation/custom_softwer_image.gif" alt="Custom Software">
+                        <img src="https://i.postimg.cc/prDTPQvG/globe-icon.png" alt="Custom Software" style="width: 60%;">
                     </div>
                     <p class="project-code">&lt;p&gt;</p>
                 </div>
@@ -1321,7 +1311,7 @@
                         <p class="press-date">November 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/devops foundation.png" alt="DevOps Foundations Certificate">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Certificate" alt="DevOps Foundations Certificate">
                     </div>
                 </li>
 
@@ -1331,7 +1321,7 @@
                         <p class="press-date">November 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/DevOps Foundations-Continuous Delivery and Continuous Integration.png" alt="CI/CD Certificate">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=CI/CD" alt="CI/CD Certificate">
                     </div>
                 </li>
 
@@ -1341,7 +1331,7 @@
                         <p class="press-date">November 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/DevOps Foundations Incident Management_PMI.png" alt="Incident Management">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Incident+Mgmt" alt="Incident Management">
                     </div>
                 </li>
 
@@ -1351,7 +1341,7 @@
                         <p class="press-date">August 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/CodeRally 6.0 Competitive Programming Hackathon.png" alt="CodeRally">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=CodeRally" alt="CodeRally">
                     </div>
                 </li>
 
@@ -1361,7 +1351,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/Cloud Essentials Knowledge Badge Assessment.png" alt="Cloud Essentials">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Cloud+Essentials" alt="Cloud Essentials">
                     </div>
                 </li>
 
@@ -1371,7 +1361,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/Advanced Testing Practices Using AWS DevOps Tools.png" alt="AWS Testing">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=AWS+Testing" alt="AWS Testing">
                     </div>
                 </li>
 
@@ -1381,7 +1371,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/DevOps Engineer Learning Plan.png" alt="Learning Plan">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Learning+Plan" alt="Learning Plan">
                     </div>
                 </li>
 
@@ -1391,7 +1381,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/Getting into the Serverless Mindset.png" alt="Serverless">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Serverless" alt="Serverless">
                     </div>
                 </li>
 
@@ -1401,7 +1391,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/Introduction to Git.png" alt="Git">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Git" alt="Git">
                     </div>
                 </li>
 
@@ -1411,7 +1401,7 @@
                         <p class="press-date">May 2025</p>
                     </div>
                     <div class="certificate-preview">
-                        <img src="portfolioSetificat/Introduction to Observability.png" alt="Observability">
+                        <img src="https://via.placeholder.com/400x280/0a0e1a/00d9ff?text=Observability" alt="Observability">
                     </div>
                 </li>
             </ul>
@@ -1457,7 +1447,6 @@
     </div>
 
     <script>
-        // Badge navigation
         const badges = document.querySelectorAll('.social-link');
         const prevBtn = document.getElementById('prevBadge');
         const nextBtn = document.getElementById('nextBadge');
@@ -1504,7 +1493,6 @@
         document.head.appendChild(style);
         progressBar.style.setProperty('--progress', '25%');
 
-        // Mouse tracking for project cards glow effect
         const projectCards = document.querySelectorAll('.project-card');
         
         projectCards.forEach(card => {
@@ -1518,21 +1506,6 @@
             });
         });
 
-        // Smooth parallax scroll effect - DISABLED for project images
-        let ticking = false;
-        
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    // Parallax effect disabled for project-image-wrapper
-                    // to keep circles in fixed position
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // Add stagger effect to press items on load
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
