@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Certificate Stage — Dashboard (single file)</title>
+<style>
+  :root{
+    --bg:#071025;
+    --panel:#071827;
+    --accent:#38bdf8;
+    --muted:#9aa9b8;
+    --glass: rgba(255,255,255,0.03);
+    --ring: rgba(56,189,248,0.18);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,var(--bg),#041022 140%);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* layout */
+  .app{
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    gap:18px;
+    height:100vh;
+    padding:18px;
+  }
+
+  /* left panel */
+  .panel{
+    background: linear-gradient(180deg,var(--panel), #02111b);
+    border-radius:12px;
+    padding:14px;
+    box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  .panel h2{
+    font-size:16px;
+    margin:0;
+    color:var(--accent);
+    text-align:center;
+    letter-spacing:0.4px;
+  }
+
+  .controls{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .btn{
+    background:var(--glass);
+    border:1px solid rgba(255,255,255,0.04);
+    color:var(--accent);
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:13px;
+    cursor:pointer;
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  input[type="file"]{display:none}
+
+  .search{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background: rgba(255,255,255,0.02);
+    padding:6px 8px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+
+  .search input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--muted);
+    width:130px;
+    font-size:13px;
+  }
+
+  /* thumbs area */
+  .thumbs{
+    overflow:auto;
+    padding:8px;
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:8px;
+  }
+
+  .thumb-row{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .thumb{
+    width:72px;
+    height:50px;
+    border-radius:6px;
+    object-fit:cover;
+    box-shadow: 0 4px 14px rgba(2,6,23,0.7);
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .18s ease, opacity .18s ease;
+    opacity:0.9;
+  }
+
+  .thumb:hover{ transform:scale(1.03); opacity:1 }
+
+  .thumb.active{
+    border-color:var(--accent);
+    transform:scale(1.03);
+  }
+
+  .meta{
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    overflow:hidden;
+  }
+
+  .meta .name{
+    font-weight:600;
+    color:#dff7ff;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    max-width:200px;
+  }
+
+  /* main stage */
+  .stage-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:10px;
+  }
+
+  .stage{
+    flex:1;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    overflow:hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 10px 60px rgba(2,6,23,0.6);
+  }
+
+  /* glowing ring effect */
+  .stage::before{
+    content:"";
+    position:absolute;
+    inset: -30px;
+    border-radius:20px;
+    pointer-events:none;
+    background: radial-gradient(closest-side, var(--ring), transparent 60%);
+    filter: blur(18px);
+    opacity:0.9;
+    transition:transform .5s ease;
+  }
+
+  .stage-inner{
+    position:relative;
+    width:92%;
+    height:92%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .stage img{
+    max-width:100%;
+    max-height:100%;
+    border-radius:10px;
+    box-shadow: 0 12px 80px rgba(2,6,23,0.6);
+    transform-origin:center center;
+    transition: transform .25s ease, filter .25s ease;
+    background:linear-gradient(180deg,#0c2331,#06121a);
+    object-fit:contain;
+    user-select:none;
+  }
+
+  /* controls below stage */
+  .stage-controls{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .left-controls{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .small{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid rgba(255,255,255,0.03);
+    padding:8px;
+    border-radius:8px;
+    font-size:13px;
+    cursor:pointer;
+  }
+
+  .progress{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .range{
+    width:160px;
+  }
+
+  .thumb-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(110px,1fr));
+    gap:8px;
+    padding:10px;
+    max-height:180px;
+    overflow:auto;
+    margin-top:6px;
+  }
+
+  .grid-item{
+    background: rgba(255,255,255,0.02);
+    border-radius:8px;
+    padding:6px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+
+  .grid-item img{
+    width:100%;
+    height:80px;
+    object-fit:cover;
+    border-radius:6px;
+  }
+
+  /* drop overlay */
+  .dropzone{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:80;
+    pointer-events:none;
+  }
+
+  .dropzone.show{
+    display:flex;
+    pointer-events:auto;
+    background:linear-gradient(180deg, rgba(3,10,20,0.6), rgba(0,0,0,0.45));
+    backdrop-filter: blur(4px);
+  }
+
+  .dropbox{
+    border:2px dashed rgba(56,189,248,0.22);
+    padding:40px 60px;
+    border-radius:12px;
+    text-align:center;
+    color:var(--muted);
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    .app{ grid-template-columns: 1fr; grid-auto-rows: auto 1fr; padding:12px; }
+    .panel{ order:2; height:320px }
+    .stage-wrap{ order:1; height:auto }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- LEFT PANEL -->
+  <aside class="panel" aria-label="Certificates panel">
+    <h2>Certificates Stage</h2>
+
+    <div class="controls" role="toolbar" aria-label="toolbar">
+      <label class="btn" title="Add certificates">
+        ➕ Add certificates
+        <input id="fileInput" type="file" accept="image/*,application/pdf" multiple />
+      </label>
+
+      <button id="clearBtn" class="btn" title="Clear all">🧹 Clear</button>
+
+      <div class="search" title="Search certificates">
+        🔎
+        <input id="search" type="search" placeholder="search filename..." aria-label="search certificates">
+      </div>
+    </div>
+
+    <div class="thumbs" id="thumbs" aria-live="polite" aria-atomic="true">
+      <div style="color:var(--muted); padding:6px">No certificates yet — add files or drag & drop anywhere.</div>
+    </div>
+
+    <div style="display:flex; gap:8px; align-items:center; justify-content:center;">
+      <button id="toggleGrid" class="small" title="Toggle thumbnail grid">Toggle grid</button>
+      <button id="slideshowToggle" class="small" title="Start/stop slideshow">Start slideshow</button>
+      <button id="downloadAll" class="small" title="Download currently selected image">Download</button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN STAGE -->
+  <main class="stage-wrap">
+    <div class="stage" id="stage" aria-label="certificate stage">
+      <div class="stage-inner">
+        <img id="stageImg" src="" alt="No certificate selected" draggable="false">
+      </div>
+    </div>
+
+    <div class="stage-controls">
+      <div class="left-controls">
+        <button id="prev" class="small" title="Previous (←)">◀</button>
+        <button id="next" class="small" title="Next (→)">▶</button>
+
+        <div class="progress">
+          <label style="font-size:12px; color:var(--muted)">Zoom</label>
+          <input id="zoom" class="range" type="range" min="0.2" max="2.5" step="0.05" value="1" />
+        </div>
+
+        <button id="rotateLeft" class="small" title="Rotate -90">⟲</button>
+        <button id="rotateRight" class="small" title="Rotate +90">⟳</button>
+        <button id="fitBtn" class="small" title="Fit to stage">Fit</button>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div style="text-align:right; font-size:13px; color:var(--muted)">
+          <div id="fileName">No file</div>
+          <div id="fileInfo" style="font-size:12px; color:var(--muted)"></div>
+        </div>
+
+        <button id="fullscreen" class="btn" title="Fullscreen">⤢ Fullscreen</button>
+      </div>
+    </div>
+
+    <div class="thumb-grid" id="grid" aria-label="thumbnails grid"></div>
+
+  </main>
+
+</div>
+
+<!-- Drop overlay -->
+<div class="dropzone" id="dropzone">
+  <div class="dropbox">
+    <div style="font-size:20px; color:var(--accent); margin-bottom:8px">Drop images here</div>
+    <div style="color:var(--muted)">Drop to add certificates to the stage</div>
+  </div>
+</div>
+
+<script>
+/*
+  Certificate Stage — single-file dashboard
+  Features:
+   - Drag & drop or file input (multiple)
+   - Thumbnails + grid
+   - Stage with zoom, rotate, fit, fullscreen
+   - Keyboard navigation (← →, space to pause/play)
+   - Slideshow (autoplay)
+   - Download selected
+   - Search/filter by filename
+   - Glowing ring on stage image
+*/
+
+const fileInput = document.getElementById('fileInput');
+const thumbs = document.getElementById('thumbs');
+const grid = document.getElementById('grid');
+const stageImg = document.getElementById('stageImg');
+const fileNameLabel = document.getElementById('fileName');
+const fileInfo = document.getElementById('fileInfo');
+const search = document.getElementById('search');
+const dropzone = document.getElementById('dropzone');
+
+let items = []; // { id, name, url, file, type, w, h }
+let current = -1;
+let rotation = 0;
+let zoom = 1;
+let slideshowTimer = null;
+let gridMode = true;
+
+// Helpers
+function uid() { return Math.random().toString(36).slice(2,9) }
+function readableBytes(n){
+  if(n < 1024) return n + ' B';
+  if(n < 1024*1024) return (n/1024).toFixed(1) + ' KB';
+  return (n/1024/1024).toFixed(2) + ' MB';
+}
+
+// Add files (FileList or array of File)
+function addFiles(fileList){
+  const arr = Array.from(fileList);
+  arr.forEach(file => {
+    if(!file.type.startsWith('image') && file.type !== 'application/pdf') return;
+    const id = uid();
+    const url = URL.createObjectURL(file);
+    const item = { id, name: file.name, url, file, type: file.type };
+    items.push(item);
+    renderThumb(item);
+    renderGridItem(item);
+    // Optionally read dimensions for images:
+    if(file.type.startsWith('image')){
+      const img = new Image();
+      img.onload = () => { item.w = img.width; item.h = img.height; updateFileInfo(); };
+      img.src = url;
+    }
+  });
+  if(current === -1 && items.length) showIndex(0);
+}
+
+// Thumb rendering (left panel)
+function renderThumb(item){
+  // create a small row showing thumb + name
+  const row = document.createElement('div');
+  row.className = 'thumb-row';
+  row.dataset.id = item.id;
+
+  const img = document.createElement('img');
+  img.loading = 'lazy';
+  img.className = 'thumb';
+  img.src = item.url;
+  img.alt = item.name;
+
+  img.addEventListener('click', () => {
+    const index = items.findIndex(x=>x.id===item.id);
+    showIndex(index);
+  });
+
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  const nm = document.createElement('div');
+  nm.className = 'name';
+  nm.textContent = item.name;
+  const small = document.createElement('div');
+  small.textContent = item.type.split('/')[0].toUpperCase();
+  meta.appendChild(nm);
+  meta.appendChild(small);
+
+  row.appendChild(img);
+  row.appendChild(meta);
+  thumbs.appendChild(row);
+}
+
+// Grid rendering (main bottom grid)
+function renderGridItem(item){
+  const box = document.createElement('div');
+  box.className = 'grid-item';
+  box.dataset.id = item.id;
+  const img = document.createElement('img');
+  img.loading = 'lazy';
+  img.src = item.url;
+  img.alt = item.name;
+
+  const caption = document.createElement('div');
+  caption.style.fontSize = '12px';
+  caption.style.color = 'var(--muted)';
+  caption.style.textAlign = 'center';
+  caption.textContent = item.name;
+
+  box.appendChild(img);
+  box.appendChild(caption);
+  box.addEventListener('click', () => {
+    const index = items.findIndex(x=>x.id===item.id);
+    showIndex(index);
+    // highlight corresponding thumbnail
+    scrollThumbIntoView(item.id);
+  });
+
+  grid.appendChild(box);
+}
+
+// Show item by index
+function showIndex(index){
+  if(index < 0 || index >= items.length) return;
+  current = index;
+  const it = items[index];
+  stageImg.src = it.url;
+  stageImg.style.transform = `scale(${zoom}) rotate(${rotation}deg)`;
+  stageImg.alt = it.name;
+  fileNameLabel.textContent = it.name;
+  fileInfo.textContent = `${it.type} ${it.w ? '• ' + it.w + '×' + it.h : ''}`;
+  updateActiveThumb();
+  updateActiveGrid();
+}
+
+// update active class for thumbs
+function updateActiveThumb(){
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  const it = items[current];
+  if(!it) return;
+  const parent = thumbs.querySelector(`[data-id="${it.id}"]`);
+  if(parent){
+    const img = parent.querySelector('img.thumb');
+    if(img) img.classList.add('active');
+  }
+}
+
+// update active for grid
+function updateActiveGrid(){
+  document.querySelectorAll('.grid-item').forEach(g=>g.classList.remove('active'));
+  const it = items[current];
+  if(!it) return;
+  const el = grid.querySelector(`[data-id="${it.id}"]`);
+  if(el) el.style.borderColor = 'var(--accent)';
+}
+
+// scroll thumb into view
+function scrollThumbIntoView(id){
+  const row = thumbs.querySelector(`[data-id="${id}"]`);
+  if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* Controls */
+document.getElementById('next').addEventListener('click', () => {
+  if(items.length === 0) return;
+  showIndex((current + 1) % items.length);
+});
+document.getElementById('prev').addEventListener('click', () => {
+  if(items.length === 0) return;
+  showIndex((current - 1 + items.length) % items.length);
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  // revoke object URLs
+  items.forEach(i => { try { URL.revokeObjectURL(i.url) } catch(e){} });
+  items = [];
+  current = -1;
+  thumbs.innerHTML = '<div style="color:var(--muted); padding:6px">No certificates yet — add files or drag & drop anywhere.</div>';
+  grid.innerHTML = '';
+  stageImg.src = '';
+  fileNameLabel.textContent = 'No file';
+  fileInfo.textContent = '';
+});
+
+document.getElementById('downloadAll').addEventListener('click', () => {
+  if(current < 0) return alert('No certificate selected');
+  const it = items[current];
+  const a = document.createElement('a');
+  a.href = it.url;
+  a.download = it.name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
+
+document.getElementById('toggleGrid').addEventListener('click', () => {
+  gridMode = !gridMode;
+  grid.style.display = gridMode ? 'grid' : 'none';
+});
+
+/* Zoom and rotate */
+const zoomControl = document.getElementById('zoom');
+zoomControl.addEventListener('input', (e) => {
+  zoom = parseFloat(e.target.value);
+  updateTransform();
+});
+document.getElementById('rotateLeft').addEventListener('click', () => { rotation -= 90; updateTransform(); });
+document.getElementById('rotateRight').addEventListener('click', () => { rotation += 90; updateTransform(); });
+document.getElementById('fitBtn').addEventListener('click', () => { zoom = 1; rotation = 0; zoomControl.value = 1; updateTransform(); });
+
+function updateTransform(){
+  stageImg.style.transform = `scale(${zoom}) rotate(${rotation}deg)`;
+}
+
+/* Fullscreen */
+document.getElementById('fullscreen').addEventListener('click', async () => {
+  const s = document.documentElement;
+  if(!document.fullscreenElement){
+    await s.requestFullscreen?.();
+  } else {
+    await document.exitFullscreen?.();
+  }
+});
+
+/* Slideshow */
+document.getElementById('slideshowToggle').addEventListener('click', () => toggleSlideshow());
+function toggleSlideshow(){
+  if(slideshowTimer){
+    clearInterval(slideshowTimer);
+    slideshowTimer = null;
+    document.getElementById('slideshowToggle').textContent = 'Start slideshow';
+  } else {
+    slideshowTimer = setInterval(() => {
+      if(items.length === 0) return;
+      showIndex((current + 1) % items.length);
+    }, 2800);
+    document.getElementById('slideshowToggle').textContent = 'Stop slideshow';
+  }
+}
+
+/* keyboard */
+window.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowRight') document.getElementById('next').click();
+  if(e.key === 'ArrowLeft') document.getElementById('prev').click();
+  if(e.key === '+' || e.key === '=') { zoom = Math.min(2.5, zoom + 0.1); zoomControl.value = zoom; updateTransform(); }
+  if(e.key === '-') { zoom = Math.max(0.2, zoom - 0.1); zoomControl.value = zoom; updateTransform(); }
+  if(e.key === ' ') { e.preventDefault(); toggleSlideshow(); }
+});
+
+/* Search */
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  // filter thumbs and grid
+  thumbs.querySelectorAll('.thumb-row').forEach(row => {
+    const id = row.dataset.id;
+    const it = items.find(x=>x.id===id);
+    row.style.display = it.name.toLowerCase().includes(q) ? 'flex' : 'none';
+  });
+  grid.querySelectorAll('.grid-item').forEach(g => {
+    const id = g.dataset.id;
+    const it = items.find(x=>x.id===id);
+    g.style.display = it.name.toLowerCase().includes(q) ? 'flex' : 'none';
+  });
+});
+
+/* File input */
+fileInput.addEventListener('change', (e) => {
+  addFiles(e.target.files);
+  fileInput.value = '';
+});
+
+/* Drag & Drop */
+['dragenter','dragover'].forEach(ev => {
+  window.addEventListener(ev, (e) => {
+    e.preventDefault();
+    dropzone.classList.add('show');
+  });
+});
+['dragleave','drop'].forEach(ev => {
+  window.addEventListener(ev, (e) => {
+    e.preventDefault();
+    // hide overlay only when leaving the window or dropping
+    if(ev === 'drop' || ev === 'dragleave') dropzone.classList.remove('show');
+  });
+});
+window.addEventListener('drop', (e) => {
+  if(e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
+});
+
+/* Update file info if size/dimensions known */
+function updateFileInfo(){
+  if(current < 0) return;
+  const it = items[current];
+  if(!it) return;
+  const size = it.file ? readableBytes(it.file.size) : '';
+  const dims = it.w ? `${it.w}×${it.h}` : '';
+  fileInfo.textContent = `${size} ${dims ? '• '+dims : ''}`;
+}
+
+/* Keep track of items and active classes after dynamic updates */
+function refreshAll(){
+  // (not needed now but handy for advanced features)
+}
+
+/* When stage image loads, update fit if needed */
+stageImg.addEventListener('load', () => {
+  updateFileInfo();
+});
+
+/* Utility: highlight active after new items */
+function updateActiveGrid(){
+  document.querySelectorAll('.grid-item').forEach(g => g.style.borderColor = 'transparent');
+  if(current >= 0){
+    const id = items[current].id;
+    const el = grid.querySelector(`[data-id="${id}"]`);
+    if(el) el.style.borderColor = 'var(--accent)';
+  }
+}
+
+/* init: support opening images via drag-and-drop from local folder to browser */
+(function init(){
+  // detect whether browser supports drag & drop file selection (most do)
+  gridMode = true;
+  grid.style.display = 'grid';
+})();
+
+</script>
+</body>
+</html>
