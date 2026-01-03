@@ -576,21 +576,21 @@
     
     .app{
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
+      grid-template-rows: auto 1fr;
       height:auto;
       min-height:100vh;
       overflow:visible;
     }
     
-    .stage-wrap{
-      display:none !important;
-    }
-    
     .panel{
       order:1;
-      max-height:none;
+      max-height:200px;
       height:auto;
-      min-height:calc(100vh - 36px);
+    }
+    
+    .stage-wrap{
+      order:2;
+      display:flex !important;
     }
     
     .thumbs{
@@ -622,9 +622,13 @@
       padding:10px;
     }
     
+    /* Hide pagination and bottom buttons in panel */
     .pagination{
-      padding:12px;
-      gap:10px;
+      display:none !important;
+    }
+    
+    .panel > div:last-child{
+      display:none !important;
     }
     
     .pagination-btn{
