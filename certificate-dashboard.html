@@ -29,7 +29,6 @@
     overflow:hidden;
   }
 
-  /* Keyframe Animations */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -60,12 +59,6 @@
     50% { box-shadow: 0 0 40px rgba(56,189,248,0.6); }
   }
 
-  @keyframes shimmer {
-    0% { background-position: -1000px 0; }
-    100% { background-position: 1000px 0; }
-  }
-
-  /* layout */
   .app{
     display:grid;
     grid-template-columns: 340px 1fr;
@@ -76,7 +69,6 @@
     overflow:hidden;
   }
 
-  /* left panel */
   .panel{
     background: linear-gradient(180deg,var(--panel), #02111b);
     border-radius:12px;
@@ -134,7 +126,6 @@
     color:var(--muted);
   }
 
-  /* thumbs area */
   .thumbs{
     overflow-y:auto;
     overflow-x:hidden;
@@ -234,7 +225,6 @@
     letter-spacing:0.5px;
   }
 
-  /* main stage */
   .stage-wrap{
     display:flex;
     flex-direction:column;
@@ -279,7 +269,6 @@
     animation: scaleIn 0.6s ease-out 0.2s both;
   }
 
-  /* glowing ring effect */
   .stage::before{
     content:"";
     position:absolute;
@@ -330,7 +319,6 @@
     padding:40px;
   }
 
-  /* controls below stage */
   .stage-controls{
     display:flex;
     gap:10px;
@@ -452,7 +440,6 @@
     width:100%;
   }
 
-  /* file counter */
   .file-counter{
     font-size:12px;
     color:var(--muted);
@@ -461,6 +448,61 @@
     background:rgba(255,255,255,0.02);
     border-radius:6px;
     margin-top:4px;
+  }
+
+  .pagination{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px;
+    background:rgba(255,255,255,0.02);
+    border-radius:8px;
+    margin-top:8px;
+    animation: fadeIn 0.5s ease-out 0.4s both;
+  }
+
+  .pagination-btn{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    color:var(--muted);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:12px;
+    cursor:pointer;
+    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    min-width:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .pagination-btn:hover:not(:disabled){
+    background:rgba(56,189,248,0.1);
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateY(-2px);
+  }
+
+  .pagination-btn:disabled{
+    opacity:0.3;
+    cursor:not-allowed;
+  }
+
+  .pagination-btn.active{
+    background:var(--accent);
+    color:#071025;
+    border-color:var(--accent);
+    font-weight:600;
+  }
+
+  .pagination-info{
+    font-size:12px;
+    color:var(--muted);
+    padding:0 8px;
+    font-family:'Inter', sans-serif;
   }
 
   .btn{
@@ -490,7 +532,6 @@
     transform: translateY(0);
   }
 
-  /* responsive */
   @media (max-width:900px){
     .app{ 
       grid-template-columns: 1fr; 
@@ -527,33 +568,100 @@
     }
   }
 
+  @media (max-width:800px){
+    body{
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .app{
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      height:auto;
+      min-height:100vh;
+      overflow:visible;
+    }
+    
+    .stage-wrap{
+      display:none !important;
+    }
+    
+    .panel{
+      order:1;
+      max-height:none;
+      height:auto;
+      min-height:calc(100vh - 36px);
+    }
+    
+    .thumbs{
+      max-height:none;
+      flex:1;
+    }
+    
+    .thumb-row{
+      padding:10px;
+    }
+    
+    .thumb{
+      width:100px;
+      height:70px;
+    }
+    
+    .meta .name{
+      font-size:14px;
+      white-space:normal;
+      line-height:1.3;
+    }
+    
+    .meta .type{
+      font-size:11px;
+    }
+    
+    .file-counter{
+      font-size:13px;
+      padding:10px;
+    }
+    
+    .pagination{
+      padding:12px;
+      gap:10px;
+    }
+    
+    .pagination-btn{
+      padding:8px 14px;
+      font-size:13px;
+    }
+    
+    .pagination-info{
+      font-size:13px;
+    }
+  }
+
   @media (max-width:600px){
     .app{
       padding:8px;
       gap:8px;
     }
     .panel{
-      max-height:240px;
+      max-height:none;
       padding:10px;
+      min-height:calc(100vh - 16px);
     }
     .panel h2{
       font-size:16px;
     }
     .thumb-row{
-      padding:6px;
+      padding:8px;
     }
     .thumb{
-      width:60px;
-      height:42px;
+      width:80px;
+      height:56px;
     }
     .meta .name{
-      font-size:11px;
+      font-size:12px;
     }
     .meta .type{
       font-size:10px;
-    }
-    .stage{
-      min-height:250px;
     }
     .small, .btn{
       padding:6px 10px;
@@ -576,14 +684,24 @@
     #fileInfo{
       font-size:10px;
     }
+    .file-counter{
+      font-size:12px;
+      padding:8px;
+    }
+    .pagination{
+      padding:10px;
+      gap:8px;
+    }
+    .pagination-btn{
+      padding:6px 10px;
+      font-size:12px;
+    }
   }
 </style>
 </head>
 <body>
 
 <div class="app">
-
-  <!-- LEFT PANEL -->
   <aside class="panel" aria-label="Certificates panel">
     <h2>📜 My Certificates</h2>
 
@@ -598,6 +716,14 @@
       Loading certificates...
     </div>
 
+    <div class="pagination" id="pagination">
+      <button class="pagination-btn" id="paginationFirst" title="First page">⟨⟨</button>
+      <button class="pagination-btn" id="paginationPrev" title="Previous page">⟨</button>
+      <span class="pagination-info" id="paginationInfo">1 / 1</span>
+      <button class="pagination-btn" id="paginationNext" title="Next page">⟩</button>
+      <button class="pagination-btn" id="paginationLast" title="Last page">⟩⟩</button>
+    </div>
+
     <div class="thumbs" id="thumbs" aria-live="polite" aria-atomic="false">
     </div>
 
@@ -605,10 +731,8 @@
       <button id="toggleGrid" class="small" title="Toggle thumbnail grid">Grid View</button>
       <button id="slideshowToggle" class="small" title="Start/stop slideshow">▶ Slideshow</button>
     </div>
-
   </aside>
 
-  <!-- MAIN STAGE -->
   <main class="stage-wrap">
     <div class="stage" id="stage" aria-label="certificate stage">
       <div class="stage-inner">
@@ -646,16 +770,10 @@
     </div>
 
     <div class="thumb-grid" id="grid" aria-label="thumbnails grid"></div>
-
   </main>
-
 </div>
 
 <script>
-/*
-  Certificate Stage Dashboard
-*/
-
 const thumbs = document.getElementById('thumbs');
 const grid = document.getElementById('grid');
 const stageImg = document.getElementById('stageImg');
@@ -666,14 +784,24 @@ const fileInfo = document.getElementById('fileInfo');
 const fileCounter = document.getElementById('fileCounter');
 const search = document.getElementById('search');
 
-let items = []; // { id, name, url, type }
+const paginationInfo = document.getElementById('paginationInfo');
+const paginationFirst = document.getElementById('paginationFirst');
+const paginationPrev = document.getElementById('paginationPrev');
+const paginationNext = document.getElementById('paginationNext');
+const paginationLast = document.getElementById('paginationLast');
+
+let items = [];
+let filteredItems = [];
 let current = -1;
 let rotation = 0;
 let zoom = 1;
 let slideshowTimer = null;
 let gridMode = true;
 
-// Predefined certificate list (images from your folder)
+let currentPage = 1;
+let itemsPerPage = 10;
+let totalPages = 1;
+
 const certificateList = [
   'Advanced Testing Practices Using AWS DevOps Toolsp.png',
   'AWS Cloud Practitioner Essentials Certification.png',
@@ -703,15 +831,10 @@ const certificateList = [
   'TechXplore 1.0.png'
 ];
 
-// Helper
 function uid() { return Math.random().toString(36).slice(2,9) }
 
-// Update file counter
 function updateCounter(){
-  const visible = items.filter(it => {
-    const row = thumbs.querySelector(`[data-id="${it.id}"]`);
-    return row && row.style.display !== 'none';
-  }).length;
+  const visible = filteredItems.length;
   
   if(items.length === 0){
     fileCounter.textContent = 'No certificates loaded';
@@ -722,7 +845,76 @@ function updateCounter(){
   }
 }
 
-// Load certificates from predefined list
+function updatePagination(){
+  totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  if(totalPages === 0) totalPages = 1;
+  
+  paginationInfo.textContent = `${currentPage} / ${totalPages}`;
+  
+  paginationFirst.disabled = currentPage === 1;
+  paginationPrev.disabled = currentPage === 1;
+  paginationNext.disabled = currentPage === totalPages;
+  paginationLast.disabled = currentPage === totalPages;
+}
+
+function renderPage(){
+  thumbs.innerHTML = '';
+  
+  if(filteredItems.length === 0){
+    thumbs.innerHTML = '<div style="color:var(--muted); padding:20px; text-align:center;">No certificates found</div>';
+    return;
+  }
+  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, filteredItems.length);
+  const pageItems = filteredItems.slice(startIndex, endIndex);
+  
+  pageItems.forEach((item, index) => {
+    const row = document.createElement('div');
+    row.className = 'thumb-row';
+    row.dataset.id = item.id;
+    row.style.setProperty('--index', index);
+
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.className = 'thumb';
+    img.src = item.url;
+    img.alt = item.name;
+
+    row.addEventListener('click', () => {
+      const globalIndex = items.findIndex(x=>x.id===item.id);
+      showIndex(globalIndex);
+    });
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    
+    const nm = document.createElement('div');
+    nm.className = 'name';
+    nm.textContent = item.name;
+    nm.title = item.name;
+    
+    const typeLabel = document.createElement('div');
+    typeLabel.className = 'type';
+    typeLabel.textContent = 'Certificate';
+    
+    meta.appendChild(nm);
+    meta.appendChild(typeLabel);
+
+    row.appendChild(img);
+    row.appendChild(meta);
+    thumbs.appendChild(row);
+  });
+  
+  updateActiveThumb();
+}
+
+function goToPage(page){
+  currentPage = Math.max(1, Math.min(page, totalPages));
+  renderPage();
+  updatePagination();
+}
+
 function loadCertificates(){
   certificateList.forEach(filename => {
     const id = uid();
@@ -733,57 +925,24 @@ function loadCertificates(){
       type: 'image/png' 
     };
     items.push(item);
-    renderThumb(item);
     renderGridItem(item);
   });
   
+  filteredItems = [...items];
   updateCounter();
+  updatePagination();
+  renderPage();
   
-  // Auto-select first certificate
   if(items.length > 0) {
     showIndex(0);
   }
 }
 
-// Thumb rendering (left panel)
-function renderThumb(item){
-  const row = document.createElement('div');
-  row.className = 'thumb-row';
-  row.dataset.id = item.id;
-  row.style.setProperty('--index', items.length - 1);
+paginationFirst.addEventListener('click', () => goToPage(1));
+paginationPrev.addEventListener('click', () => goToPage(currentPage - 1));
+paginationNext.addEventListener('click', () => goToPage(currentPage + 1));
+paginationLast.addEventListener('click', () => goToPage(totalPages));
 
-  const img = document.createElement('img');
-  img.loading = 'lazy';
-  img.className = 'thumb';
-  img.src = item.url;
-  img.alt = item.name;
-
-  row.addEventListener('click', () => {
-    const index = items.findIndex(x=>x.id===item.id);
-    showIndex(index);
-  });
-
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  
-  const nm = document.createElement('div');
-  nm.className = 'name';
-  nm.textContent = item.name;
-  nm.title = item.name;
-  
-  const typeLabel = document.createElement('div');
-  typeLabel.className = 'type';
-  typeLabel.textContent = 'Certificate';
-  
-  meta.appendChild(nm);
-  meta.appendChild(typeLabel);
-
-  row.appendChild(img);
-  row.appendChild(meta);
-  thumbs.appendChild(row);
-}
-
-// Grid rendering
 function renderGridItem(item){
   const box = document.createElement('div');
   box.className = 'grid-item';
@@ -812,13 +971,11 @@ function renderGridItem(item){
   grid.appendChild(box);
 }
 
-// Show item by index
 function showIndex(index){
   if(index < 0 || index >= items.length) return;
   current = index;
   const it = items[index];
   
-  // Show image, hide placeholder
   placeholder.style.display = 'none';
   stageImg.style.display = 'block';
   stageImg.src = it.url;
@@ -833,13 +990,11 @@ function showIndex(index){
   updateActiveGrid();
   scrollThumbIntoView(it.id);
   
-  // Scroll stage to top when certificate is selected
   const stageWrap = document.querySelector('.stage-wrap');
   if(stageWrap){
     stageWrap.scrollTo({ top: 0, behavior: 'smooth' });
   }
   
-  // On mobile, scroll the entire page to show the stage
   if(window.innerWidth <= 900){
     setTimeout(() => {
       stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -847,7 +1002,6 @@ function showIndex(index){
   }
 }
 
-// Update active class for thumbs
 function updateActiveThumb(){
   document.querySelectorAll('.thumb-row').forEach(t => t.classList.remove('active'));
   const it = items[current];
@@ -856,7 +1010,6 @@ function updateActiveThumb(){
   if(row) row.classList.add('active');
 }
 
-// Update active for grid
 function updateActiveGrid(){
   document.querySelectorAll('.grid-item').forEach(g => {
     g.classList.remove('active');
@@ -869,13 +1022,11 @@ function updateActiveGrid(){
   }
 }
 
-// Scroll thumb into view
 function scrollThumbIntoView(id){
   const row = thumbs.querySelector(`[data-id="${id}"]`);
   if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-/* Controls */
 document.getElementById('next').addEventListener('click', () => {
   if(items.length === 0) return;
   showIndex((current + 1) % items.length);
@@ -892,7 +1043,6 @@ document.getElementById('toggleGrid').addEventListener('click', () => {
   document.getElementById('toggleGrid').textContent = gridMode ? 'Hide Grid' : 'Grid View';
 });
 
-/* Zoom and rotate */
 const zoomControl = document.getElementById('zoom');
 zoomControl.addEventListener('input', (e) => {
   zoom = parseFloat(e.target.value);
@@ -922,7 +1072,6 @@ function updateTransform(){
   }
 }
 
-/* Fullscreen */
 document.getElementById('fullscreen').addEventListener('click', async () => {
   const s = document.documentElement;
   if(!document.fullscreenElement){
@@ -932,7 +1081,6 @@ document.getElementById('fullscreen').addEventListener('click', async () => {
   }
 });
 
-/* Slideshow */
 document.getElementById('slideshowToggle').addEventListener('click', () => toggleSlideshow());
 
 function toggleSlideshow(){
@@ -953,7 +1101,6 @@ function toggleSlideshow(){
   }
 }
 
-/* Keyboard shortcuts */
 window.addEventListener('keydown', (e) => {
   if(e.target.tagName === 'INPUT') return;
   
@@ -981,34 +1128,33 @@ window.addEventListener('keydown', (e) => {
   }
 }); 
 
-/* Search */
 search.addEventListener('input', () => {
   const q = search.value.trim().toLowerCase();
   
-  thumbs.querySelectorAll('.thumb-row').forEach(row => {
-    const id = row.dataset.id;
-    const it = items.find(x=>x.id===id);
-    if(it){
-      row.style.display = it.name.toLowerCase().includes(q) ? 'flex' : 'none';
-    }
-  });
+  if(q === ''){
+    filteredItems = [...items];
+  } else {
+    filteredItems = items.filter(it => it.name.toLowerCase().includes(q));
+  }
+  
+  currentPage = 1;
   
   grid.querySelectorAll('.grid-item').forEach(g => {
     const id = g.dataset.id;
     const it = items.find(x=>x.id===id);
     if(it){
-      g.style.display = it.name.toLowerCase().includes(q) ? 'flex' : 'none';
+      g.style.display = filteredItems.includes(it) ? 'flex' : 'none';
     }
   });
   
   updateCounter();
+  updatePagination();
+  renderPage();
 });
 
-// Initialize: Load certificates on page load
 window.addEventListener('DOMContentLoaded', () => {
   loadCertificates();
 });
-
 </script>
 </body>
 </html>
