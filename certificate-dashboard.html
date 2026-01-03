@@ -472,19 +472,82 @@
   @media (max-width:900px){
     .app{ 
       grid-template-columns: 1fr; 
-      grid-auto-rows: auto 1fr; 
+      grid-template-rows: 1fr auto;
       padding:12px; 
+      gap:12px;
     }
     .panel{ 
       order:2; 
-      height:350px;
+      max-height:280px;
     }
     .stage-wrap{ 
       order:1; 
-      height:auto;
+      min-height:auto;
     }
     .stage{
       min-height:300px;
+    }
+    .thumb-grid{
+      max-height:120px;
+    }
+    .stage-controls{
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .left-controls{
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+  }
+
+  @media (max-width:600px){
+    .app{
+      padding:8px;
+      gap:8px;
+    }
+    .panel{
+      max-height:240px;
+      padding:10px;
+    }
+    .panel h2{
+      font-size:16px;
+    }
+    .thumb-row{
+      padding:6px;
+    }
+    .thumb{
+      width:60px;
+      height:42px;
+    }
+    .meta .name{
+      font-size:11px;
+    }
+    .meta .type{
+      font-size:10px;
+    }
+    .stage{
+      min-height:250px;
+    }
+    .small, .btn{
+      padding:6px 10px;
+      font-size:12px;
+    }
+    .range{
+      width:100px;
+    }
+    .thumb-grid{
+      grid-template-columns: repeat(auto-fill,minmax(80px,1fr));
+      max-height:100px;
+      gap:6px;
+    }
+    .grid-item img{
+      height:60px;
+    }
+    #fileName{
+      font-size:12px;
+    }
+    #fileInfo{
+      font-size:10px;
     }
   }
 </style>
@@ -742,6 +805,11 @@ function showIndex(index){
   updateActiveThumb();
   updateActiveGrid();
   scrollThumbIntoView(it.id);
+  
+  // Scroll main stage into view on mobile
+  if(window.innerWidth <= 900){
+    stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 // Update active class for thumbs
