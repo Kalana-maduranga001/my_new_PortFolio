@@ -576,68 +576,24 @@
     
     .app{
       grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: 1fr;
       height:auto;
       min-height:100vh;
       overflow:visible;
     }
     
+    /* Hide the entire left panel */
     .panel{
-      order:1;
-      max-height:200px;
-      height:auto;
+      display:none !important;
     }
     
     .stage-wrap{
-      order:2;
+      order:1;
       display:flex !important;
     }
     
-    .thumbs{
-      max-height:none;
-      flex:1;
-    }
-    
-    .thumb-row{
-      padding:10px;
-    }
-    
-    .thumb{
-      width:100px;
-      height:70px;
-    }
-    
-    .meta .name{
-      font-size:14px;
-      white-space:normal;
-      line-height:1.3;
-    }
-    
-    .meta .type{
-      font-size:11px;
-    }
-    
-    .file-counter{
-      font-size:13px;
-      padding:10px;
-    }
-    
-    /* Hide pagination and bottom buttons in panel */
-    .pagination{
-      display:none !important;
-    }
-    
-    .panel > div:last-child{
-      display:none !important;
-    }
-    
-    .pagination-btn{
-      padding:8px 14px;
-      font-size:13px;
-    }
-    
-    .pagination-info{
-      font-size:13px;
+    .stage{
+      min-height:calc(100vh - 40px);
     }
   }
 
