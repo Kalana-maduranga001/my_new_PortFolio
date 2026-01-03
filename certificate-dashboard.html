@@ -502,32 +502,32 @@ let gridMode = true;
 
 // Predefined certificate list (images from your folder)
 const certificateList = [
-  { name: 'Advanced Testing Practices Using AWS DevOps Toolsp.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=AWS+DevOps+Tools' },
-  { name: 'AWS Cloud Practitioner Essentials Certification.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=AWS+Cloud+Practitioner' },
-  { name: 'AWS Command Line Interface (CLI) Basics.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=AWS+CLI+Basics' },
-  { name: 'AWS Educate Introduction to Cloud 101.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=AWS+Cloud+101' },
-  { name: 'Cloud Computing Foundation.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Cloud+Computing' },
-  { name: 'Cloud Essentials Knowledge Badge Assessment.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Cloud+Essentials' },
-  { name: 'CodeRally 6.0 Competitive Programming Hackathon.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=CodeRally+6.0' },
-  { name: 'CodeRally5.0 hackathon, hosted by IEEE Computer Soci.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=CodeRally+5.0' },
-  { name: 'DevOps Engineer Learning Plan.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=DevOps+Engineer' },
-  { name: 'devops foundation.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=DevOps+Foundation' },
-  { name: 'DevOps Foundations Incident Management.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Incident+Management' },
-  { name: 'DevOps Foundations Cloud Native.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Cloud+Native' },
-  { name: 'Docker Basics for DevOps certification.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Docker+Basics' },
-  { name: 'Getting into the Serverless Mindset.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Serverless+Mindset' },
-  { name: 'Getting Started with DevOps on AWS.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=DevOps+on+AWS' },
-  { name: 'Introduction to Git.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Git+Intro' },
-  { name: 'Introduction to Observability.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Observability' },
-  { name: 'Jenkins.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Jenkins' },
-  { name: 'KodeKloud Docker course certificate.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=KodeKloud+Docker' },
-  { name: 'KodeKloud Engineer certificate.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=KodeKloud+Engineer' },
-  { name: 'Meta and Coursera course certificate.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Meta+Coursera' },
-  { name: 'Microsoft Learn Student Ambassador.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=MS+Ambassador' },
-  { name: 'OCI Certification.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=OCI+Cert' },
-  { name: 'Shell Scripting Beginners.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Shell+Scripting' },
-  { name: 'Skill Up 3.0.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=Skill+Up+3.0' },
-  { name: 'TechXplore 1.0.png', url: 'https://via.placeholder.com/800x600/1e3a5f/ffffff?text=TechXplore+1.0' }
+  'Advanced Testing Practices Using AWS DevOps Toolsp.png',
+  'AWS Cloud Practitioner Essentials Certification.png',
+  'AWS Command Line Interface (CLI) Basics.png',
+  'AWS Educate Introduction to Cloud 101.png',
+  'Cloud Computing Foundation.png',
+  'Cloud Essentials Knowledge Badge Assessment.png',
+  'CodeRally 6.0 Competitive Programming Hackathon.png',
+  'CodeRally5.0 hackathon, hosted by IEEE Computer Society Student Branch Chapter of IIT.png',
+  'DevOps Engineer Learning Plan.png',
+  'devops foundation.png',
+  'DevOps Foundations Incident Management_PMI.png',
+  'DevOps Foundations-Continuous Delivery and Continuous Integration.png',
+  'Docker Basics for DevOps certification.png',
+  'Getting into the Serverless Mindset.png',
+  'Getting Started with DevOps on AWS.png',
+  'Introduction to Git.png',
+  'Introduction to Observability.png',
+  'Jenkins.png',
+  'KodeKloud Docker course certificate.png',
+  'KodeKloud Engineer certificate.png',
+  'Meta and Coursera course certificate.png',
+  'Microsoft Learn Student Ambassador.png',
+  'OCI Certification.png',
+  'Shell Scripting Beginners.png',
+  'Skill Up 3.0.png',
+  'TechXplore 1.0.png'
 ];
 
 // Helper
@@ -551,12 +551,12 @@ function updateCounter(){
 
 // Load certificates from predefined list
 function loadCertificates(){
-  certificateList.forEach(cert => {
+  certificateList.forEach(filename => {
     const id = uid();
     const item = { 
       id, 
-      name: cert.name, 
-      url: cert.url, 
+      name: filename, 
+      url: './portfolioSetificat/' + filename, 
       type: 'image/png' 
     };
     items.push(item);
