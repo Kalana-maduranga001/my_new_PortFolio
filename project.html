@@ -100,8 +100,8 @@
         .project-card {
             position: absolute;
             width: 420px;
-            background: rgba(10, 15, 30, 0.6);
-            border: 2px solid rgba(0, 217, 255, 0.15);
+            background: rgba(10, 15, 30, 0.25);
+            border: 2px solid rgba(0, 217, 255, 0.25);
             border-radius: 16px;
             padding: 0;
             transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -111,24 +111,27 @@
             top: 50%;
             transform-origin: center center;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             pointer-events: all;
         }
 
         .project-card:hover:not(.active) {
-            border-color: rgba(0, 217, 255, 0.3);
+            border-color: rgba(0, 217, 255, 0.4);
+            background: rgba(10, 15, 30, 0.35);
             transform: translate(-50%, -50%) translate3d(var(--x), 0, var(--z)) scale(var(--hover-scale)) !important;
         }
 
         .project-card.active {
-            border-color: rgba(0, 217, 255, 0.8) !important;
-            background: rgba(10, 15, 30, 0.95) !important;
+            border-color: rgba(0, 217, 255, 0.9) !important;
+            background: rgba(10, 15, 30, 0.85) !important;
             box-shadow: 0 30px 100px rgba(0, 217, 255, 0.6),
                         0 0 80px rgba(255, 0, 110, 0.4),
                         inset 0 0 30px rgba(0, 217, 255, 0.1) !important;
             z-index: 1000 !important;
             pointer-events: all;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
         }
 
         .project-card::before {
@@ -748,7 +751,7 @@
                 const normalizedZ = (z + radiusY) / (radiusY * 2);
                 const scale = 0.5 + normalizedZ * 0.5;
                 const hoverScale = scale * 1.08;
-                const opacity = 0.15 + normalizedZ * 0.35;
+                const opacity = 0.08 + normalizedZ * 0.25;
                 
                 const isActive = index === currentIndex;
                 
