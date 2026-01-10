@@ -279,13 +279,16 @@
         }
 
         .carousel-nav {
-            position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
             display: flex;
-            gap: 20px;
+            justify-content: space-between;
+            padding: 0 30px;
             z-index: 200;
+            pointer-events: none;
         }
 
         .nav-btn {
@@ -302,6 +305,7 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            pointer-events: all;
         }
 
         .nav-btn::before {
@@ -351,7 +355,7 @@
 
         .progress-indicator {
             position: absolute;
-            bottom: -110px;
+            bottom: -80px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -438,6 +442,10 @@
             .project-number {
                 font-size: 90px;
             }
+
+            .carousel-nav {
+                padding: 0 20px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -455,7 +463,7 @@
             }
 
             .projects-section {
-                padding: 60px 12px 180px;
+                padding: 60px 12px 120px;
             }
 
             .section-header {
@@ -525,6 +533,10 @@
                 font-size: 10.5px;
             }
 
+            .carousel-nav {
+                padding: 0 15px;
+            }
+
             .nav-btn {
                 width: 50px;
                 height: 50px;
@@ -536,13 +548,8 @@
                 border-width: 2.5px;
             }
 
-            .carousel-nav {
-                bottom: -105px;
-                gap: 16px;
-            }
-
             .progress-indicator {
-                bottom: -140px;
+                bottom: -70px;
                 gap: 8px;
             }
 
@@ -554,7 +561,7 @@
 
         @media (max-width: 480px) {
             .projects-section {
-                padding: 50px 10px 190px;
+                padding: 50px 10px 110px;
             }
 
             .section-header {
@@ -625,6 +632,10 @@
                 font-size: 9.5px;
             }
 
+            .carousel-nav {
+                padding: 0 10px;
+            }
+
             .nav-btn {
                 width: 46px;
                 height: 46px;
@@ -636,13 +647,8 @@
                 border-width: 2px;
             }
 
-            .carousel-nav {
-                bottom: -115px;
-                gap: 14px;
-            }
-
             .progress-indicator {
-                bottom: -150px;
+                bottom: -65px;
                 gap: 7px;
             }
 
@@ -701,18 +707,14 @@
                 height: 13px;
             }
 
-            .carousel-nav {
-                bottom: -120px;
-            }
-
             .progress-indicator {
-                bottom: -155px;
+                bottom: -60px;
             }
         }
 
         @media (max-width: 320px) {
             .projects-section {
-                padding: 40px 8px 200px;
+                padding: 40px 8px 100px;
             }
 
             .section-title {
@@ -767,6 +769,10 @@
                 font-size: 9px;
             }
 
+            .carousel-nav {
+                padding: 0 8px;
+            }
+
             .nav-btn {
                 width: 40px;
                 height: 40px;
@@ -777,13 +783,8 @@
                 height: 12px;
             }
 
-            .carousel-nav {
-                bottom: -125px;
-                gap: 12px;
-            }
-
             .progress-indicator {
-                bottom: -160px;
+                bottom: -55px;
                 gap: 6px;
             }
 
