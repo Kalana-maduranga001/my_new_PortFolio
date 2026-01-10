@@ -3,9 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
+    <title>Architecture Portfolio - Projects</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700&family=Bebas+Neue&family=Poppins:wght@300;400;600;700&family=Raleway:wght@300;400;600;700&family=Cinzel:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", sans-serif;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%),
+                radial-gradient(circle at center, rgba(0, 245, 201, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at top left, rgba(255, 0, 200, 0.04), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(0, 245, 201, 0.04), transparent 60%),
+                linear-gradient(135deg, #050510 0%, #0a0f1a 50%, #050a15 100%);
+            color: #00d9ff;
+            overflow-x: hidden;
+            cursor: none;
+            position: relative;
+        }
+
+        * {
+            cursor: none;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(26, 58, 82, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            min-height: 100vh;
+            padding: 120px 40px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 80px;
+            font-weight: 900;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            font-family: "Bebas Neue", cursive;
+            background: linear-gradient(135deg, #00d9ff 0%, #ffffff 50%, #00d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(0, 217, 255, 0.8);
+            font-family: "Montserrat", sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Project Grid */
+        .projects-grid {
+            display: grid;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.8s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            border-color: rgba(0, 217, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Project Layout Types */
+        .project-layout {
+            display: grid;
+            gap: 30px;
+            align-items: center;
+        }
+
+        /* Layout 1: Image Left, Content Right */
+        .layout-1 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Layout 2: Full Width Image Top */
+        .layout-2 {
+            grid-template-columns: 1fr;
+        }
+
+        /* Layout 3: Two Images Side by Side */
+        .layout-3 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Layout 4: Content Left, Image Right */
+        .layout-4 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Project Number */
+        .project-number {
+            font-size: 120px;
+            font-weight: 900;
+            font-family: "Bebas Neue", cursive;
+            color: rgba(0, 217, 255, 0.1);
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        /* Project Content */
+        .project-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-label {
+            font-size: 14px;
+            color: #ff006e;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-family: "Bebas Neue", cursive;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        .project-description {
+            font-size: 16px;
+            color: rgba(0, 217, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #ff006e;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 120px;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            color: rgba(0, 217, 255, 0.9);
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Project Image Container */
+        .project-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 16/10;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .project-image-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 110, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+
+        .project-card:hover .project-image-container::before {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(0.3);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+            filter: grayscale(0);
+        }
+
+        /* Decorative Elements */
+        .project-decorative {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff006e, transparent);
+            top: 50%;
+            left: -30px;
+            opacity: 0;
+            transition: all 0.4s;
+        }
+
+        .project-card:hover .project-decorative {
+            opacity: 1;
+            left: 0;
+        }
+
+        /* View Project Button */
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #00d9ff;
+            color: #00d9ff;
+            text-decoration: none;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .view-project-btn::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 217, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s;
+            border-radius: 50%;
+        }
+
+        .view-project-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .view-project-btn:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: #ff006e;
+            color: #ff006e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+            border-top: 2px solid currentColor;
+            border-right: 2px solid currentColor;
+            transform: rotate(45deg);
+            transition: transform 0.4s;
+        }
+
+        .view-project-btn:hover .arrow-icon {
+            transform: rotate(45deg) translate(4px, -4px);
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00d9ff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #ff006e;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 60px;
+            }
+
+            .project-title {
+                font-size: 36px;
+            }
+
+            .layout-1,
+            .layout-3,
+            .layout-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-section {
+                padding: 100px 20px 60px;
+            }
+
+            .section-header {
+                margin-bottom: 50px;
+            }
+
+            .section-title {
+                font-size: 48px;
+                letter-spacing: 5px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .project-card {
+                padding: 30px 20px;
+            }
+
+            .project-number {
+                font-size: 80px;
+                top: -10px;
+                right: 10px;
+            }
+
+            .project-title {
+                font-size: 28px;
+            }
+
+            .project-description {
+                font-size: 14px;
+            }
+
+            .projects-grid {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 36px;
+            }
+
+            .project-title {
+                font-size: 24px;
+            }
+
+            .project-number {
+                font-size: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <section class="projects-section" id="projects">
+        <div class="section-header">
+            <h2 class="section-title">PROJECTS</h2>
+            <p class="section-subtitle">Architecture & Design Portfolio</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <span class="project-number">01</span>
+                <div class="project-decorative"></div>
+                <div class="project-layout layout-1">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Residential Project" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-label">Residential</div>
+                        <h3 class="project-title">Modern Villa Design</h3>
+                        <p class="project-description">A contemporary residential masterpiece featuring clean lines, sustainable materials, and seamless indoor-outdoor integration.</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Client Name:</span>
+                                <span class="meta-value">Jane Doe</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Project Size:</span>
+                                <span class="meta-value">3000-4000 sq ft</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Location:</span>
+                                <span class="meta-value">123 Street Name, City Name</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-project-btn">
+                            View Project
+                            <span class="arrow-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <span class="project-number">02</span>
+                <div class="project-decorative"></div>
+                <div class="project-layout layout-2">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200" alt="Commercial Project" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-label">Commercial</div>
+                        <h3 class="project-title">Urban Office Complex</h3>
+                        <p class="project-description">An innovative workspace design that promotes collaboration, creativity, and productivity in the heart of the city.</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Client Name:</span>
+                                <span class="meta-value">Tech Corp</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Project Size:</span>
+                                <span class="meta-value">50,000 sq ft</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Location:</span>
+                                <span class="meta-value">Downtown District</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-project-btn">
+                            View Project
+                            <span class="arrow-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <span class="project-number">03</span>
+                <div class="project-decorative"></div>
+                <div class="project-layout layout-3">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600" alt="Interior Design" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-label">Interior Design</div>
+                        <h3 class="project-title">Luxury Penthouse</h3>
+                        <p class="project-description">Sophisticated interior spaces combining elegance, comfort, and cutting-edge design elements.</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Client Name:</span>
+                                <span class="meta-value">Private Client</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Project Size:</span>
+                                <span class="meta-value">5,000 sq ft</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Location:</span>
+                                <span class="meta-value">Skyline Tower</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-project-btn">
+                            View Project
+                            <span class="arrow-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <span class="project-number">04</span>
+                <div class="project-decorative"></div>
+                <div class="project-layout layout-4">
+                    <div class="project-content">
+                        <div class="project-label">Sustainable Design</div>
+                        <h3 class="project-title">Eco-Friendly Residence</h3>
+                        <p class="project-description">A pioneering green architecture project featuring solar panels, rainwater harvesting, and natural ventilation systems.</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Client Name:</span>
+                                <span class="meta-value">Green Living Inc.</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Project Size:</span>
+                                <span class="meta-value">4,500 sq ft</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Location:</span>
+                                <span class="meta-value">Suburban Area</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-project-btn">
+                            View Project
+                            <span class="arrow-icon"></span>
+                        </a>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800" alt="Eco Residence" class="project-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <span class="project-number">05</span>
+                <div class="project-decorative"></div>
+                <div class="project-layout layout-1">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800" alt="Renovation Project" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-label">Renovation</div>
+                        <h3 class="project-title">Historic Building Restoration</h3>
+                        <p class="project-description">Breathing new life into a century-old structure while preserving its architectural heritage and character.</p>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Client Name:</span>
+                                <span class="meta-value">Heritage Foundation</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Project Size:</span>
+                                <span class="meta-value">8,000 sq ft</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Location:</span>
+                                <span class="meta-value">Historic District</span>
+                            </div>
+                        </div>
+                        <a href="#" class="view-project-btn">
+                            View Project
+                            <span class="arrow-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            cursorFollower.style.left = cursorX + 'px';
+            cursorFollower.style.top = cursorY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button, .project-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.borderColor = '#ff006e';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.borderColor = '#00d9ff';
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
