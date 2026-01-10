@@ -406,10 +406,16 @@
         @media (max-width: 1024px) {
             .section-title {
                 font-size: 60px;
+                letter-spacing: 8px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
             }
 
             .carousel-container {
                 height: 650px;
+                max-width: 1200px;
             }
 
             .project-card {
@@ -419,11 +425,37 @@
             .project-title {
                 font-size: 24px;
             }
+
+            .project-description {
+                font-size: 12px;
+                min-height: 60px;
+            }
+
+            .project-number {
+                font-size: 100px;
+            }
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            * {
+                cursor: auto;
+            }
+
+            .custom-cursor,
+            .cursor-follower {
+                display: none;
+            }
+
             .projects-section {
-                padding: 100px 20px 160px;
+                padding: 80px 20px 180px;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
             }
 
             .section-title {
@@ -433,18 +465,22 @@
 
             .section-subtitle {
                 font-size: 14px;
+                letter-spacing: 1.5px;
             }
 
             .carousel-container {
-                height: 600px;
+                height: 550px;
+                padding: 0 10px;
             }
 
             .project-card {
-                width: 320px;
+                width: 300px;
             }
 
             .project-number {
-                font-size: 90px;
+                font-size: 80px;
+                top: -15px;
+                right: 15px;
             }
 
             .project-title {
@@ -452,8 +488,32 @@
             }
 
             .project-description {
-                font-size: 12px;
-                min-height: 55px;
+                font-size: 11px;
+                min-height: 50px;
+                margin-bottom: 15px;
+            }
+
+            .project-info {
+                padding: 20px;
+            }
+
+            .project-label {
+                font-size: 10px;
+                padding: 3px 10px;
+            }
+
+            .project-meta {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding-top: 12px;
+            }
+
+            .meta-label {
+                font-size: 9px;
+            }
+
+            .meta-value {
+                font-size: 11px;
             }
 
             .nav-btn {
@@ -461,42 +521,196 @@
                 height: 55px;
             }
 
+            .nav-arrow {
+                width: 18px;
+                height: 18px;
+                border-width: 2.5px;
+            }
+
             .carousel-nav {
                 bottom: -110px;
+                gap: 20px;
             }
 
             .progress-indicator {
-                bottom: -140px;
+                bottom: -145px;
+                gap: 10px;
             }
 
-            .project-meta {
-                grid-template-columns: 1fr;
+            .progress-dot {
+                width: 9px;
+                height: 9px;
             }
         }
 
         @media (max-width: 480px) {
+            .projects-section {
+                padding: 60px 15px 200px;
+            }
+
+            .section-header {
+                margin-bottom: 50px;
+            }
+
             .section-title {
                 font-size: 36px;
+                letter-spacing: 3px;
+            }
+
+            .section-subtitle {
+                font-size: 12px;
+                letter-spacing: 1px;
             }
 
             .carousel-container {
-                height: 550px;
+                height: 500px;
             }
 
             .project-card {
-                width: 280px;
+                width: 260px;
+            }
+
+            .project-number {
+                font-size: 60px;
+                top: -10px;
+                right: 10px;
             }
 
             .project-title {
                 font-size: 20px;
+                letter-spacing: 1px;
             }
 
-            .project-number {
-                font-size: 70px;
+            .project-description {
+                font-size: 10px;
+                line-height: 1.6;
+                min-height: 45px;
+                margin-bottom: 12px;
             }
 
             .project-info {
-                padding: 20px;
+                padding: 18px;
+            }
+
+            .project-label {
+                font-size: 9px;
+                letter-spacing: 2px;
+                padding: 3px 8px;
+                margin-bottom: 10px;
+            }
+
+            .project-meta {
+                gap: 8px;
+                padding-top: 10px;
+            }
+
+            .meta-label {
+                font-size: 8px;
+                letter-spacing: 1px;
+            }
+
+            .meta-value {
+                font-size: 10px;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .nav-arrow {
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+            }
+
+            .carousel-nav {
+                bottom: -120px;
+                gap: 15px;
+            }
+
+            .progress-indicator {
+                bottom: -155px;
+                gap: 8px;
+            }
+
+            .progress-dot {
+                width: 8px;
+                height: 8px;
+                border-width: 1.5px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .section-title {
+                font-size: 32px;
+            }
+
+            .carousel-container {
+                height: 480px;
+            }
+
+            .project-card {
+                width: 240px;
+            }
+
+            .project-title {
+                font-size: 18px;
+            }
+
+            .project-number {
+                font-size: 50px;
+            }
+
+            .project-info {
+                padding: 15px;
+            }
+
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .nav-arrow {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .section-title {
+                font-size: 28px;
+                letter-spacing: 2px;
+            }
+
+            .section-subtitle {
+                font-size: 11px;
+            }
+
+            .carousel-container {
+                height: 450px;
+            }
+
+            .project-card {
+                width: 220px;
+            }
+
+            .project-title {
+                font-size: 17px;
+            }
+
+            .project-description {
+                font-size: 9px;
+                min-height: 40px;
+            }
+
+            .project-number {
+                font-size: 45px;
+            }
+
+            .nav-btn {
+                width: 42px;
+                height: 42px;
             }
         }
     </style>
@@ -732,8 +946,28 @@
 
         function positionCards() {
             const cards = carousel.querySelectorAll('.project-card');
-            const radiusX = 700;
-            const radiusY = 280;
+            const screenWidth = window.innerWidth;
+            
+            // Adjust ellipse size based on screen size
+            let radiusX = 700;
+            let radiusY = 280;
+            
+            if (screenWidth <= 320) {
+                radiusX = 300;
+                radiusY = 120;
+            } else if (screenWidth <= 375) {
+                radiusX = 350;
+                radiusY = 140;
+            } else if (screenWidth <= 480) {
+                radiusX = 400;
+                radiusY = 160;
+            } else if (screenWidth <= 768) {
+                radiusX = 500;
+                radiusY = 200;
+            } else if (screenWidth <= 1024) {
+                radiusX = 600;
+                radiusY = 240;
+            }
             
             cards.forEach((card, index) => {
                 let relativeIndex = index - currentIndex;
@@ -759,8 +993,23 @@
                 card.style.setProperty('--z', `${z}px`);
                 card.style.setProperty('--hover-scale', hoverScale);
                 
+                // Adjust active card positioning for mobile
+                let activeZ = 400;
+                let activeY = -30;
+                let activeScale = 1.25;
+                
+                if (screenWidth <= 480) {
+                    activeZ = 250;
+                    activeY = -20;
+                    activeScale = 1.15;
+                } else if (screenWidth <= 768) {
+                    activeZ = 300;
+                    activeY = -25;
+                    activeScale = 1.2;
+                }
+                
                 if (isActive) {
-                    card.style.transform = `translate(-50%, -50%) translate3d(0px, -30px, 400px) scale(1.25)`;
+                    card.style.transform = `translate(-50%, -50%) translate3d(0px, ${activeY}px, ${activeZ}px) scale(${activeScale})`;
                     card.style.opacity = 1;
                     card.style.zIndex = 9999;
                     card.classList.add('active');
@@ -824,6 +1073,11 @@
             carousel.addEventListener('mouseenter', () => clearInterval(autoRotate));
             carousel.addEventListener('mouseleave', () => {
                 autoRotate = setInterval(() => navigate('next'), 5000);
+            });
+            
+            // Reposition on window resize
+            window.addEventListener('resize', () => {
+                positionCards();
             });
         }
 
