@@ -1084,8 +1084,7 @@
         padding: 2px;
         background: linear-gradient(45deg, #00d9ff, #ff006e, #00d9ff);
         background-size: 300% 300%;
-        -webkit-mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
+        
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         animation: borderRotate 3s linear infinite;
@@ -1112,7 +1111,7 @@
         text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
       }
 
-      .scroll-indicator {
+      <!-- .scroll-indicator {
         position: absolute;
         bottom: 70px;
         left: 50%;
@@ -1121,7 +1120,7 @@
         filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
-      }
+      } -->
 
       .scroll-indicator:hover {
         animation: bounce 0.5s infinite, colorCycle 1s ease-in-out infinite;
