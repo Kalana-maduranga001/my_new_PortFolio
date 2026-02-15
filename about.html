@@ -1406,7 +1406,7 @@
             <ul class="nav-links">
                 <li><a href="Home.html">Home</a></li>
                 <li><a href="javascript:void(0)" class="nav-about">About</a></li>
-                <li><a href="Home.html#services">Services</a></li>
+                <li><a href="services.html">Services</a></li>
                 <li><a href="Home.html#projects">Projects</a></li>
                 <li><a href="Home.html#case-studies">Case Studies</a></li>
                 <li><a href="Home.html#testimonials">Testimonials</a></li>
@@ -1427,7 +1427,7 @@
         <ul>
             <li><a href="Home.html">Home</a></li>
             <li><a href="javascript:void(0)" class="nav-about">About</a></li>
-            <li><a href="Home.html#services">Services</a></li>
+            <li><a href="services.html">Services</a></li>
             <li><a href="Home.html#projects">Projects</a></li>
             <li><a href="Home.html#case-studies">Case Studies</a></li>
             <li><a href="Home.html#testimonials">Testimonials</a></li>
@@ -1901,19 +1901,32 @@
                 if (hamburger) hamburger.classList.remove('active');
                 if (mobileMenu) mobileMenu.classList.remove('active');
                 
-                showLoadingAnimation();
+                showLoadingAnimation('Home.html');
             });
         });
 
-        function showLoadingAnimation() {
+        // Handle Services link - show loading animation
+        document.querySelectorAll('a[href="services.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                if (hamburger) hamburger.classList.remove('active');
+                if (mobileMenu) mobileMenu.classList.remove('active');
+                
+                showLoadingAnimation('services.html');
+            });
+        });
+
+        function showLoadingAnimation(targetUrl) {
             const overlay = document.getElementById('loadingOverlay');
             if (overlay) {
                 overlay.style.display = 'flex';
                 overlay.classList.add('show');
                 
-                // Navigate to Home.html after 4 seconds
+                // Navigate to target URL after 4 seconds
                 setTimeout(() => {
-                    window.location.href = 'Home.html';
+                    window.location.href = targetUrl;
                 }, 4000);
             }
         }
